@@ -1,38 +1,102 @@
+/* Restablece los estilos y agrega estilos generales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo para la aplicación */
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Estilo para la navegación */
+nav ul {
+  list-style-type: none;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+/* Estilo para el contenido principal */
+.App-main {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  min-height: 100vh;
+  flex-basis: 0;
+  flex-grow: 3;
+  
+}
+
+.App-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.App-info h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.App-info p {
+  font-size: 1.5rem;
+}
+
+.App-upload button {
+  background-color: blue;
   color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.App-upload p {
+  margin-top: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.side-image {
+  flex: 1; /* Esto asignará espacio igual a ambos lados del contenido principal */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+
+.left-side-image {
+  background-image: url('./Images/doctor_pdf.png'); /* Reemplaza con la ruta de tu imagen izquierda */
+}
+
+.right-side-image {
+  background-image: url('./Images/doctores_pdf.png'); /* Reemplaza con la ruta de tu imagen derecha */
+}
+.right-side-image {
+  width: 50%; /* o el porcentaje que prefieras */
+  height: auto; /* mantiene la proporción de aspecto */
+  background-size: contain; /* hace que la imagen quepa completamente en su contenedor */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.main-content {
+  display: flex;
+  justify-content: space-between; /* o 'center' si quieres que el contenido principal esté centrado */
+  align-items: center;
+  /* Resto de tus estilos... */
+}
+
+.left-side-image {
+  width: calc(50% - var(--main-content-width)); /* ajusta esto según el ancho que desees para el contenido principal */
+  height: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
