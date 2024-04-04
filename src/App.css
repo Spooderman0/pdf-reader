@@ -7,7 +7,7 @@
 
 /* Estilo para la aplicación */
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 /* Estilo para la navegación */
@@ -71,19 +71,11 @@ nav ul li {
 }
 
 .left-side-image {
-  background-image: url('./Images/doctor_pdf.png'); /* Reemplaza con la ruta de tu imagen izquierda */
-}
-
-.right-side-image {
-  background-image: url('./Images/doctores_pdf.png'); /* Reemplaza con la ruta de tu imagen derecha */
-}
-.right-side-image {
-  width: 50%; /* o el porcentaje que prefieras */
-  height: auto; /* mantiene la proporción de aspecto */
-  background-size: contain; /* hace que la imagen quepa completamente en su contenedor */
-  background-repeat: no-repeat;
+  background-image: url('./Images/undraw_Online_articles_re_yrkj.png'); /* Ajusta esta ruta a tu imagen */
+  background-size: cover;
   background-position: center;
 }
+
 
 
 .main-content {
@@ -99,4 +91,49 @@ nav ul li {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column; /* Elementos en columna */
+  justify-content: center; /* Centrado verticalmente */
+  align-items: center; /* Centrado horizontalmente */
+}
+
+/* Estilo para los títulos y texto */
+.main-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #2a2a2a; /* Color de texto más oscuro para mejor legibilidad */
+}
+
+.main-content p {
+  font-size: 1.5rem;
+  color: #6b7280; /* Usar un gris para el texto como en la imagen de muestra */
+}
+
+/* Estilos para los botones de carga */
+.main-content button {
+  background-color: #2563eb; /* Fondo azul */
+  color: white;
+  padding: 15px 30px;
+  border: 2px solid transparent; /* Sin borde visible cuando no está en hover */
+  border-radius: 10px; /* Bordes redondeados */
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 0 10px; /* Espacio entre botones */
+}
+
+/* Hover state para el botón de carga rápida */
+.main-content button:hover {
+  background-color: white;
+  color: #2563eb;
+  border-color: #2563eb; /* Borde azul en hover */
+}
+
+/* Estilos para la imagen de la izquierda */
+.left-side {
+  width: 50%; /* Ocupa la mitad de la pantalla */
+  background: url('./Images/undraw_Online_articles_re_yrkj.png') no-repeat center center;
+  background-size: contain; /* Asegura que la imagen se ajuste dentro del div */
 }
