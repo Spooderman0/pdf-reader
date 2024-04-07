@@ -1,4 +1,7 @@
 // src/Components/Modal.js
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
+
 const Modal = ({ isOpen, close }) => {
     if (!isOpen) return null;
   
@@ -15,7 +18,9 @@ const Modal = ({ isOpen, close }) => {
             </button>
           </div>
           <div className="mb-4">
+            <Link to="/pdf-analysis">
             <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300">Subir documento</button>
+            </Link>
           </div>
           <div className="mb-4">
             <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300">Subir desde URL</button>
