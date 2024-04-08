@@ -16,10 +16,8 @@ export const  PDFAnalysisIndice = () => {
       <Navbar />
       <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
 
-        {/* <div className="col-5 h-full px-5 py-3"> */}
         <div className="basis-2/5 px-5 py-3">
         <div style={{ height: '15dvh' }}>
-            {/* <h4 className="font-bold">Algoritmos: análisis, diseño e implementación</h4> */}
             <h4 className="mb-4 text-4xl font-bold">Algoritmos: análisis, diseño e implementación</h4>
             
         </div>
@@ -31,7 +29,6 @@ export const  PDFAnalysisIndice = () => {
         </div>
         </div>
 
-        {/* <div className="col-7 flex flex-col py-3 px-3"> */}
         <div className="basis-3/5 flex flex-col py-3 px-3">
         <div className="container w-full flex justify-between px-0 items-center" style={{height: "15dvh"}}>
             <Link to="/pdf-analysis-indice"><button className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2">ÍNDICE</button></Link>
