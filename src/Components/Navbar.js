@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../Images/pdf_analyzer_logo.png';
 import { IoMdRefresh, IoMdHelpCircle, IoMdPerson } from 'react-icons/io';
+import { Link } from "react-router-dom";
 
 
 const Navbar = () => {
@@ -21,9 +22,11 @@ const Navbar = () => {
           <button className="hover:text-gray-300">
             <IoMdHelpCircle className="text-lg" />
           </button>
-          <button className="hover:text-gray-300">
+          <Link to="/settings">
+            <button className="hover:text-gray-300">
             <IoMdPerson className="text-lg" />
-          </button>
+            </button>
+          </Link>
         </div>
       </nav>
     );
