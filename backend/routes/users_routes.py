@@ -14,7 +14,9 @@ def get_users():
         # Obtener los datos de la colección 'Users'
         users_data = users_ref.get()
         users_list = [doc.to_dict() for doc in users_data]
-        return jsonify(users_list)
+        users_list_json = jsonify(users_list)
+        users_list_json.headers.add('Access-Control-Allow-Origin', '*')
+        return users_list_json
     except Exception as e:
         return jsonify({'error': str(e)})
 
