@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from firebase_admin import firestore
+from PyPDF2 import PdfReader
 
 # Crear un Blueprint para las rutas relacionadas con la colección 'Users'
 users_blueprint = Blueprint('users', __name__)
@@ -14,6 +15,9 @@ def get_users():
         # Obtener los datos de la colección 'Users'
         users_data = users_ref.get()
         users_list = [doc.to_dict() for doc in users_data]
+        #users_list_json = jsonify(users_list)
+        #users_list_json.headers.add('Access-Control-Allow-Origin', '*')
+        #return users_list_json
         return jsonify(users_list)
     except Exception as e:
         return jsonify({'error': str(e)})
@@ -36,5 +40,23 @@ def add_user():
         })
 
         return jsonify({'message': 'Usuario agregado correctamente'})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+#Extraer contenido de PDF
+@users_blueprint.route('/extract', methods=['POST'])
+def extract_content():
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file part'})
+
+        file = request.files['file']
+
+        pdf = PdfReader(file)
+        text = ''
+        for page in pdf.pages:
+            text += page.extract_text()
+
+        return jsonify({'text': text})
     except Exception as e:
         return jsonify({'error': str(e)})

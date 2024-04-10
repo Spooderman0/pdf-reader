@@ -6,11 +6,35 @@ const Modal = ({ isOpen, close }) => {
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
+    console.log(event.target.files[0]);
   };
 
-  const handleFileUpload = () => {
+  const handleFileUpload = async () => {
     console.log('Archivo para subir:', selectedFile);
     close();
+
+    /*try {
+      const response = await fetch('http://localhost:5000/get_users');
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error al hacer la solicitud:', error);
+    }*/
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+  
+      const response = await fetch('http://localhost:5000/extract', {
+        method: 'POST',
+        body: formData
+      });
+  
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error al hacer la solicitud:', error);
+    }
+    
   };
 
   if (!isOpen) return null;
@@ -32,6 +56,7 @@ const Modal = ({ isOpen, close }) => {
             type="file"
             onChange={handleFileChange}
             className="px-4 py-2 text-blue-600 bg-white border rounded cursor-pointer w-full"
+            accept=".pdf,.doc,.docx"
           />
           {selectedFile && (
             <button
