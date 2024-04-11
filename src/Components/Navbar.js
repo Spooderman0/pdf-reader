@@ -11,7 +11,13 @@ const Navbar = () => {
         <div className="flex items-center space-x-4">
           {/* Asumiendo que importaste tu logo */}
           <img src={logo} alt="PDF Analyst Logo" className="h-10" />
-          <span className="font-bold text-xl">PDF Analyst</span>
+          <Link to="/">
+            <button className='hover:text-gray-300'>
+            <span className="font-bold text-xl">PDF Analyst</span>
+            </button>
+          </Link>
+          
+          
         </div>
   
         {/* Lado derecho con los botones */}

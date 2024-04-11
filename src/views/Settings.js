@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import Navbar from "../Components/Navbar";
+import SettingsImage from '../Images/settingspic.png'; 
+import VocabularyLevel from "../Components/VocabularyLevel";
+
 
 export const Settings = () => {
+  const [vocabularyLevel, setVocabularyLevel] = useState(3);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -58,15 +62,14 @@ export const Settings = () => {
         </div>
 
         <div className="flex items-center justify-center flex-col">
-          <img src = "src\Images\settingspic.png"></img>
+          <img src ={SettingsImage}></img>
           <></>
           <div>
-              <button
-                onClick={openModal}
-                className="bg-gray-600 text-white px-20 py-3 rounded-md shadow-lg min-w-80 hover:bg-gray-700 transition duration-300" /* bordes redondos */
-              >
-                Dificultad de vocabulario
-              </button>
+            <VocabularyLevel 
+              level={vocabularyLevel} 
+              setLevel={setVocabularyLevel}
+            />
+
             </div>
         </div>
       </div>
