@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Modal = ({ isOpen, close }) => {
   const [selectedFile, setSelectedFile] = useState(null);
+  let file_url = '';
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -24,13 +25,16 @@ const Modal = ({ isOpen, close }) => {
       const formData = new FormData();
       formData.append('file', selectedFile);
   
-      const response = await fetch('http://localhost:5000/extract', {
+      const response = await fetch('http://localhost:5000/upload_file', {
         method: 'POST',
         body: formData
       });
   
       const data = await response.json();
       console.log(data);
+      file_url = data.public_url;
+      console.log('guardado en ', file_url)
+
     } catch (error) {
       console.error('Error al hacer la solicitud:', error);
     }
