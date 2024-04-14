@@ -11,6 +11,8 @@ export const  PDFAnalysisIndice = () => {
   const openModal = () => setIsModalOpen(true); 
   const closeModal = () => setIsModalOpen(false);
 
+  //console.log('Estoy en la vista de PDFAnalysisIndice y este es')
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <Navbar />
