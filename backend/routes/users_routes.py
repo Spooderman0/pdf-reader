@@ -88,7 +88,7 @@ def delete_user(user_id):
 
 #EXTRACCION DE PDF (pasar a otro lado)
 #Extraer contenido de PDF
-@users_blueprint.route('/extract', methods=['POST'])
+"""@users_blueprint.route('/extract', methods=['POST'])
 def extract_content():
     try:
         if 'file' not in request.files:
@@ -103,4 +103,4 @@ def extract_content():
 
         return jsonify({'text': text})
     except Exception as e:
-        return jsonify({'error': str(e)})
+        return jsonify({'error': str(e)})"""
