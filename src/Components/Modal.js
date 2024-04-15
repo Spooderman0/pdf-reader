@@ -25,7 +25,7 @@ const Modal = ({ isOpen, close }) => {
       const formData = new FormData();
       formData.append('file', selectedFile);
   
-      const response = await fetch('http://localhost:5000/upload_file', {
+      const response = await fetch('http://localhost:5000/extract', {
         method: 'POST',
         body: formData
       });
