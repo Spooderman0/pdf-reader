@@ -35,7 +35,8 @@ def current_user():
     try:
         data = request.json
         user = auth.auth.get_account_info(data.get('token'))
-        return jsonify(user)
+        #return jsonify(user)
+        return jsonify({'message': 'se revisa el usuario'}, user)
     except Exception as e:
         return jsonify({'error': str(e)})
 
