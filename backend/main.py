@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from firebase_admin import credentials, initialize_app
 from flask_cors import CORS
-import pyrebase
+
 app = Flask(__name__)
 CORS(app)
 
