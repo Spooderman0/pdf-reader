@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import PDFAnalysisIndice from '../views/PDFAnalysisIndice';
 
-const Modal = ({ isOpen, close }) => {
+const Modal = ({isOpen, close }) => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [fileText, setFileText] = useState("")
   let file_url = '';
 
   const handleFileChange = (event) => {
@@ -31,9 +34,10 @@ const Modal = ({ isOpen, close }) => {
       });
   
       const data = await response.json();
-      console.log(data);
+      console.log(data.texto);
       file_url = data.public_url;
       console.log('guardado en ', file_url)
+      setFileText(data.texto);
 
     } catch (error) {
       console.error('Error al hacer la solicitud:', error);
@@ -46,6 +50,24 @@ const Modal = ({ isOpen, close }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full z-50" onClick={close}>
       <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white" onClick={(e) => e.stopPropagation()}>
+      {fileText ? (
+              <>
+              <div className="flex justify-between items-center text-xl mb-4">
+              <h6 className="text-xl font-bold">Texto procesado</h6>
+              <button 
+                className="font-semibold text-2xl" 
+                onClick={close}
+                >
+                &times;
+              </button>
+              </div>
+                <p>
+                  {fileText}
+                </p>
+              </>
+        ) : (
+          <>
+            
         <div className="flex justify-between items-center text-xl mb-4">
           <h6 className="text-xl font-bold">Subir archivo</h6>
           <button 
@@ -55,6 +77,7 @@ const Modal = ({ isOpen, close }) => {
             &times;
           </button>
         </div>
+
         <div className="mb-4">
           <input
             type="file"
@@ -63,12 +86,13 @@ const Modal = ({ isOpen, close }) => {
             accept=".pdf,.doc,.docx"
           />
           {selectedFile && (
-            <button
-              onClick={handleFileUpload}
-              className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300 w-full"
-            >
-              Subir documento
-            </button>
+              <button
+                onClick={handleFileUpload}
+                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300 w-full"
+              >
+                Subir documento
+              </button>
+
           )}
         </div>
         <div className="mb-4">
@@ -81,6 +105,10 @@ const Modal = ({ isOpen, close }) => {
         <div className="mb-4">
           <input type="text" placeholder="Ingresar texto" className="px-4 py-2 border rounded w-full" />
         </div>
+            </>
+        )}
+
+
       </div>
     </div>
   );
