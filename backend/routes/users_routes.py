@@ -27,17 +27,6 @@ users_ref = firestore.client().collection('Users')
 #     except Exception as e:
 #         return jsonify({'error': str(e)})
     
-<<<<<<< Updated upstream
-#GET CURRENT USER
-@users_blueprint.route('/currentuser', methods = ['POST'])
-def current_user():
-    try:
-        data = request.json
-        user = auth.auth.get_account_info(data.get('token'))
-        return jsonify(user)
-    except Exception as e:
-        return jsonify({'error': str(e)})
-=======
 # #GET CURRENT USER
 # @users_blueprint.route('/currentuser', methods = ['POST'])
 # def current_user():
@@ -48,7 +37,6 @@ def current_user():
 #         return jsonify({'message': 'se revisa el usuario'}, user)
 #     except Exception as e:
 #         return jsonify({'error': str(e)})
->>>>>>> Stashed changes
 
 # #SEND EMAIL VERIFICATION
 # @users_blueprint.route('/sendemailverification', methods = ['POST'])
