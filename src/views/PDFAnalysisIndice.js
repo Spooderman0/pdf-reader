@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import Navbar from '../Components/Navbar';
 import portadaLibro from '../Images/PortadaLibro.png'
@@ -10,6 +10,7 @@ export const  PDFAnalysisIndice = () => {
 
   const openModal = () => setIsModalOpen(true); 
   const closeModal = () => setIsModalOpen(false);
+
 
   //console.log('Estoy en la vista de PDFAnalysisIndice y este es')
 
@@ -45,6 +46,7 @@ export const  PDFAnalysisIndice = () => {
             <p>
                 Este libro parece ser un recurso integral sobre algoritmos, análisis y diseño de algoritmos, y estructuras de datos, entre otros temas relacionados con la informática. Esto incluye conceptos como conjuntos, relaciones, funciones, series y sucesiones, así como técnicas para el análisis de algoritmos, como la notación asintótica (Big-O, Big-Theta, Big-Omega) y el análisis de algoritmos iterativos y recursivos.
             </p>
+
             <div className="flex justify-end">
                 <button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-5 py-2.5">Capítulos</button>
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../Images/pdf_analyzer_logo.png';
 import { IoMdRefresh, IoMdHelpCircle, IoMdPerson } from 'react-icons/io';
+import { Link } from "react-router-dom";
 
 
 const Navbar = () => {
@@ -10,7 +11,13 @@ const Navbar = () => {
         <div className="flex items-center space-x-4">
           {/* Asumiendo que importaste tu logo */}
           <img src={logo} alt="PDF Analyst Logo" className="h-10" />
-          <span className="font-bold text-xl">PDF Analyst</span>
+          <Link to="/">
+            <button className='hover:text-gray-300'>
+            <span className="font-bold text-xl">PDF Analyst</span>
+            </button>
+          </Link>
+          
+          
         </div>
   
         {/* Lado derecho con los botones */}
@@ -21,9 +28,11 @@ const Navbar = () => {
           <button className="hover:text-gray-300">
             <IoMdHelpCircle className="text-lg" />
           </button>
-          <button className="hover:text-gray-300">
+          <Link to="/settings">
+            <button className="hover:text-gray-300">
             <IoMdPerson className="text-lg" />
-          </button>
+            </button>
+          </Link>
         </div>
       </nav>
     );
