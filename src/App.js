@@ -4,6 +4,7 @@ import PDFAnalysisIndice from "./views/PDFAnalysisIndice";
 import PDFAnalysisTerminos from "./views/PDFAnalysisTerminos";
 import Settings from "./views/Settings";
 import LoadingScreen from "./views/LoadingScreen";
+import MainFrida from "./views/MainFrida";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/pdf-analysis-terminos" exact element={<PDFAnalysisTerminos />} />
         <Route path="/settings" exact element={<Settings />} />
         <Route path="/loading" exact element={<LoadingScreen/>} />
+        <Route path="/chatbot" exact element={<MainFrida/>} />
       </Routes>
     </BrowserRouter>
   );

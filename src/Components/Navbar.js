@@ -33,6 +33,12 @@ const Navbar = () => {
             <IoMdPerson className="text-lg" />
             </button>
           </Link>
+          <Link to="/chatbot">
+            <button className="hover:text-gray-300">
+              {/* <IoMdPerson className="text-lg" /> */}
+              Chatbot
+            </button>
+          </Link>
         </div>
       </nav>
     );
