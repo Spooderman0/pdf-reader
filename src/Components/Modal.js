@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import PDFAnalysisIndice from '../views/PDFAnalysisIndice';
 
 const Modal = ({isOpen, close }) => {
@@ -101,11 +101,11 @@ const Modal = ({isOpen, close }) => {
           )}
         </div>
         <div className="mb-4">
-
-          <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300 w-full">
-            Subir desde URL
-          </button>
-          
+          <Link to="pdf-analysis-indice" >
+            <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300 w-full">
+              Subir desde URL
+            </button>
+          </Link>
         </div>
         <div className="mb-4">
           <input type="text" placeholder="Ingresar texto" className="px-4 py-2 border rounded w-full" />
