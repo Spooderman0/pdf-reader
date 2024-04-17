@@ -44,7 +44,7 @@ def extract_content():
                 #print(p.text)       
 
         print(text)
-        return jsonify({'message': 'extraido correctamente'})
+        return jsonify({'message': 'extraido correctamente', 'texto' : text})
     except Exception as e:
         return jsonify({'error': str(e)})
     

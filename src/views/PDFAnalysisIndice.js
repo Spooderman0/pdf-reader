@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import Navbar from '../Components/Navbar';
 import portadaLibro from '../Images/PortadaLibro.png'
 import { Link } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 
 
 export const  PDFAnalysisIndice = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const location = useLocation();
   const openModal = () => setIsModalOpen(true); 
   const closeModal = () => setIsModalOpen(false);
+  const [fileText, setFileText] = useState('');
+  const [fileUrl, setFileUrl] = useState('');
 
+
+  useEffect(() => {
+    console.log('Location state:', location.state)
+    if(location.state) {
+        setFileText(location.state.fileText)
+        setFileUrl(location.state.fileUrl)
+    }
+  }, [location, location.state]);
   //console.log('Estoy en la vista de PDFAnalysisIndice y este es')
 
   return (
@@ -40,14 +52,15 @@ export const  PDFAnalysisIndice = () => {
         </div>
 
         <div className="flex flex-col justify-between" style={{height: "70dvh"}}>
-            <div className="card bg-gray-100 p-3 border-0 shadow-md">
-            <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
-            <p>
-                Este libro parece ser un recurso integral sobre algoritmos, análisis y diseño de algoritmos, y estructuras de datos, entre otros temas relacionados con la informática. Esto incluye conceptos como conjuntos, relaciones, funciones, series y sucesiones, así como técnicas para el análisis de algoritmos, como la notación asintótica (Big-O, Big-Theta, Big-Omega) y el análisis de algoritmos iterativos y recursivos.
-            </p>
-            <div className="flex justify-end">
-                <button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-5 py-2.5">Capítulos</button>
-            </div>
+            <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto max-w-3xl max-h-80">
+                <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
+                <p>{fileText}</p>
+                <p> URL del archivo: {fileUrl} </p>
+                
+
+                <div className="flex justify-end">
+                    <button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-5 py-2.5">Capítulos</button>
+                </div>
             </div>
 
             <div className="container flex justify-between p-0">
