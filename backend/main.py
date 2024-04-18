@@ -5,10 +5,8 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-
-
 # Inicializar Firebase Admin SDK
-cred = credentials.Certificate("config/keyapiprueba.json")
+cred = credentials.Certificate("backend\config\keyapiprueba.json")
 default_app = initialize_app(cred)
 
 # Importar y registrar las rutas

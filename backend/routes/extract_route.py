@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from PyPDF2 import PdfReader
 import pdfplumber
+from docx import Document
 from google.cloud import storage
 import os
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./config/keyapiprueba.json"
@@ -30,21 +31,20 @@ def extract_content():
             return jsonify({'error': 'No file part.'})
 
         file = request.files['file']
-
-        #Con PyPDF2
-        """pdf = PdfReader(file)
         text = ''
-        for page in pdf.pages:
-            text += page.extract_text()"""
-        
-        #Con pdfplumber (tiene mas formato)
-        with pdfplumber.open(file) as pdf:
-            text = ''
-            for page in pdf.pages:
-                text += page.extract_text()
+
+        if file.filename.endswith('.pdf'):
+            with pdfplumber.open(file) as pdf:  #Con pdfplumber (tiene mas formato)
+                for page in pdf.pages:
+                    text += page.extract_text()
+
+        elif file.filename.endswith('.docx'):
+            document = Document(file)
+            text = '\n'.join([p.text for p in document.paragraphs])
+                #print(p.text)       
 
         print(text)
-        return jsonify({'message': 'extraido correctamente'})
+        return jsonify({'message': 'extraido correctamente', 'texto' : text})
     except Exception as e:
         return jsonify({'error': str(e)})
     
