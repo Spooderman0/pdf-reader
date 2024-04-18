@@ -110,12 +110,15 @@ const Modal = ({isOpen, close }) => {
                   className="px-4 py-2 text-blue-600 bg-white border rounded cursor-pointer w-full"
                   accept=".pdf,.doc,.docx"
                   />
-                  <button
-                    onClick={handleFileUpload}
-                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300 w-full"
-                    >
-                    Subir documento
-                  </button>
+                  { selectedFile && (
+                    <button
+                      onClick={handleFileUpload}
+                      className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300 w-full"
+                      >
+                      Subir documento
+                    </button>
+                  )
+                  }
                 </>
   
             )
