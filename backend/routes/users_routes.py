@@ -1,20 +1,19 @@
 from flask import Blueprint, jsonify, request
-from firebase_admin import firestore
+from firebase_admin import firestore, auth
 from PyPDF2 import PdfReader
-import firebase_admin.auth as auth
-
+from auth.authentication import sign_in_with_email_and_password, sign_up_with_email_and_password, create_user, get_user
 users_blueprint = Blueprint('users', __name__)
 users_ref = firestore.client().collection('Users')
 
-# #LOGIN
-# @users_blueprint.route('/login', methods = ['POST'])
-# def login():
-#     try:
-#         data = request.json
-#         user = auth.auth.sign_in_with_email_and_password(data.get('email'), data.get('pwd'))
-#         return jsonify(user)
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
+#LOGIN
+@users_blueprint.route('/login', methods = ['POST'])
+def login():
+    try:
+        data = request.json
+        user = sign_in_with_email_and_password(data.get('email'), data.get('pwd'))
+        return jsonify(user)
+    except Exception as e:
+        return jsonify({'error': str(e)})
     
     
 # #LOGOUT
@@ -58,15 +57,15 @@ users_ref = firestore.client().collection('Users')
 #     except Exception as e:
 #         return jsonify({'error': str(e)})
 
-#UPDATE PASSWORD
-@users_blueprint.route('/updatepassword', methods = ['POST'])
-def update_password():
-    try:
-        data = request.json
-        auth.auth.update_user(data.get('token'), data.get('new_password'))
-        return jsonify({'message': 'Contraseña actualizada correctamente'})
-    except Exception as e:
-        return jsonify({'error': str(e)})
+# # UPDATE PASSWORD
+# @users_blueprint.route('/updatepassword', methods = ['POST'])
+# def update_password():
+#     try:
+#         data = request.json
+#         auth.auth.update_user(data.get('token'), data.get('new_password'))
+#         return jsonify({'message': 'Contraseña actualizada correctamente'})
+#     except Exception as e:
+#         return jsonify({'error': str(e)})
 
 
 
@@ -106,9 +105,15 @@ def add_user():
         user_ref = users_ref.document(data.get('id'))
         user_ref.set({
             'username': data.get('username'),
-            'pwd': data.get('pwd'),
-            'email': data.get('email')
+            'email': data.get('email'),
+            'role': 'user'
         })
+
+        private_data = user_ref.collection('Private').document('info')
+        private_data.set({
+            'pwd': data.get('pwd')
+        })
+        
 
         # Crear la colección de perfil (profile) para el usuario
         profile_ref = user_ref.collection('Profile')
@@ -117,9 +122,9 @@ def add_user():
             'Theme': "Light"
         })
         # Registra el usuario en Firebase Authentication
-        # email = data.get('email')
-        # pwd = data.get('pwd')
-        # user = auth.auth.create_user_with_email_and_password(email, pwd)
+        email = data.get('email')
+        pwd = data.get('pwd')
+        user = auth.create_user(email, pwd)
 
         return jsonify({'message': 'Usuario agregado correctamente'})
     except Exception as e:
@@ -150,7 +155,6 @@ def delete_user(user_id):
         if user_ref.get().exists:
             user_ref.delete()
             data = request.json
-            auth.auth.delete_user(data.get('token'))
             return jsonify({'message': 'Usuario borrado correctamente'})
         else:
             return jsonify({'error': 'usuario no encontrado'})
