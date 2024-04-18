@@ -10,8 +10,6 @@ export const  PDFAnalysisIndice = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const location = useLocation();
-  const openModal = () => setIsModalOpen(true); 
-  const closeModal = () => setIsModalOpen(false);
   const [fileText, setFileText] = useState('');
   const [fileUrl, setFileUrl] = useState('');
 
@@ -52,7 +50,7 @@ export const  PDFAnalysisIndice = () => {
         </div>
 
         <div className="flex flex-col justify-between" style={{height: "70dvh"}}>
-            <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto max-w-3xl max-h-80">
+            <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto" style={{width: "60dvw", height: "40dvh"}}>
                 <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
                 <p>{fileText}</p>
                 <p> URL del archivo: {fileUrl} </p>

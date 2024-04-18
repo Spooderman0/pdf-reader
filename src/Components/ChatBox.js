@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 export const Chatbox = ({ onMessageSent }) => {
   const [message, setMessage] = useState('');
   const [conversation, setConversation] = useState([]);
-  const [chatResponseData, setChatResponseData] = useState("")
 
   const conversationEndRef = useRef(null);
 
@@ -28,8 +27,6 @@ export const Chatbox = ({ onMessageSent }) => {
         }
 
         const data = await response.json();
-        console.log(data);
-        setChatResponseData(data); // Update state with response data
         setConversation(prevConversation => [...prevConversation, { owner: "AI", message: data["respuestaAI"] }]);
     } catch (error) {
         console.error('Error fetching data:', error);
