@@ -68,7 +68,13 @@ def update_password():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-
+#Wakey wakey
+@users_blueprint.route('/', methods = ['GET'])
+def update_password():
+    try:
+        return jsonify({'message': 'API is up and running!'})
+    except Exception as e:
+        return jsonify({'error': str(e)})
 
 
 #GET all users
