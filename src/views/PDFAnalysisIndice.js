@@ -55,7 +55,7 @@ export const  PDFAnalysisIndice = () => {
         <div className="flex flex-col justify-between" style={{height: "70dvh"}}>
             <div className="card bg-gray-100 p-3 border-0 shadow-md">
             <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
-            <p> Texto: {fileText} </p>
+            <pre> Texto: {fileText} </pre>
             <p> URL del archivo: {fileUrl} </p>
             
 

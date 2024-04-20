@@ -21,27 +21,20 @@ const Modal = ({isOpen, close }) => {
     formData.append('file', selectedFile);
 
     try {
-      const uploadResponse = await fetch('http://localhost:5000/upload_file', {
+      const uploadResponse = await fetch('http://localhost:5000/U1/upload_file2', {
         method: 'POST',
         body: formData,
       });
 
+      if(!uploadResponse.ok)
+      {
+        throw new Error(uploadData.error || 'Failed to upload file');
+      }
       const uploadData = await uploadResponse.json();
-      if (!uploadResponse.ok) throw new Error(uploadData.error || 'Failed to upload file');
-      console.log('Upload response:', uploadData)
 
-      const response = await fetch('http://localhost:5000/extract', {
-        method: 'POST',
-        body: formData,
-      });
+      console.log('Data to be sent:', uploadData.public_url, uploadData.text);
 
-      const extractData = await response.json();
-      if (!response.ok) throw new Error(extractData.error || 'Failed to extract text');
-      console.log('Extract response:', extractData)
-      
-      console.log('Data to be sent:', extractData.text, uploadData.public_url);
-
-      navigate('/pdf-analysis-indice', { state: { fileText: extractData.texto, fileUrl: uploadData.public_url } });
+      navigate('/pdf-analysis-indice', { state: { fileText: uploadData.text, fileUrl: uploadData.public_url } });
     } catch (error) {
       console.error('Error en el proceso de carga y extracción:', error);
     } finally {
