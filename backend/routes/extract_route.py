@@ -12,6 +12,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./config/keyapiprueba.json"
 extract_blueprint = Blueprint('extract', __name__)#
 users_ref = firestore.client().collection('Users')
 
+#Upload to bucket
 def gcs_upload_file(file, bucket_name):
     try:
         client = storage.Client()
@@ -27,13 +28,8 @@ def gcs_upload_file(file, bucket_name):
         return False
 
 #Extraer contenido de PDF
-#@extract_blueprint.route('/extract', methods=['POST'])
 def extract_content(file):
     try:
-        """if 'file' not in request.files:
-            return jsonify({'error': 'No file part.'})
-
-        file = request.files['file']"""
         text = ''
 
         if file.filename.endswith('.pdf'):
@@ -56,41 +52,14 @@ def extract_content(file):
         return jsonify({'error': str(e)})
     
 
-@extract_blueprint.route('/upload_file', methods = ['POST'])
-def upload_file():
+def upload_extract():
     try:
         file = request.files['file']
         if not file:
             return jsonify({'error': 'File required'})
         bucket_name = 'pruebaapi-43fcf.appspot.com'
         success, public_url = gcs_upload_file(file, bucket_name)
-        #text = extract_content(file)
-        if success:
-            text = extract_content(file)
-            if text:
-                return jsonify({
-                    'message': 'File uploaded successfully',
-                    'public_url': public_url,
-                    'text': text
-                })
-            else:
-                return jsonify({'error': 'Failed to extract text from file'})
-        else:
-            return jsonify({'error': 'Fail de respuesta de funcion gsc upload'})
 
-    except Exception as e:
-        return jsonify({'error': str(e)})
-    
-
-######################################
-def funciondeup():
-    try:
-        file = request.files['file']
-        if not file:
-            return jsonify({'error': 'File required'})
-        bucket_name = 'pruebaapi-43fcf.appspot.com'
-        success, public_url = gcs_upload_file(file, bucket_name)
-        #text = extract_content(file)
         if success:
             text = extract_content(file)
             if text:
@@ -118,7 +87,7 @@ def keyword_yake(text):
 @extract_blueprint.route('/<user_id>/upload_file2', methods = ['POST'])
 def register_doc(user_id):
     try:
-        bucket_url, text = funciondeup()
+        bucket_url, text = upload_extract()
         keyword_yake(text)
         
         user_ref = users_ref.document(user_id)

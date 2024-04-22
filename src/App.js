@@ -5,12 +5,14 @@ import PDFAnalysisTerminos from "./views/PDFAnalysisTerminos";
 import Settings from "./views/Settings";
 import LoadingScreen from "./views/LoadingScreen";
 import MainFrida from "./views/MainFrida";
+import Login from './views/Login';
 
 function App() {
   return (
     <BrowserRouter basename={""}>
       <Routes>
-        <Route path="/" exact element={<UploadPDF />} />
+        <Route path="/" exact element={<Login />} />
+        <Route path="/main" exact element={<UploadPDF />} />
         <Route path="/pdf-analysis-indice" exact element={<PDFAnalysisIndice />} />
         <Route path="/pdf-analysis-terminos" exact element={<PDFAnalysisTerminos />} />
         <Route path="/settings" exact element={<Settings />} />

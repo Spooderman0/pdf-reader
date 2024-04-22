@@ -51,7 +51,7 @@ export const  PDFAnalysisIndice = () => {
             
         </div>
         <div className="card p-3 bg-gray-100 border-0 shadow-md" style={{height: "70dvh"}}>
-            <h6>Vista preliminar</h6>
+            <h6 className="mb-4 text-2xl font-bold">Vista preliminar</h6>
             <div className="p-4 flex justify-center">
             <img
             onClick={handleOpenPopup}
@@ -74,7 +74,7 @@ export const  PDFAnalysisIndice = () => {
         </div>
 
         <div className="flex flex-col justify-between" style={{height: "70dvh"}}>
-            <div className="card bg-gray-100 p-3 border-0 shadow-md">
+            <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto" style={{width: "60dvw", height: "40dvh"}}>
             <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
             <p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>
             <p> URL del archivo: {fileUrl} </p>
