@@ -4,3 +4,4 @@ PyPDF2
 pdfplumber
 python-docx
 google-cloud
+yake

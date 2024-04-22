@@ -5,6 +5,16 @@ import portadaLibro from '../Images/PortadaLibro.png'
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
 
+const ShowVistaPreliminar = ({url, onClose}) => {
+    return (
+        <div className="popup-overlay" onClick={onClose}>
+          <div className="popup">
+            <iframe src={url} frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+      );
+}
+
 
 export const  PDFAnalysisIndice = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,6 +24,10 @@ export const  PDFAnalysisIndice = () => {
   const closeModal = () => setIsModalOpen(false);
   const [fileText, setFileText] = useState('');
   const [fileUrl, setFileUrl] = useState('');
+
+  const [vistaPreliminar, setVistaPreliminar] = useState(false);
+  const handleOpenPopup = () => setVistaPreliminar(true);
+  const handleClosePopup = () => setVistaPreliminar(false);
 
 
   useEffect(() => {
@@ -39,9 +53,16 @@ export const  PDFAnalysisIndice = () => {
         <div className="card p-3 bg-gray-100 border-0 shadow-md" style={{height: "70dvh"}}>
             <h6>Vista preliminar</h6>
             <div className="p-4 flex justify-center">
-            <img className="" style={{ height: '55vh' }} src={portadaLibro} alt="Portada" />
+            <img
+            onClick={handleOpenPopup}
+            className="cursor-pointer"
+            style={{ height: '55vh' }}
+            src={portadaLibro}
+            alt="Portada"
+          />
             </div>
         </div>
+        {vistaPreliminar && <ShowVistaPreliminar url={fileUrl} onClose={handleClosePopup} />}
         </div>
 
         <div className="basis-3/5 flex flex-col py-3 px-3">
@@ -55,7 +76,7 @@ export const  PDFAnalysisIndice = () => {
         <div className="flex flex-col justify-between" style={{height: "70dvh"}}>
             <div className="card bg-gray-100 p-3 border-0 shadow-md">
             <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
-            <pre> Texto: {fileText} </pre>
+            <p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>
             <p> URL del archivo: {fileUrl} </p>
             
 

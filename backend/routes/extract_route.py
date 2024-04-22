@@ -3,6 +3,7 @@ from PyPDF2 import PdfReader
 import pdfplumber
 from firebase_admin import firestore
 from docx import Document
+import yake
 from google.cloud import storage
 import os
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./config/keyapiprueba.json"
@@ -38,10 +39,10 @@ def extract_content(file):
         if file.filename.endswith('.pdf'):
             with pdfplumber.open(file) as pdf:  #Con pdfplumber (tiene mas formato)
                 pdf_reader = PdfReader(file)
-                metadata = pdf_reader.metadata
-                print(metadata)
+                meta = pdf_reader.metadata
+                print('The metadata is: ', meta.title)
                 for page in pdf.pages:
-                    text += page.extract_text()
+                    text += page.extract_text(x_tolerance=2, y_tolerance=2)
 
         elif file.filename.endswith('.docx'):
             document = Document(file)
@@ -102,10 +103,23 @@ def funciondeup():
     except Exception as e:
         return jsonify({'error': str(e)})
     
+def keyword_yake(text):
+    try:
+        language = "es"
+        max_word_size = 2
+        deduplication_threshold = 0.9
+        custom_kw_extractor = yake.KeywordExtractor(lan=language, n=max_word_size, dedupLim=deduplication_threshold, top=5, features=None)
+        keywords = custom_kw_extractor.extract_keywords(text)
+        for kw in keywords:
+            print(kw)
+    except Exception as e:
+        return jsonify({'Error': str(e)})
+    
 @extract_blueprint.route('/<user_id>/upload_file2', methods = ['POST'])
 def register_doc(user_id):
     try:
         bucket_url, text = funciondeup()
+        keyword_yake(text)
         
         user_ref = users_ref.document(user_id)
         docs_ref = user_ref.collection('Docs')
