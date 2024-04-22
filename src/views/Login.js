@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [pwd, setPwd] = useState('');
   const navigate = useNavigate();
 
   const handleLogIn = async (e) => {
@@ -16,7 +16,7 @@ const LogIn = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, pwd: password }),
+        body: JSON.stringify({ email, pwd }),
       });
 
       if (response.status === 200) {
@@ -83,8 +83,8 @@ const LogIn = () => {
                       type="password"
                       autoComplete="current-password"
                       required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      value={pwd}
+                      onChange={(e) => setPwd(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
