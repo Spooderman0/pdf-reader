@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../Images/pdf_analyzer_logo.png';
+import logo from '../Images/pdf_analyzer_logo2.png';
 import { CgMenu } from 'react-icons/cg';
 import { IoMdClose } from 'react-icons/io';
 
