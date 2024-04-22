@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../Components/Navbar';
 import { Link } from 'react-router-dom';
 
-const SignUp = () => {
+const Login = () => {
   return (
     <div>
       {/* Agrega el componente Navbar */}
@@ -10,7 +10,7 @@ const SignUp = () => {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 
       {/* Contenido de la vista SignUp */}
-        <div className="container mx-auto bg-gray-100  rounded-[12px] shadow-lg p-8 lg:w-[600px] lg:h-[500px]" style={{ boxSizing: 'border-box' }}>
+        <div className="container mx-auto bg-gray-100  rounded-[12px] shadow-lg p-8 lg:w-[600px] lg:h-[550px]" style={{ boxSizing: 'border-box' }}>
           {/* Contenido de la vista Login */}
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
@@ -36,7 +36,8 @@ const SignUp = () => {
                       type="text"
                       autoComplete="name"
                       required
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      placeholder='ahhhhh@tec.mx'
+                      className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>
@@ -52,8 +53,14 @@ const SignUp = () => {
                       type="email"
                       autoComplete="email"
                       required
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      placeholder='**********'
+                      className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
+                    <div className="text-sm">
+                      <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                        Forgot password?
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -62,7 +69,7 @@ const SignUp = () => {
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Sign up
+                    Login
                   </button>
                 </div>
               </form>
@@ -70,7 +77,7 @@ const SignUp = () => {
               <p className="mt-10 text-center text-sm text-gray-500">
                 No tienes cuenta?{' '}
                 <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                  Sign Up
+                  SignUp
                 </Link>
               </p>
             </div>
@@ -80,4 +87,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;
