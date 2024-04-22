@@ -13,6 +13,7 @@ export const Chatbox = ({ onMessageSent }) => {
 
         setConversation(prevConversation => [...prevConversation, { owner: "User", message: message }]);
 
+        // const response = await fetch(`https://httpsflaskexample-2qaksr7roa-uc.a.run.app/chatbot/${message}`, {
         const response = await fetch(`https://httpsflaskexample-2qaksr7roa-uc.a.run.app/chatbot/${message}`, {
             method: 'GET',
             headers: {
