@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.x.x",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.17",
+    "d3": "^7.9.0",
+    "d3-cloud": "^1.2.7",
     "firebase": "^10.11.0",
     "postcss": "^8.4.35",
     "react": "^18.2.0",
