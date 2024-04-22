@@ -20,8 +20,6 @@ export const  PDFAnalysisIndice = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const location = useLocation();
-  const openModal = () => setIsModalOpen(true); 
-  const closeModal = () => setIsModalOpen(false);
   const [fileText, setFileText] = useState('');
   const [fileUrl, setFileUrl] = useState('');
   const navigate = useNavigate()
@@ -32,7 +30,6 @@ export const  PDFAnalysisIndice = () => {
   useEffect(() => {
     console.log('Location state:', location.state)
     if(location.state) {
-        const { fileText, fileUrl } = location.state
         setFileText(location.state.fileText)
         setFileUrl(location.state.fileUrl)
     }
@@ -78,9 +75,9 @@ export const  PDFAnalysisIndice = () => {
             <p> URL del archivo: {fileUrl} </p>
             
 
-            <div className="flex justify-end">
-                <button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-5 py-2.5">Capítulos</button>
-            </div>
+                <div className="flex justify-end">
+                    <button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-5 py-2.5">Capítulos</button>
+                </div>
             </div>
 
             <div className="container flex justify-between p-0">

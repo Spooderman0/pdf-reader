@@ -12,4 +12,11 @@ config = {
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 
+import uuid
 
+# Generate a UUID
+
+def generate_uuid():
+    uuid_str = str(uuid.uuid4()).replace('-', '')
+    uuid_int = int(uuid_str, 16)
+    return 'U' + str(uuid_int)[0:6]

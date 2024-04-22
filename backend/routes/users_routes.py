@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
-from firebase_admin import firestore
+from firebase_admin import firestore, auth
 from PyPDF2 import PdfReader
 import auth.authentication as auth
+from auth.authentication import generate_uuid
 
 users_blueprint = Blueprint('users', __name__)
 users_ref = firestore.client().collection('Users')
@@ -10,6 +11,13 @@ users_ref = firestore.client().collection('Users')
 @users_blueprint.route('/login', methods = ['POST'])
 def login():
     try:
+        #Confirm that the request is a JSON with the email and password
+        if not request.is_json:
+            return jsonify({'error': 'Request must be JSON'}), 400
+        
+        if 'email' not in request.json or 'pwd' not in request.json or 'email' == '' or 'pwd' == '':
+            return jsonify({'error': 'Missing email'}), 400
+
         data = request.json
         email = data.get('email')
         pwd = data.get('pwd')
@@ -60,15 +68,15 @@ def send_password_reset_email():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-#UPDATE PASSWORD
-@users_blueprint.route('/updatepassword', methods = ['POST'])
-def update_password():
-    try:
-        data = request.json
-        auth.auth.update_user(data.get('token'), data.get('new_password'))
-        return jsonify({'message': 'Contraseña actualizada correctamente'})
-    except Exception as e:
-        return jsonify({'error': str(e)})
+# # UPDATE PASSWORD
+# @users_blueprint.route('/updatepassword', methods = ['POST'])
+# def update_password():
+#     try:
+#         data = request.json
+#         auth.auth.update_user(data.get('token'), data.get('new_password'))
+#         return jsonify({'message': 'Contraseña actualizada correctamente'})
+#     except Exception as e:
+#         return jsonify({'error': str(e)})
 
 
 
@@ -104,13 +112,22 @@ def get_user(user_id):
 @users_blueprint.route('/adduser', methods = ['POST'])
 def add_user():
     try:
+        if 'email' not in request.json or 'pwd' not in request.json or 'email' == '' or 'pwd' == '':
+            return jsonify({'error': 'Missing information'}), 400
+
         data = request.json
-        user_ref = users_ref.document(data.get('id'))
+        user_ref = users_ref.document(generate_uuid())
         user_ref.set({
             'username': data.get('username'),
-            'pwd': data.get('pwd'),
-            'email': data.get('email')
+            'email': data.get('email'),
+            'role': 'user'
         })
+
+        private_data = user_ref.collection('Private').document('info')
+        private_data.set({
+            'pwd': data.get('pwd')
+        })
+        
 
         # Crear la colección de perfil (profile) para el usuario
         profile_ref = user_ref.collection('Profile')
@@ -152,7 +169,6 @@ def delete_user(user_id):
         if user_ref.get().exists:
             user_ref.delete()
             data = request.json
-            auth.auth.delete_user(data.get('token'))
             return jsonify({'message': 'Usuario borrado correctamente'})
         else:
             return jsonify({'error': 'usuario no encontrado'})
