@@ -22,9 +22,9 @@ def login():
         email = data.get('email')
         pwd = data.get('pwd')
         user = auth.auth.sign_in_with_email_and_password(email, pwd)
-        return jsonify(user)
+        return jsonify(user), 200
     except Exception as e:
-        return jsonify({'error': str(e)})
+        return jsonify({'error': str(e)}), 400
     
     
 #LOGOUT

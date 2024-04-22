@@ -1,8 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../Components/Navbar';
-import { Link } from 'react-router-dom'; // Importa Link de react-router-dom
+import { Link, useNavigate } from 'react-router-dom'; // Importa Link de react-router-dom
 
 const SignUp = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [pwd, setPwd] = useState('');
+  const navigate = useNavigate();
+
+  const handleSignUp = async (e) => {
+    try {
+      e.preventDefault(); 
+
+      const response = await fetch ('http://localhost:5000/adduser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, pwd }),
+      });
+
+      if (response.status === 200) {
+        navigate('/');
+      } else {
+        const data = await response.json()
+        console.error('Inicio de sesión fallido:', data.error);
+      }
+    }
+    catch (error) {
+      console.error('Error en LogIn', error);
+    }
+  }
+
   return (
     <div>
       {/* Agrega el componente Navbar */}
@@ -23,18 +52,20 @@ const SignUp = () => {
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" onSubmit={handleSignUp}>
               <div>
                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                  Name
+                  Username
                 </label>
                 <div className="mt-2">
                   <input
-                    id="name"
-                    name="name"
+                    id="username"
+                    name="username"
                     type="text"
-                    autoComplete="name"
+                    autoComplete="username"
                     required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -51,6 +82,8 @@ const SignUp = () => {
                     type="email"
                     autoComplete="email"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -69,13 +102,11 @@ const SignUp = () => {
                     type="password"
                     autoComplete="current-password"
                     required
+                    value={pwd}
+                    onChange={(e) => setPwd(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
-                  <div className="text-sm">
-                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                      Forgot password?
-                    </a>
-                  </div>
+                  
                 </div>
               </div>
 
