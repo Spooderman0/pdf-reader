@@ -7,6 +7,7 @@ import LoadingScreen from "./views/LoadingScreen";
 import MainFrida from "./views/MainFrida";
 import Login from './views/Login';
 import SignUp from './views/SignUp';
+import VistaPreliminar from "./views/vistaPreliminar";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/settings" exact element={<Settings />} />
         <Route path="/loading" exact element={<LoadingScreen/>} />
         <Route path="/chatbot" exact element={<MainFrida/>} />
+        <Route path="/vistapreliminar" exact element={<VistaPreliminar/>} />
       </Routes>
     </BrowserRouter>
   );

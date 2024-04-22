@@ -17,7 +17,8 @@ def gcs_upload_file(file, bucket_name):
     try:
         client = storage.Client()
         bucket = client.bucket(bucket_name)
-        blob = bucket.blob(file.name)
+        print(file.filename)
+        blob = bucket.blob(file.filename)
         blob.upload_from_string(file.read(), content_type=file.content_type)
         blob.make_public() #hacer el blob public (not a fan pero x igual luego vemos, sin esto no puedo generar link)
         blob_url = blob.public_url

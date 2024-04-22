@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import Navbar from '../Components/Navbar';
 import portadaLibro from '../Images/PortadaLibro.png'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
 
 const ShowVistaPreliminar = ({url, onClose}) => {
@@ -24,10 +24,9 @@ export const  PDFAnalysisIndice = () => {
   const closeModal = () => setIsModalOpen(false);
   const [fileText, setFileText] = useState('');
   const [fileUrl, setFileUrl] = useState('');
+  const navigate = useNavigate()
 
-  const [vistaPreliminar, setVistaPreliminar] = useState(false);
-  const handleOpenPopup = () => setVistaPreliminar(true);
-  const handleClosePopup = () => setVistaPreliminar(false);
+  const handleOpenPopup = () => navigate('/vistapreliminar', { state: {fileUrl } })
 
 
   useEffect(() => {
@@ -62,7 +61,6 @@ export const  PDFAnalysisIndice = () => {
           />
             </div>
         </div>
-        {vistaPreliminar && <ShowVistaPreliminar url={fileUrl} onClose={handleClosePopup} />}
         </div>
 
         <div className="basis-3/5 flex flex-col py-3 px-3">
