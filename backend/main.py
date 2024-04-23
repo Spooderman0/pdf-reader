@@ -18,4 +18,4 @@ app.register_blueprint(analysis_routes.analysis_blueprint)
 app.register_blueprint(conversation_routes.conversation_blueprint)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True)
