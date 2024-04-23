@@ -85,6 +85,12 @@ def keyword_yake(text):
     except Exception as e:
         return jsonify({'Error': str(e)})
     
+# Test START 
+@extract_blueprint.route('/<user_id>/test', methods = ['GET'])
+def test(user_id):
+    return jsonify({"message":f'Si se llamo al endpoint con el usuario: {user_id}'})
+# Test END 
+    
 @extract_blueprint.route('/<user_id>/upload_file2', methods = ['POST'])
 def register_doc(user_id):
     try:
