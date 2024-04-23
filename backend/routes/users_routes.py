@@ -116,7 +116,7 @@ def add_user():
             return jsonify({'error': 'Missing information'}), 400
 
         data = request.json
-        user_ref = users_ref.document(generate_uuid())
+        user_ref = users_ref.document(generate_uuid('U'))
         user_ref.set({
             'username': data.get('username'),
             'email': data.get('email'),
