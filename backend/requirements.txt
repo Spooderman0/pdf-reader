@@ -7,3 +7,4 @@ google-cloud
 yake
 flask-cors
 pyrebase4
+gunicorn
