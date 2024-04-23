@@ -5,3 +5,4 @@ pdfplumber
 python-docx
 google-cloud
 yake
+flask-cors
