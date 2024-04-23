@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
-import Navbar from "../Components/Navbar";
 import SettingsImage from '../Images/settingspic.png'; 
 import VocabularyLevel from "../Components/VocabularyLevel";
 
@@ -14,8 +13,6 @@ export const Settings = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <Navbar />
-
       <div className="flex justify-around">
         <div className=" flex flex-col mt-2 max-h-160">
           <h1 className=" text-3xl font-bold text-gray-700 sticky left-10">

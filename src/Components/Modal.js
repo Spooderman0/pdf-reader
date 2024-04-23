@@ -35,7 +35,7 @@ const Modal = ({isOpen, close }) => {
 
       console.log('Data to be sent:', uploadData.public_url, uploadData.text);
 
-      navigate('/pdf-analysis-indice', { state: { fileText: uploadData.text, fileUrl: uploadData.public_url } });
+      navigate('/pdf-analysis', { state: { fileText: uploadData.text, fileUrl: uploadData.public_url } });
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);
@@ -117,7 +117,7 @@ const Modal = ({isOpen, close }) => {
             )}
         </div>
         <div className="mb-4">
-          <Link to="pdf-analysis-indice" >
+          <Link to="pdf-analysis" >
             <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300 w-full">
               Subir desde URL
             </button>

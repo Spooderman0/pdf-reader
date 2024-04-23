@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from '../Components/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
@@ -35,8 +34,6 @@ const LogIn = () => {
 
   return (
     <div>
-      {/* Agrega el componente Navbar */}
-      <Navbar />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 
       {/* Contenido de la vista SignUp */}
