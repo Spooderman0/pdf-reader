@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
-import Navbar from '../Components/Navbar';
 import { Link, useLocation } from "react-router-dom";
 import terminosRelacionadosImg from '../Images/TerminosRelacionados.png'
 import nubePalabrasImg from '../Images/NubePalabras.png'
@@ -44,7 +43,6 @@ export const  PDFAnalysisTerminos = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <Navbar />
       <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
 
         <div className="basis-2/5 px-5 py-3">

@@ -84,7 +84,7 @@ def keyword_yake(text):
             print(kw)
     except Exception as e:
         return jsonify({'Error': str(e)})
-    
+
 @extract_blueprint.route('/<user_id>/upload_file2', methods = ['POST'])
 def register_doc(user_id):
     try:

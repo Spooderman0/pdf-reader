@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from '../Components/Navbar';
 import { Link, useNavigate } from 'react-router-dom'; // Importa Link de react-router-dom
 
 const SignUp = () => {
@@ -34,9 +33,6 @@ const SignUp = () => {
 
   return (
     <div>
-      {/* Agrega el componente Navbar */}
-      <Navbar />
-
       {/* Contenido de la vista SignUp */}
       <div class="container mx-auto bg-gray-100  rounded-[12px] shadow-lg p-8 lg:w-[600px] lg:h-[500px]" style={{ boxSizing: 'border-box' }}>
         
