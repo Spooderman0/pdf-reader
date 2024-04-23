@@ -12,7 +12,8 @@ const SignUp = () => {
     try {
       e.preventDefault(); 
 
-      const response = await fetch ('http://localhost:5000/adduser', {
+      // const response = await fetch ('http://localhost:5000/adduser', {
+      const response = await fetch ('https://pdf-reader-9s86.onrender.com/adduser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
