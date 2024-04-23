@@ -22,7 +22,15 @@ def login():
         email = data.get('email')
         pwd = data.get('pwd')
         user = auth.auth.sign_in_with_email_and_password(email, pwd)
-        return jsonify(user), 200
+        return jsonify(user)
+
+        """user_doc = users_ref.where('email', '==', email).get()
+        if user_doc:
+            user_id = user_doc[0].id
+            #return jsonify({'user_id': user_id}), 200
+            return (jsonify(user), user_id)
+        return jsonify({'error': 'User not found'}), 404"""
+        
     except Exception as e:
         return jsonify({'error': str(e)}), 400
     
@@ -174,23 +182,3 @@ def delete_user(user_id):
             return jsonify({'error': 'usuario no encontrado'})
     except Exception as e:
         return jsonify({'error': str(e)})
-    
-
-#EXTRACCION DE PDF (pasar a otro lado)
-#Extraer contenido de PDF
-"""@users_blueprint.route('/extract', methods=['POST'])
-def extract_content():
-    try:
-        if 'file' not in request.files:
-            return jsonify({'error': 'No file part.'})
-
-        file = request.files['file']
-
-        pdf = PdfReader(file)
-        text = ''
-        for page in pdf.pages:
-            text += page.extract_text()
-
-        return jsonify({'text': text})
-    except Exception as e:
-        return jsonify({'error': str(e)})"""

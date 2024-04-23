@@ -33,9 +33,9 @@ const Modal = ({isOpen, close }) => {
       }
       const uploadData = await uploadResponse.json();
 
-      console.log('Data to be sent:', uploadData.public_url, uploadData.text);
+      console.log('Keywords:', uploadData.keywords);
 
-      navigate('/pdf-analysis-indice', { state: { fileText: uploadData.text, fileUrl: uploadData.public_url } });
+      navigate('/pdf-analysis-indice', { state: { fileText: uploadData.text, fileUrl: uploadData.public_url, keywords: uploadData.keywords } });
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);

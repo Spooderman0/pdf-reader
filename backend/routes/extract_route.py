@@ -11,7 +11,7 @@ users_ref = firestore.client().collection('Users')
 def register_doc(user_id):
     try:
         bucket_url, text = upload_and_extract()
-        keyword_yake(text)
+        keywords = keyword_yake(text)
         
         user_ref = users_ref.document(user_id)
         docs_ref = user_ref.collection('Docs')
@@ -26,12 +26,17 @@ def register_doc(user_id):
         #agregar coleccion de common terms
         commonterms_ref = doc_ref.collection('Common Terms')
         #agregar un documento de empty terms en common terms
-        commonterm_ref = commonterms_ref.document('emptyTerms')
+        commonterm_ref = commonterms_ref.document('keyTerms')
         # Obtener el término y su frecuencia del cuerpo de la solicitud
-        term = 'term'
-        freq = 'freq'
+
+        keyTerms = {}
+
+        for term, freq in keywords:
+            keyTerms[term]=freq
+        print(keyTerms)
+
         commonterm_ref.set({
-            'terms' :  {term : freq}
+            'terms' :  keyTerms
         })
 
         #agregar coleccion de PDF analysis
@@ -50,7 +55,8 @@ def register_doc(user_id):
         return jsonify({
             'message': 'Doc uploaded to bd',
             'public_url': bucket_url,
-            'text': text
+            'text': text,
+            'keywords': keywords
         })
     except Exception as e:
         return jsonify({'Error adding uploaded doc to db', str(e)})

@@ -75,7 +75,10 @@ def keyword_yake(text):
         deduplication_threshold = 0.9
         custom_kw_extractor = yake.KeywordExtractor(lan=language, n=max_word_size, dedupLim=deduplication_threshold, top=5, features=None)
         keywords = custom_kw_extractor.extract_keywords(text)
+        #keywords_array = []
         for kw in keywords:
             print(kw)
+            #keywords_array.append(kw)
+        return keywords
     except Exception as e:
         return jsonify({'Error': str(e)})

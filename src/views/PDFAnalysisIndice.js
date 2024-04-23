@@ -22,6 +22,7 @@ export const  PDFAnalysisIndice = () => {
   const location = useLocation();
   const [fileText, setFileText] = useState('');
   const [fileUrl, setFileUrl] = useState('');
+  const [keywords, setKeywords] = useState([]);
   const navigate = useNavigate()
 
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: {fileUrl } })
@@ -32,9 +33,11 @@ export const  PDFAnalysisIndice = () => {
     if(location.state) {
         setFileText(location.state.fileText)
         setFileUrl(location.state.fileUrl)
+        setKeywords(location.state.keywords)
     }
   }, [location, location.state]);
   //console.log('Estoy en la vista de PDFAnalysisIndice y este es')
+  console.log(keywords[0,0])
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -81,7 +84,15 @@ export const  PDFAnalysisIndice = () => {
             <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto" style={{width: "60dvw", height: "40dvh"}}>
             <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
             <p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>
-            <p> URL del archivo: {fileUrl} </p>
+            <ul>
+              {keywords.map((term, index) => (
+                <li key={index}>
+                  <span>{term[0]}</span>{" "}
+                  <span>{term[1]}</span>
+                </li>
+
+              ))}
+            </ul>
             
 
                 <div className="flex justify-end">

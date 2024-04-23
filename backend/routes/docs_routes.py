@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
-from firebase_admin import firestore
+from firebase_admin import firestore, auth
+
 
 docs_blueprint = Blueprint('docs', __name__)
 users_ref = firestore.client().collection('Users')
@@ -93,4 +94,3 @@ def delete_doc(user_id, doc_id):
             return jsonify({'error': 'Doc no encontrado'})
     except Exception as e:
         return jsonify({'error': str(e)})
-    
