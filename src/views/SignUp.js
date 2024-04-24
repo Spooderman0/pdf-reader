@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Importa Link de react-router-dom
+import Navbar from '../Components/Navbar';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -35,7 +36,6 @@ const SignUp = () => {
   return (
     <div>
       {/* Agrega el componente Navbar */}
-      <Navbar />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       {/* Contenido de la vista SignUp */}
         <div class="container mx-auto bg-gray-100  rounded-[12px] shadow-lg p-8 lg:w-[600px] lg:h-[700px]" style={{ boxSizing: 'border-box' }}>
@@ -129,7 +129,7 @@ const SignUp = () => {
 
               <p className="mt-10 text-center text-sm text-gray-500">
                 Already have an account?{' '}
-                <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                <Link to="/" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                   Log in
                 </Link>
               </p>

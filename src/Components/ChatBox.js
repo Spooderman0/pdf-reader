@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-function ChatBox({ onMessageSent }) {
+export const Chatbox = ({ onMessageSent }) => {
   const [message, setMessage] = useState('');
   const [conversation, setConversation] = useState([]);
 
@@ -45,22 +45,21 @@ function ChatBox({ onMessageSent }) {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="container mx-auto bg-gray-100 rounded-[12px] shadow-lg p-8 lg:w-[1000px] lg:h-[800px] flex flex-col">
+      <div className="container mx-auto bg-gray-100 rounded-[12px] shadow-lg h-dvh p-8 flex flex-col">
         <div className="text-black font-bold text-4xl mb-4">AI Chat Helper</div>
         {/* Contenedor para mostrar la conversación */}
         <div className="flex-grow overflow-auto border border-gray-300 rounded-md p-4">
           {conversation.map((msg, index) => (
-            <div key={index} className="message mb-2">
-              {msg.user && (
-                <div className="text-right">
-                  <div className="text-blue-600" style={{ maxWidth: "100%" }}>Tú: {msg.user}</div>
-                </div>
-              )}
-              {msg.bot && (
-                <div className="text-left">
-                  <div className="text-green-600" style={{ maxWidth: "100%" }}>ChatBot: {msg.bot}</div>
-                </div>
-              )}
+            <div key={index} className={`message mb-2 ${msg.owner === "User" ? "text-right" : "text-left"}`}>
+              <div className={`bg-${msg.owner === "User" ? "blue-200" : "green-200"} text-${msg.owner === "User" ? "blue-600" : "green-600"} rounded-lg p-2`} style={{ maxWidth: "80%", margin: "auto" }}>
+                {msg.owner === "User" && (
+                  <span>Tú: </span>
+                )}
+                {msg.owner === "AI" && (
+                  <span>ChatBot: </span>
+                )}
+                {msg.message}
+              </div>
             </div>
           ))}
           {/* Este elemento se utiliza para hacer scroll hacia abajo */}
@@ -74,11 +73,11 @@ function ChatBox({ onMessageSent }) {
             className="flex-grow border border-gray-300 rounded-md outline-none p-2 resize-none" 
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={handleKeyDown}
+            // onKeyDown={handleKeyDown}
           />
           <button 
             className="ml-2 px-6 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition-colors"
-            onClick={sendMessage}
+            onClick={handleSubmitQuery}
           >
             Enviar
           </button>
@@ -88,4 +87,4 @@ function ChatBox({ onMessageSent }) {
   );
 }
 
-export default ChatBox;
+export default Chatbox;
