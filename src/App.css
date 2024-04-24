@@ -1,139 +1,17 @@
-/* Restablece los estilos y agrega estilos generales */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-/* Estilo para la aplicación */
-.App {
-  text-align: left;
-}
-
-/* Estilo para la navegación */
-nav ul {
-  list-style-type: none;
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px;
-}
-
-nav ul li {
-  margin: 0 10px;
-}
-
-/* Estilo para el contenido principal */
-.App-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  flex-basis: 0;
-  flex-grow: 3;
-  
-}
-
-.App-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.App-info h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-}
-
-.App-info p {
-  font-size: 1.5rem;
-}
-
-.App-upload button {
-  background-color: blue;
-  color: white;
-  padding: 15px 30px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.App-upload p {
-  margin-top: 10px;
-}
-
-.side-image {
-  flex: 1; /* Esto asignará espacio igual a ambos lados del contenido principal */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-}
-
-.left-side-image {
-  background-image: url('./Images/undraw_Online_articles_re_yrkj.png'); /* Ajusta esta ruta a tu imagen */
-  background-size: cover;
-  background-position: center;
-}
-
-
-
-.main-content {
-  display: flex;
-  justify-content: space-between; /* o 'center' si quieres que el contenido principal esté centrado */
-  align-items: center;
-  /* Resto de tus estilos... */
-}
-
-.left-side-image {
-  width: calc(50% - var(--main-content-width)); /* ajusta esto según el ancho que desees para el contenido principal */
-  height: auto;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.main-content {
-  display: flex;
-  flex-direction: column; /* Elementos en columna */
-  justify-content: center; /* Centrado verticalmente */
-  align-items: center; /* Centrado horizontalmente */
-}
-
-/* Estilo para los títulos y texto */
-.main-content h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  color: #2a2a2a; /* Color de texto más oscuro para mejor legibilidad */
-}
-
-.main-content p {
-  font-size: 1.5rem;
-  color: #6b7280; /* Usar un gris para el texto como en la imagen de muestra */
-}
-
-/* Estilos para los botones de carga */
-.main-content button {
-  background-color: #2563eb; /* Fondo azul */
-  color: white;
-  padding: 15px 30px;
-  border: 2px solid transparent; /* Sin borde visible cuando no está en hover */
-  border-radius: 10px; /* Bordes redondeados */
-  font-size: 1rem;
-  cursor: pointer;
-  margin: 0 10px; /* Espacio entre botones */
-}
-
-/* Hover state para el botón de carga rápida */
-.main-content button:hover {
-  background-color: white;
-  color: #2563eb;
-  border-color: #2563eb; /* Borde azul en hover */
-}
-
-/* Estilos para la imagen de la izquierda */
-.left-side {
-  width: 50%; /* Ocupa la mitad de la pantalla */
-  background: url('./Images/undraw_Online_articles_re_yrkj.png') no-repeat center center;
-  background-size: contain; /* Asegura que la imagen se ajuste dentro del div */
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #3498db;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
 }
