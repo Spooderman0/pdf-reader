@@ -6,35 +6,34 @@ function ChatBox({ onMessageSent }) {
 
   const conversationEndRef = useRef(null);
 
-  const sendMessage = () => {
-    if (message.trim() === '') {
-      // No enviamos mensajes vacíos
-      return;
+  const handleSubmitQuery = async (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    try {
+
+        setConversation(prevConversation => [...prevConversation, { owner: "User", message: message }]);
+
+        // const response = await fetch(`https://httpsflaskexample-2qaksr7roa-uc.a.run.app/chatbot/${message}`, {
+        const response = await fetch(`https://httpsflaskexample-2qaksr7roa-uc.a.run.app/chatbot/${message}`, {
+            method: 'GET',
+            headers: {
+                'Access-Control-Allow-Origin':  '*',
+                'Content-Type': 'application/json',
+                // Add any additional headers if needed
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        setConversation(prevConversation => [...prevConversation, { owner: "AI", message: data["respuestaAI"] }]);
+    } catch (error) {
+        console.error('Error fetching data:', error);
     }
+};
 
-    // Simulamos una respuesta del servidor por ahora
-    const fakeResponse = "Respuesta a '${message}'";
-
-    // Actualizamos la conversación con el nuevo mensaje enviado y la respuesta simulada
-    setConversation(prevConversation => [...prevConversation, { user: message, bot: fakeResponse }]);
-
-    // Llamamos a la función que maneja los mensajes enviados
-    if (onMessageSent) {
-      onMessageSent(message);
-    }
-
-    // Limpiamos el campo de mensaje después de enviar
-    setMessage('');
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault(); // Evita que se envíe el formulario
-      sendMessage();
-    }
-  };
-
-  // Esta función hace scroll hacia abajo para mostrar el último mensaje
   const scrollToBottom = () => {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };

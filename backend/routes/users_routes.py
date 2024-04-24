@@ -1,72 +1,82 @@
 from flask import Blueprint, jsonify, request
-from firebase_admin import firestore
+from firebase_admin import firestore, auth
 from PyPDF2 import PdfReader
-import firebase_admin.auth as auth
+import auth.authentication as auth
+from auth.authentication import generate_uuid
 
 users_blueprint = Blueprint('users', __name__)
 users_ref = firestore.client().collection('Users')
 
-# #LOGIN
-# @users_blueprint.route('/login', methods = ['POST'])
-# def login():
-#     try:
-#         data = request.json
-#         user = auth.auth.sign_in_with_email_and_password(data.get('email'), data.get('pwd'))
-#         return jsonify(user)
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
+#LOGIN
+@users_blueprint.route('/login', methods = ['POST'])
+def login():
+    try:
+        #Confirm that the request is a JSON with the email and password
+        if not request.is_json:
+            return jsonify({'error': 'Request must be JSON'}), 400
+        
+        if 'email' not in request.json or 'pwd' not in request.json or 'email' == '' or 'pwd' == '':
+            return jsonify({'error': 'Missing email'}), 400
+
+        data = request.json
+        email = data.get('email')
+        pwd = data.get('pwd')
+        user = auth.auth.sign_in_with_email_and_password(email, pwd)
+        return jsonify(user), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
     
     
-# #LOGOUT
-# @users_blueprint.route('/logout', methods = ['POST'])
-# def logout():
-#     try:
-#         data = request.json
-#         user = auth.auth.sign_out(data.get('token'))
-#         return jsonify(user)
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
-    
-# #GET CURRENT USER
-# @users_blueprint.route('/currentuser', methods = ['POST'])
-# def current_user():
-#     try:
-#         data = request.json
-#         user = auth.auth.get_account_info(data.get('token'))
-#         #return jsonify(user)
-#         return jsonify({'message': 'se revisa el usuario'}, user)
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
-
-# #SEND EMAIL VERIFICATION
-# @users_blueprint.route('/sendemailverification', methods = ['POST'])
-# def send_email_verification():
-#     try:
-#         data = request.json
-#         auth.auth.send_email_verification(data.get('token'))
-#         return jsonify({'message': 'Email de verificación enviado correctamente'})
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
-
-# #SEND PASSWORD RESET EMAIL
-# @users_blueprint.route('/sendpasswordresetemail', methods = ['POST'])
-# def send_password_reset_email():
-#     try:
-#         data = request.json
-#         auth.auth.send_password_reset_email(data.get('email'))
-#         return jsonify({'message': 'Email de restablecimiento de contraseña enviado correctamente'})
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
-
-#UPDATE PASSWORD
-@users_blueprint.route('/updatepassword', methods = ['POST'])
-def update_password():
+#LOGOUT
+@users_blueprint.route('/logout', methods = ['POST'])
+def logout():
     try:
         data = request.json
-        auth.auth.update_user(data.get('token'), data.get('new_password'))
-        return jsonify({'message': 'Contraseña actualizada correctamente'})
+        user = auth.auth.sign_out(data.get('token'))
+        return jsonify(user)
     except Exception as e:
         return jsonify({'error': str(e)})
+    
+#GET CURRENT USER
+@users_blueprint.route('/currentuser', methods = ['POST'])
+def current_user():
+    try:
+        data = request.json
+        user = auth.auth.get_account_info(data.get('token'))
+        #return jsonify(user)
+        return jsonify({'message': 'se revisa el usuario'}, user)
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+#SEND EMAIL VERIFICATION
+@users_blueprint.route('/sendemailverification', methods = ['POST'])
+def send_email_verification():
+    try:
+        data = request.json
+        auth.auth.send_email_verification(data.get('token'))
+        return jsonify({'message': 'Email de verificación enviado correctamente'})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+#SEND PASSWORD RESET EMAIL
+@users_blueprint.route('/sendpasswordresetemail', methods = ['POST'])
+def send_password_reset_email():
+    try:
+        data = request.json
+        auth.auth.send_password_reset_email(data.get('email'))
+        return jsonify({'message': 'Email de restablecimiento de contraseña enviado correctamente'})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+# # UPDATE PASSWORD
+# @users_blueprint.route('/updatepassword', methods = ['POST'])
+# def update_password():
+#     try:
+#         data = request.json
+#         auth.auth.update_user(data.get('token'), data.get('new_password'))
+#         return jsonify({'message': 'Contraseña actualizada correctamente'})
+#     except Exception as e:
+#         return jsonify({'error': str(e)})
 
 
 
@@ -102,13 +112,22 @@ def get_user(user_id):
 @users_blueprint.route('/adduser', methods = ['POST'])
 def add_user():
     try:
+        if 'email' not in request.json or 'pwd' not in request.json or 'email' == '' or 'pwd' == '':
+            return jsonify({'error': 'Missing information'}), 400
+
         data = request.json
-        user_ref = users_ref.document(data.get('id'))
+        user_ref = users_ref.document(generate_uuid())
         user_ref.set({
             'username': data.get('username'),
-            'pwd': data.get('pwd'),
-            'email': data.get('email')
+            'email': data.get('email'),
+            'role': 'user'
         })
+
+        private_data = user_ref.collection('Private').document('info')
+        private_data.set({
+            'pwd': data.get('pwd')
+        })
+        
 
         # Crear la colección de perfil (profile) para el usuario
         profile_ref = user_ref.collection('Profile')
@@ -117,9 +136,9 @@ def add_user():
             'Theme': "Light"
         })
         # Registra el usuario en Firebase Authentication
-        # email = data.get('email')
-        # pwd = data.get('pwd')
-        # user = auth.auth.create_user_with_email_and_password(email, pwd)
+        email = data.get('email')
+        pwd = data.get('pwd')
+        user = auth.auth.create_user_with_email_and_password(email, pwd)
 
         return jsonify({'message': 'Usuario agregado correctamente'})
     except Exception as e:
@@ -150,7 +169,6 @@ def delete_user(user_id):
         if user_ref.get().exists:
             user_ref.delete()
             data = request.json
-            auth.auth.delete_user(data.get('token'))
             return jsonify({'message': 'Usuario borrado correctamente'})
         else:
             return jsonify({'error': 'usuario no encontrado'})

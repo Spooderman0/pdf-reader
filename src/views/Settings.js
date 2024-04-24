@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
-import Navbar from "../Components/Navbar";
 import SettingsImage from '../Images/settingspic.png'; 
 import VocabularyLevel from "../Components/VocabularyLevel";
 import DeleteAccountModal from "../Components/DeleteAccountModal";
@@ -16,8 +15,6 @@ export const Settings = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <Navbar />
-
       <div className="flex justify-around">
         <div className="flex flex-col max-h-180" style={{ paddingTop: "90px" }}> {/* Agregué un padding superior */}
           <h1 className="text-3xl font-bold text-gray-700 sticky left-10">
