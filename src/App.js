@@ -20,11 +20,11 @@ function App() {
           <Route path="/" exact element={<Login />} />
           <Route path="/signup" exact element={<SignUp/>} />
           <Route path="/main" exact element={<UploadPDF />} />
-          <Route path="/pdf-analysis" exact element={<PDFAnalysis />} />
-          <Route path="/pdf-analysis-terminos" exact element={<PDFAnalysisTerminos />} />
+          <Route path="main/pdf-analysis" exact element={<PDFAnalysis />} />
+          <Route path="main/pdf-analysis-terminos" exact element={<PDFAnalysisTerminos />} />
+          <Route path="main/chatbot" exact element={<MainFrida/>} />
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/loading" exact element={<LoadingScreen/>} />
-          <Route path="/chatbot" exact element={<MainFrida/>} />
           <Route path="/vistapreliminar" exact element={<VistaPreliminar/>} />
         </Routes>
       </div>
