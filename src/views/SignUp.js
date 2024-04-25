@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Importa Link de react-router-dom
+import pdfAnalyzerlogo from "C:/Users/emhug/OneDrive/Escritorio/PROGRAMAS TEC/PDF READER/pdf-reader/src/Images/pdf_analyzer_logo.png"
+
 import Navbar from '../Components/Navbar';
+
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -42,8 +45,8 @@ const SignUp = () => {
           
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
-                className="mx-auto h-10 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                className="mx-auto h-28 w-auto"
+                src={pdfAnalyzerlogo}
                 alt="Your Company"
               />
               <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">

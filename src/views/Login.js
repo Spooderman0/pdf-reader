@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import pdfAnalyzerlogo from "C:/Users/emhug/OneDrive/Escritorio/PROGRAMAS TEC/PDF READER/pdf-reader/src/Images/pdf_analyzer_logo.png"
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
@@ -37,12 +38,12 @@ const LogIn = () => {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 
       {/* Contenido de la vista SignUp */}
-        <div className="container mx-auto bg-gray-100  rounded-[12px] shadow-lg p-8 lg:w-[600px] lg:h-[550px]" style={{ boxSizing: 'border-box' }}>
+        <div className="container mx-auto bg-gray-100  rounded-[12px] shadow-lg p-8 lg:w-[600px] lg:h-[590px]" style={{ boxSizing: 'border-box' }}>
           {/* Contenido de la vista Login */}
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
-                className="mx-auto h-10 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                className="mx-auto h-28 w-auto"
+                src={pdfAnalyzerlogo}
                 alt="Your Company"
               />
               <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
