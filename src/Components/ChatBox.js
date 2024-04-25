@@ -10,8 +10,7 @@ export const Chatbox = ({ onMessageSent }) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
     try {
-
-        setConversation(prevConversation => [...prevConversation, { owner: "User", message: message }]);
+        setConversation(prevConversation => [...prevConversation, { owner: "Usuario", message: message }]);
 
         // const response = await fetch(`https://httpsflaskexample-2qaksr7roa-uc.a.run.app/chatbot/${message}`, {
         const response = await fetch(`https://httpsflaskexample-2qaksr7roa-uc.a.run.app/chatbot/${message}`, {
@@ -44,16 +43,16 @@ export const Chatbox = ({ onMessageSent }) => {
   }, [conversation]);
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="container mx-auto bg-gray-100 rounded-[12px] shadow-lg h-dvh p-8 flex flex-col">
+    <div className="flex items-center h-screen justify-end">
+      <div className="container mx-auto bg-gray-100 rounded-[12px] shadow-lg h-dvh p-8 flex flex-col" style={{ width: '4000px', height: '800px', margin: '10px' }}>
         <div className="text-black font-bold text-4xl mb-4">AI Chat Helper</div>
         {/* Contenedor para mostrar la conversación */}
         <div className="flex-grow overflow-auto border border-gray-300 rounded-md p-4">
           {conversation.map((msg, index) => (
-            <div key={index} className={`message mb-2 ${msg.owner === "User" ? "text-right" : "text-left"}`}>
-              <div className={`bg-${msg.owner === "User" ? "blue-200" : "green-200"} text-${msg.owner === "User" ? "blue-600" : "green-600"} rounded-lg p-2`} style={{ maxWidth: "80%", margin: "auto" }}>
-                {msg.owner === "User" && (
-                  <span>Tú: </span>
+            <div key={index} className={`message mb-2 ${msg.owner === "Usuario" ? "text-left" : "text-right"}`}>
+              <div className={`bg-${msg.owner === "Usuario" ? "blue-200" : "green-200"} text-${msg.owner === "Usuario" ? "blue-600" : "green-600"} rounded-lg p-2`} style={{ maxWidth: "80%", margin: "auto" }}>
+                {msg.owner === "Usuario" && (
+                  <span>Usuario: </span>
                 )}
                 {msg.owner === "AI" && (
                   <span>ChatBot: </span>

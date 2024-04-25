@@ -1,10 +1,14 @@
 import React from 'react';
-import ChatBox from '../Components/ChatBox';
+import Navbar from '../Components/Navbar';
+import ChatBot from '../Components/ChatBox';
+import ConversationHistory from '../Components/ConversationHistory';
 
-export const  MainFrida = () => {
+function MainFrida() {
   return (
-    <div>
-      <ChatBox onMessageSent={(message) => console.log(message)} /> {/* Cambia console.log(message) por la función que deseas que maneje los mensajes enviados */}
+    <div style={{ overflowY: 'hidden' }}> {/* Aquí establecemos overflowY: hidden para ocultar el scroll vertical */}
+
+      <ChatBot onMessageSent={(message) => console.log(message)} /> 
+      <ConversationHistory />
     </div>
   );
 }
