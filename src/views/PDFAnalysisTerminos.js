@@ -57,7 +57,7 @@ export const  PDFAnalysisTerminos = () => {
                         <img className='h-auto' style={{height: "25dvh"}} src={terminosRelacionadosImg} alt='terminos'/>
                     </div>
                 </div>
-                <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{ height: "33dvh" }}>
+                <div className="relative h-64 w-full" style={{ height: "33dvh" }}>
                         <h6 className='font-medium'>Nube de palabras</h6>
                         <WordCloud words={wordCloudData} />
                 </div>
