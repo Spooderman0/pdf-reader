@@ -4,6 +4,7 @@ import Navbar from '../Components/Navbar';
 import portadaLibro from '../Images/PortadaLibro.png'
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
+import { doc } from 'firebase/firestore/lite';
 
 const ShowVistaPreliminar = ({url, onClose}) => {
     return (
@@ -18,11 +19,11 @@ const ShowVistaPreliminar = ({url, onClose}) => {
 
 export const  PDFAnalysisIndice = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const location = useLocation();
   const [fileText, setFileText] = useState('');
   const [fileUrl, setFileUrl] = useState('');
   const [keywords, setKeywords] = useState([]);
+  const [docID, setDocID] = useState('');
   const navigate = useNavigate()
 
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: {fileUrl } })
@@ -34,10 +35,15 @@ export const  PDFAnalysisIndice = () => {
         setFileText(location.state.fileText)
         setFileUrl(location.state.fileUrl)
         setKeywords(location.state.keywords)
+        setDocID(location.state.docID)
     }
   }, [location, location.state]);
-  //console.log('Estoy en la vista de PDFAnalysisIndice y este es')
-  console.log(keywords[0,0])
+ console.log('Estoy en la vista de PDFAnalysisIndice y el docid es', docID)
+
+ const handleOnClick = () => {
+  navigate('/pdf-analysis-terminos', { state: { docID: docID } })
+ }
+
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -66,16 +72,11 @@ export const  PDFAnalysisIndice = () => {
         <div className="basis-3/5 flex flex-col py-3 px-3">
         <div className="container w-full flex justify-between px-0 items-center" style={{height: "15dvh"}}>
             <Link to="/pdf-analysis-indice"><button className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2">ÍNDICE</button></Link>
-            <Link 
-          to={{
-            pathname: "/pdf-analysis-terminos",
-            state: { fileText: fileText } // Aquí pasas el fileText al estado del enlace
-          }}
-        >
-          <button className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2">
+            
+          <button onClick={handleOnClick}className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2">
             TÉRMINOS
           </button>
-        </Link>
+        
             <Link to="#"><button className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2">FIGURAS</button></Link>
             <Link to="#"><button className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2">FRIDA</button></Link>
         </div>

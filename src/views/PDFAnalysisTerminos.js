@@ -6,11 +6,13 @@ import terminosRelacionadosImg from '../Images/TerminosRelacionados.png'
 import nubePalabrasImg from '../Images/NubePalabras.png'
 import frecuenciaPalabrasImg from '../Images/FrecuenciaPalabras.png'
 import WordCloud from '../Components/WordCloud';
+import { doc } from 'firebase/firestore/lite';
 
 export const  PDFAnalysisTerminos = () => {
 
     const location = useLocation();
     const [fileText, setFileText] = useState('');
+    const [docID, setDocID] = useState('');
     const [wordCloudData, setWordCloudData] = useState([]);
 
 
@@ -21,11 +23,36 @@ export const  PDFAnalysisTerminos = () => {
 
 
     useEffect(() => {
-        if (location.state?.fileText) {
-            setFileText(location.state.fileText);
-            setWordCloudData(extractWords(location.state.fileText));
+        console.log(location.state)
+        if (location.state) {
+            //setFileText(location.state.fileText);
+            //setDocID(extractWords(location.state.keywords));
+            setDocID(location.state.docID);
         }
-    }, [location]);
+    }, [location, location.state]);
+    console.log('estoy en terminos y el docid es', docID)
+
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/U1/docs/keyterms/${docID}`);
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data)
+            } else {
+                throw new Error('Failed to fetch data');
+            }
+        } catch (error) {
+        console.error('Error fetching data:', error);
+        }
+  };
+
+  if (docID) {
+    fetchData();
+  }
+}, [docID]);
+
+    
 
     function extractWords(text) {
         const wordsArray = text.split(/\s+/);

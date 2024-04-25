@@ -16,6 +16,7 @@ def register_doc(user_id):
         user_ref = users_ref.document(user_id)
         docs_ref = user_ref.collection('Docs')
         doc_ref = docs_ref.document(generate_uuid('D'))
+        print(doc_ref.id)
         doc_ref.set({
             'Author': 'un autor',
             'Storage_URL' : bucket_url,
@@ -28,7 +29,6 @@ def register_doc(user_id):
         #agregar un documento de empty terms en common terms
         commonterm_ref = commonterms_ref.document('keyTerms')
         # Obtener el término y su frecuencia del cuerpo de la solicitud
-
         keyTerms = {}
 
         for term, freq in keywords:
@@ -56,7 +56,8 @@ def register_doc(user_id):
             'message': 'Doc uploaded to bd',
             'public_url': bucket_url,
             'text': text,
-            'keywords': keywords
+            'keywords': keywords,
+            'doc_ref': doc_ref.id
         })
     except Exception as e:
         return jsonify({'Error adding uploaded doc to db', str(e)})

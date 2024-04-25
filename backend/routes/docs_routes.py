@@ -94,3 +94,18 @@ def delete_doc(user_id, doc_id):
             return jsonify({'error': 'Doc no encontrado'})
     except Exception as e:
         return jsonify({'error': str(e)})
+    
+#GET KEYTERMS FROM 1 DOC
+@docs_blueprint.route('/<user_id>/docs/keyterms/<doc_id>', methods = ['GET'])
+def get_keyterms(user_id, doc_id):
+    try:
+        user_ref = users_ref.document(user_id)
+        doc_ref = user_ref.collection('Docs').document(doc_id)
+        keyterms_doc = doc_ref.collection('Common Terms').document('keyTerms')
+        keyterms_data = keyterms_doc.get().to_dict()
+        if keyterms_data:
+            return jsonify(keyterms_data)
+        else:
+            return jsonify({'error': 'keyterms no encontrados'})
+    except Exception as e:
+        return jsonify({'error': str(e)})
