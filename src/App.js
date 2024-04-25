@@ -22,7 +22,7 @@ function App() {
           <Route path="/main" exact element={<UploadPDF />} />
           <Route path="main/pdf-analysis" exact element={<PDFAnalysis />} />
           <Route path="main/pdf-analysis-terminos" exact element={<PDFAnalysisTerminos />} />
-          <Route path="main/chatbot" exact element={<MainFrida/>} />
+          <Route path="chatbot" exact element={<MainFrida/>} />
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/loading" exact element={<LoadingScreen/>} />
           <Route path="/vistapreliminar" exact element={<VistaPreliminar/>} />
