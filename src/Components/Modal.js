@@ -32,9 +32,9 @@ const Modal = ({isOpen, close }) => {
       }
       const uploadData = await uploadResponse.json();
 
-      console.log('Data to be sent:', uploadData.public_url, uploadData.text);
+      console.log('Docref:', uploadData.doc_ref);
 
-      navigate('../main/pdf-analysis', { state: { fileText: uploadData.text, fileUrl: uploadData.public_url } });
+      navigate('../main/pdf-analysis', { state: { fileText: uploadData.text, fileUrl: uploadData.public_url, keywords: uploadData.keywords, docID: uploadData.doc_ref } });
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);

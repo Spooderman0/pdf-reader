@@ -16,7 +16,7 @@ import uuid
 
 # Generate a UUID
 
-def generate_uuid():
+def generate_uuid(var):
     uuid_str = str(uuid.uuid4()).replace('-', '')
     uuid_int = int(uuid_str, 16)
-    return 'U' + str(uuid_int)[0:6]
+    return var + str(uuid_int)[0:6]

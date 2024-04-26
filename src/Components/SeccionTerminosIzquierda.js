@@ -5,7 +5,7 @@ import terminosRelacionadosImg from '../Images/TerminosRelacionados.png'
 import nubePalabrasImg from '../Images/NubePalabras.png'
 import WordCloud from './WordCloud';
 
-export const  SeccionTerminosIzquierda = () => {
+export const  SeccionTerminosIzquierda = ({docID}) => {
 
     const location = useLocation();
     const [fileText, setFileText] = useState('');
@@ -18,6 +18,7 @@ export const  SeccionTerminosIzquierda = () => {
             setWordCloudData(extractWords(location.state.fileText));
         }
     }, [location]);
+    console.log('estoy en terminos y el docID como prop es', docID)
 
     function extractWords(text) {
         const wordsArray = text.split(/\s+/);
