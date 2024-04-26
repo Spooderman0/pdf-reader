@@ -42,6 +42,7 @@ const LogIn = () => {
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
                 className="mx-auto h-28 w-auto"
+                
                 src={"../Components/src/Images/pdf_analyzer_logo.png"}
                 alt="Your Company"
               />
