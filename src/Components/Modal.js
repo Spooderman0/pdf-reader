@@ -21,8 +21,7 @@ const Modal = ({isOpen, close }) => {
 
     try {
       setIsLoading(true);
-      const uploadResponse = await fetch('https://pdf-reader-9s86.onrender.com/U1/upload_file2', {
-      //const uploadResponse = await fetch('https://fridarender.onrender.com/upload_file', {
+      const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
         method: 'POST',
         body: formData,
       });
