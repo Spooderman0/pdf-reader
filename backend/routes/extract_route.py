@@ -7,7 +7,7 @@ extract_blueprint = Blueprint('extract', __name__)#
 users_ref = firestore.client().collection('Users')
 
     
-@extract_blueprint.route('/<user_id>/analyzeDoc', methods = ['POST'])
+@extract_blueprint.route('/<user_id>/upload_file2', methods = ['POST'])
 def register_doc(user_id):
     try:
         bucket_url, text = upload_and_extract()

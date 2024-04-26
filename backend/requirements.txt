@@ -5,3 +5,6 @@ pdfplumber
 python-docx
 google-cloud
 yake
+flask-cors
+pyrebase4
+gunicorn

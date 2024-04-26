@@ -7,6 +7,13 @@ from auth.authentication import generate_uuid
 users_blueprint = Blueprint('users', __name__)
 users_ref = firestore.client().collection('Users')
 
+
+#Wakey Wakey
+@users_blueprint.route('/wakeup', methods = ['GET'])
+def wakey_wakey():
+    return jsonify({'message': 'Users route working'})
+
+
 #LOGIN
 @users_blueprint.route('/login', methods = ['POST'])
 def login():
