@@ -10,15 +10,39 @@ export const  SeccionTerminosIzquierda = ({docID}) => {
     const location = useLocation();
     const [fileText, setFileText] = useState('');
     const [wordCloudData, setWordCloudData] = useState([]);
-
+    const [wordCloudData2, setWordCloudData2] = useState([]);
 
     useEffect(() => {
         if (location.state?.fileText) {
             setFileText(location.state.fileText);
-            setWordCloudData(extractWords(location.state.fileText));
+            setWordCloudData(extractWords(location.state.fileText)); //aqui esto hay que cambiarlo
         }
     }, [location]);
     console.log('estoy en terminos y el docID como prop es', docID)
+
+    useEffect(() => {
+        const termsData = async () => {
+            try {
+                const response = await fetch(`https://frida-backend.onrender.com/U1/keyterms/${docID}`)
+                if (response.ok)
+                {
+                    const data = await response.json();
+                    console.log(data.terms);
+                    const terminosArray = Object.entries(data.terms).map(([text, value]) => ({ text, value }));
+                    console.log(terminosArray);
+                    setWordCloudData2(terminosArray)
+                }
+            }
+            catch (error) {
+                console.error('Error fetching terms:', error);
+            }
+        };
+
+        termsData();
+    }, []);
+
+    console.log('word cloud data de guille', wordCloudData)
+    console.log('word cloud data de jan', wordCloudData2)
 
     function extractWords(text) {
         const wordsArray = text.split(/\s+/);
@@ -35,6 +59,8 @@ export const  SeccionTerminosIzquierda = ({docID}) => {
         });
     }
 
+
+
   return (
     <div className='flex flex-col justify-between' style={{height: "70dvh"}}>
         <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{height: "33dvh"}}>
@@ -45,7 +71,7 @@ export const  SeccionTerminosIzquierda = ({docID}) => {
         </div>
         <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{ height: "33dvh" }}>
             <h6 className='font-medium'>Nube de palabras</h6>
-            <WordCloud words={wordCloudData} />
+            <WordCloud words={wordCloudData2} />
         </div>
 
 
