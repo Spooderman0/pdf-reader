@@ -26,6 +26,8 @@ export const  PDFAnalysisIndice = () => {
   const location = useLocation();
   const [fileText, setFileText] = useState('');
   const [fileUrl, setFileUrl] = useState('');
+  const [keywords, setKeywords] = useState([]);
+  const [docID, setDocID] = useState('');
   const navigate = useNavigate()
 
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: {fileUrl } })
@@ -41,9 +43,16 @@ export const  PDFAnalysisIndice = () => {
     if(location.state) {
         setFileText(location.state.fileText)
         setFileUrl(location.state.fileUrl)
+        setKeywords(location.state.keywords)
+        setDocID(location.state.docID)
     }
   }, [location, location.state]);
   //console.log('Estoy en la vista de PDFAnalysisIndice y este es')
+  console.log('Estoy en la vista de PDFAnalysisIndice y el docid es', docID)
+
+  const handleOnClick = () => {
+   navigate('main/pdf-analysis-terminos', { state: { docID: docID } })
+  }
 
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
@@ -53,7 +62,7 @@ export const  PDFAnalysisIndice = () => {
             </div>
             {/* Cambiar componentes izquierda dependiendo de la seccion  */}
             {currentSection === "indice" && <Portada/>}
-            {currentSection === "terminos" && <SeccionTerminosIzquierda/>}
+            {currentSection === "terminos" && <SeccionTerminosIzquierda docID ={docID}/>}
         </div>
         <div className="basis-3/5 flex flex-col py-3 px-3">
             <AnalysisButtons 

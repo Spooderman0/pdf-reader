@@ -96,7 +96,7 @@ def delete_doc(user_id, doc_id):
         return jsonify({'error': str(e)})
     
 #GET KEYTERMS FROM 1 DOC
-@docs_blueprint.route('/<user_id>/docs/keyterms/<doc_id>', methods = ['GET'])
+@docs_blueprint.route('/<user_id>/keyterms/<doc_id>', methods = ['GET'])
 def get_keyterms(user_id, doc_id):
     try:
         user_ref = users_ref.document(user_id)

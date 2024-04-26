@@ -11,7 +11,7 @@ export const  PDFAnalysisTerminos = () => {
 
     const location = useLocation();
     const [fileText, setFileText] = useState('');
-    const [docID, setDocID] = useState('');
+    //const [docID, setDocID] = useState('');
     const [wordCloudData, setWordCloudData] = useState([]);
 
 
@@ -21,20 +21,22 @@ export const  PDFAnalysisTerminos = () => {
   const closeModal = () => setIsModalOpen(false);
 
 
-    useEffect(() => {
+    /*useEffect(() => {
         console.log(location.state)
         if (location.state) {
             //setFileText(location.state.fileText);
             //setDocID(extractWords(location.state.keywords));
             setDocID(location.state.docID);
         }
-    }, [location, location.state]);
-    console.log('estoy en terminos y el docid es', docID)
+    }, [location, location.state]);*/
+   // console.log('estoy en terminos y el docid es', docID)
 
+   /*
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/U1/docs/keyterms/${docID}`);
+            //const response = await fetch(`https://pdf-reader-9s86.onrender.com/U1/keyterms/${docID}`);
+            const response = await fetch(`https://localhost:5000/U1/keyterms/${docID}`);
             if (response.ok) {
                 const data = await response.json();
                 console.log(data)
@@ -49,7 +51,7 @@ export const  PDFAnalysisTerminos = () => {
   if (docID) {
     fetchData();
   }
-}, [docID]);
+}, [docID]); */
 
     
 
