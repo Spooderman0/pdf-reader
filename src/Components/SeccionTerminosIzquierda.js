@@ -10,12 +10,10 @@ export const  SeccionTerminosIzquierda = ({docID}) => {
     const location = useLocation();
     const [fileText, setFileText] = useState('');
     const [wordCloudData, setWordCloudData] = useState([]);
-    const [wordCloudData2, setWordCloudData2] = useState([]);
 
     useEffect(() => {
         if (location.state?.fileText) {
             setFileText(location.state.fileText);
-            setWordCloudData(extractWords(location.state.fileText)); //aqui esto hay que cambiarlo
         }
     }, [location]);
     console.log('estoy en terminos y el docID como prop es', docID)
@@ -30,7 +28,7 @@ export const  SeccionTerminosIzquierda = ({docID}) => {
                     console.log(data.terms);
                     const terminosArray = Object.entries(data.terms).map(([text, value]) => ({ text, value }));
                     console.log(terminosArray);
-                    setWordCloudData2(terminosArray)
+                    setWordCloudData(terminosArray)
                 }
             }
             catch (error) {
@@ -40,9 +38,6 @@ export const  SeccionTerminosIzquierda = ({docID}) => {
 
         termsData();
     }, []);
-
-    console.log('word cloud data de guille', wordCloudData)
-    console.log('word cloud data de jan', wordCloudData2)
 
     function extractWords(text) {
         const wordsArray = text.split(/\s+/);
@@ -71,7 +66,7 @@ export const  SeccionTerminosIzquierda = ({docID}) => {
         </div>
         <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{ height: "33dvh" }}>
             <h6 className='font-medium'>Nube de palabras</h6>
-            <WordCloud words={wordCloudData2} />
+            <WordCloud words={wordCloudData} />
         </div>
 
 

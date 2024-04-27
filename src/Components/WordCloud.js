@@ -3,34 +3,34 @@ import * as d3 from 'd3';
 import cloud from 'd3-cloud';
 
 const WordCloud = ({ words }) => {
-  console.log('lo que recibe el wordcloud',words)
   const wordCloudRef = useRef();
-  const maxWordsToShow = 5; // Limita el número máximo de palabras a mostrar
+  const maxWordsToShow = 50; // Limita el número máximo de palabras a mostrar
   //const minimumWordFrequency = 3; // Muestra solo palabras con una frecuencia mayor a este valor
-  const minimumWordFrequency = 0.01;
+  //const minimumWordFrequency = 0.0001;
 
   useEffect(() => {
     if (words.length && wordCloudRef.current) {
       console.log('entro al primer if de useeefct para comenzar el filtrado')
 
-      //en si no creo que ocupe esta constante de filtered words porque ya se las voy a dar filtradas las que quiero que salgan en la cloud
       const filteredWords = words
-        .filter(word => word.value >= minimumWordFrequency)
+        //.filter(word => word.value >= minimumWordFrequency)
         .sort((a, b) => b.value - a.value)
         .slice(0, maxWordsToShow);
 
-      //pero equis son las mismas luego quito filtered words
-      console.log('las filtered words son', filteredWords)
+      //console.log('las filtered words son', filteredWords)
 
       const layout = cloud()
         .size([
           wordCloudRef.current.parentElement.offsetWidth,
           wordCloudRef.current.parentElement.offsetHeight
         ])
-        .words(filteredWords.map(word => ({ text: word.text, size: word.value * 100 })))
-        .padding(5)
+        //.words(filteredWords.map(word => ({ text: word.text, size: (1 - word.value) }))) // asi si sirve pero los valores estan muy cercanos
+        .words(filteredWords.map(word => ({ text: word.text, size: (0.1999 - word.value) * 150 })))
+
+        .padding(3)
         .rotate(0)
-        .fontSize(d => d.size * 2) // Puedes ajustar el factor de escala según sea necesario
+        .fontSize(d => (d.size))
+        //.fontSize(d => (d.size * 20)) // por lo que no se muestra la dif. de tamaño osea si le pongo *1000 ya pero es too big
         .on('end', draw);
 
       console.log('las words', layout.words())
