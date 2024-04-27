@@ -17,7 +17,7 @@ const ShowVistaPreliminar = ({url, onClose}) => {
 }
 
 
-export const  Summary = () => {
+export const  Summary = ({summary}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const location = useLocation();
@@ -42,7 +42,8 @@ export const  Summary = () => {
             <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto" style={{width: "60dvw", height: "40dvh"}}>
                 <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
                 <p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>
-                <p> URL del archivo: {fileUrl} </p>
+                {/* <p> URL del archivo: {fileUrl} </p> */}
+                <p> {summary} </p>
                 
                 <div className="flex justify-end">
                     <button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-5 py-2.5">Capítulos</button>
