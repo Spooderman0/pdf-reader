@@ -66,7 +66,8 @@ export const  PDFAnalysisIndice = () => {
     try {
       // const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
         // console.log("+=======docId: ", docId)
-      const uploadResponse = await fetch(`http://127.0.0.1:5000/U1/${docId}`, {
+      // const uploadResponse = await fetch(`http://127.0.0.1:5000/U1/${docId}`, {
+      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
