@@ -20,7 +20,7 @@ function App() {
           <Route path="/" exact element={<Login />} />
           <Route path="/signup" exact element={<SignUp/>} />
           <Route path="/main" exact element={<UploadPDF />} />
-          <Route path="main/pdf-analysis" exact element={<PDFAnalysis />} />
+          <Route path="main/pdf-analysis/:docId" exact element={<PDFAnalysis />} />
           <Route path="main/pdf-analysis-terminos" exact element={<PDFAnalysisTerminos />} />
           <Route path="chatbot" exact element={<MainFrida/>} />
           <Route path="/settings" exact element={<Settings />} />
