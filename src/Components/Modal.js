@@ -36,7 +36,7 @@ const Modal = ({isOpen, close }) => {
       // console.log('Docref:', uploadData.doc_ref);
 
       // navigate('../main/pdf-analysis', { state: { fileText: uploadData.text, fileUrl: uploadData.public_url, keywords: uploadData.keywords, docID: uploadData.doc_ref } });
-      navigate(`main/pdf-analysis/${uploadData.doc_id}`)
+      navigate(`../main/pdf-analysis/${uploadData.doc_id}`)
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);
