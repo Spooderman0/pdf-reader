@@ -21,8 +21,8 @@ const Modal = ({isOpen, close }) => {
 
     try {
       setIsLoading(true);
-      const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
-      // const uploadResponse = await fetch('http://127.0.0.1:5000/U1/upload_file2', {
+      // const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
+      const uploadResponse = await fetch('http://127.0.0.1:5000/U1/upload_file2', {
         method: 'POST',
         body: formData,
       });
@@ -36,7 +36,7 @@ const Modal = ({isOpen, close }) => {
       // console.log('Docref:', uploadData.doc_ref);
 
       // navigate('../main/pdf-analysis', { state: { fileText: uploadData.text, fileUrl: uploadData.public_url, keywords: uploadData.keywords, docID: uploadData.doc_ref } });
-      navigate(`main/pdf-analysis/${uploadData.doc_id}`)
+      navigate(`../main/pdf-analysis/${uploadData.doc_id}`)
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);
