@@ -27,7 +27,6 @@ export const  PDFAnalysisIndice = () => {
   const [fileText, setFileText] = useState('');
   const [fileUrl, setFileUrl] = useState('');
   const [keywords, setKeywords] = useState([]);
-  const [docID, setDocID] = useState('');
   const navigate = useNavigate()
   const { docId } = useParams();
   const [docData, setDocData] = useState({});
@@ -42,7 +41,7 @@ export const  PDFAnalysisIndice = () => {
       getDocData(docId);
     }
   
-  }, [currentSection, docID]);
+  }, [currentSection, docId]);
 
   useEffect(() => {
     // console.log('Location state:', location.state)
@@ -50,11 +49,12 @@ export const  PDFAnalysisIndice = () => {
         setFileText(location.state.fileText)
         setFileUrl(location.state.fileUrl)
         setKeywords(location.state.keywords)
-        setDocID(location.state.docID)
+        //setDocID(location.state.docID)
     }
   }, [location, location.state]);
-  //console.log('Estoy en la vista de PDFAnalysisIndice y este es')
-  // console.log('Estoy en la vista de PDFAnalysisIndice y el docid es', docID)
+
+  console.log('el url es', fileUrl)
+
 
   const getDocData = async (docId) => {
 
@@ -89,7 +89,7 @@ export const  PDFAnalysisIndice = () => {
             </div>
             {/* Cambiar componentes izquierda dependiendo de la seccion  */}
             {currentSection === "indice" && <Portada/>}
-            {currentSection === "terminos" && <SeccionTerminosIzquierda docID ={docID}/>}
+            {currentSection === "terminos" && <SeccionTerminosIzquierda docID ={docId}/>}
         </div>
         <div className="basis-3/5 flex flex-col py-3 px-3">
             <AnalysisButtons 
