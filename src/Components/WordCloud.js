@@ -10,7 +10,6 @@ const WordCloud = ({ words }) => {
 
   useEffect(() => {
     if (words.length && wordCloudRef.current) {
-      console.log('entro al primer if de useeefct para comenzar el filtrado')
 
       const filteredWords = words
         //.filter(word => word.value >= minimumWordFrequency)

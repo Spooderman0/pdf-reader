@@ -16,7 +16,7 @@ export const  SeccionTerminosIzquierda = ({docID}) => {
             setFileText(location.state.fileText);
         }
     }, [location]);
-    console.log('estoy en terminos y el docID como prop es', docID)
+    //console.log('estoy en terminos y el docID como prop es', docID)
 
     useEffect(() => {
         const termsData = async () => {
