@@ -25,6 +25,9 @@ const Modal = ({isOpen, close }) => {
       // const uploadResponse = await fetch('http://127.0.0.1:5000/U1/upload_file2', {
         method: 'POST',
         body: formData,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        }
       });
 
       if(!uploadResponse.ok)
@@ -32,6 +35,7 @@ const Modal = ({isOpen, close }) => {
         throw new Error(uploadData.error || 'Failed to upload file');
       }
       const uploadData = await uploadResponse.json();
+      console.log(uploadData)
 
       // console.log('Docref:', uploadData.doc_ref);
 
