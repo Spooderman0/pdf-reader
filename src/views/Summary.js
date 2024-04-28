@@ -35,7 +35,7 @@ export const  Summary = ({summary}) => {
         setFileUrl(location.state.fileUrl)
     }
   }, [location, location.state]);
-  //console.log('Estoy en la vista de Summary y este es')
+  //console.log('Estoy en la vista de Summary y este es', summary)
 
   return (
         <div className="flex flex-col justify-between" style={{height: "70dvh"}}>
