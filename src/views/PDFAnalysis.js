@@ -56,18 +56,14 @@ export const  PDFAnalysisIndice = () => {
   //console.log('Estoy en la vista de PDFAnalysisIndice y este es')
   // console.log('Estoy en la vista de PDFAnalysisIndice y el docid es', docID)
 
-  const handleOnClick = () => {
-   navigate('main/pdf-analysis-terminos', { state: { docID: docID } })
-  }
-
   const getDocData = async (docId) => {
 
 
     try {
       // const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
         // console.log("+=======docId: ", docId)
-      // const uploadResponse = await fetch(`http://127.0.0.1:5000/U1/${docId}`, {
-      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/${docId}`, {
+      // const uploadResponse = await fetch(`http://127.0.0.1:5000/U1/analysis/${docId}`, {
+      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
@@ -75,7 +71,7 @@ export const  PDFAnalysisIndice = () => {
       });
 
       const uploadData = await uploadResponse.json();
-      // console.log(uploadData);
+      console.log(uploadData);
       setDocData({...uploadData});
       // console.log(docData);
 
