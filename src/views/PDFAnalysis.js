@@ -30,6 +30,8 @@ export const  PDFAnalysisIndice = () => {
   const navigate = useNavigate()
   const { docId } = useParams();
   const [docData, setDocData] = useState({});
+  const [analysisData, setAnalysisData] = useState({});
+  const [docURL, setDocURL] = useState('');
 
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: {fileUrl } })
 
@@ -39,6 +41,7 @@ export const  PDFAnalysisIndice = () => {
     console.log(docId)
     if(docId){
       getDocData(docId);
+      getAnalysisData(docId)
     }
   
   }, [currentSection, docId]);
@@ -55,15 +58,31 @@ export const  PDFAnalysisIndice = () => {
 
   console.log('el url es', fileUrl)
 
+  const getAnalysisData = async (docId) => {
+    
+    try {
+      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
+        method: 'GET',
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+
+      const uploadData = await uploadResponse.json();
+      console.log(uploadData);
+      setAnalysisData({...uploadData});
+      // console.log(docData);
+
+    } catch (error) {
+      console.error('Failed to get document data:', error);
+    }
+
+  };
 
   const getDocData = async (docId) => {
-
-
+    
     try {
-      // const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
-        // console.log("+=======docId: ", docId)
-      // const uploadResponse = await fetch(`http://127.0.0.1:5000/U1/analysis/${docId}`, {
-      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
+      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/main_info/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
@@ -74,12 +93,14 @@ export const  PDFAnalysisIndice = () => {
       console.log(uploadData);
       setDocData({...uploadData});
       // console.log(docData);
-
     } catch (error) {
       console.error('Failed to get document data:', error);
     }
 
   };
+
+  console.log(analysisData.Abstract)
+  console.log(docData.Storage_URL)
 
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
@@ -88,7 +109,7 @@ export const  PDFAnalysisIndice = () => {
                 <h4 className="mb-4 text-4xl font-bold">Algoritmos: análisis, diseño e implementación</h4>
             </div>
             {/* Cambiar componentes izquierda dependiendo de la seccion  */}
-            {currentSection === "indice" && <Portada/>}
+            {currentSection === "indice" && <Portada docURL = {docData.Storage_URL}/>}
             {currentSection === "terminos" && <SeccionTerminosIzquierda docID ={docId}/>}
         </div>
         <div className="basis-3/5 flex flex-col py-3 px-3">
@@ -96,7 +117,7 @@ export const  PDFAnalysisIndice = () => {
               setCurrentSection={setCurrentSection}
             />
             {/* Cambiar componentes derecha dependiendo de la seccion  */}
-            {currentSection === "indice" && <Summary summary={docData.Abstract}/>}
+            {currentSection === "indice" && <Summary summary={analysisData.Abstract}/>}
             {currentSection === "terminos" && <SeccionTerminosDerecha/>}
         </div>
     </div>
