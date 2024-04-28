@@ -100,7 +100,7 @@ export const  PDFAnalysisIndice = () => {
               setCurrentSection={setCurrentSection}
             />
             {/* Cambiar componentes derecha dependiendo de la seccion  */}
-            {currentSection === "indice" && <Summary summary={docData.Summary}/>}
+            {currentSection === "indice" && <Summary summary={docData.Abstract}/>}
             {currentSection === "terminos" && <SeccionTerminosDerecha/>}
         </div>
     </div>
