@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom'
 import AnalysisButtons from '../Components/AnalysisButtons';
 import { Portada, Summary } from '../Components/SeccionIndice';
 import { SeccionTerminosIzquierda, SeccionTerminosDerecha } from '../Components/SeccionTerminos';
+import ChatBox from '../Components/ChatBox';
+import ConversationHistory from '../Components/ConversationHistory';
 
 
 export const  PDFAnalysis = () => {
@@ -90,6 +92,14 @@ export const  PDFAnalysis = () => {
 
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
+      {currentSection === "frida" ? (
+            <div style={{ overflowY: 'hidden' }}> {/* Aquí establecemos overflowY: hidden para ocultar el scroll vertical */}
+
+            <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} /> 
+            <ConversationHistory />
+          </div>
+        ) : (
+        <>
           <div className="basis-2/5 flex flex-col py-3 px-3">
             <div style={{ height: '15dvh' }}>
                 <h4 className="mb-4 text-4xl font-bold">Algoritmos: análisis, diseño e implementación</h4>
@@ -97,15 +107,19 @@ export const  PDFAnalysis = () => {
             {/* Cambiar componentes izquierda dependiendo de la seccion  */}
             {currentSection === "indice" && <Portada docURL = {docData.Storage_URL}/>}
             {currentSection === "terminos" && <SeccionTerminosIzquierda docID ={docId}/>}
-        </div>
-        <div className="basis-3/5 flex flex-col py-3 px-3">
+          </div>
+          <div className="basis-3/5 flex flex-col py-3 px-3">
             <AnalysisButtons 
               setCurrentSection={setCurrentSection}
             />
             {/* Cambiar componentes derecha dependiendo de la seccion  */}
             {currentSection === "indice" && <Summary summary={analysisData.Abstract}/>}
             {currentSection === "terminos" && <SeccionTerminosDerecha/>}
-        </div>
+          </div>
+        </>
+      )}
+
+
     </div>
   );
 }

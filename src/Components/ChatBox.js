@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-export const Chatbox = ({ onMessageSent }) => {
+export const Chatbox = ({ onMessageSent, docId }) => {
   const [message, setMessage] = useState('');
   const [conversation, setConversation] = useState([]);
 
@@ -12,8 +12,10 @@ export const Chatbox = ({ onMessageSent }) => {
     try {
         setConversation(prevConversation => [...prevConversation, { owner: "Usuario", message: message }]);
 
-        // const response = await fetch(`https://httpsflaskexample-2qaksr7roa-uc.a.run.app/chatbot/${message}`, {
-        const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${message}`, {
+        // const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${message}`, {
+        // console.log("=======Doc id: ", docId)
+        const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/${message}`, {
+        // const response = await fetch(`http://127.0.0.1:5000/U1/chatbot/${docId}/${message}`, {
         // const response = await fetch(`http://127.0.0.1:5000/U1/chatbot/${message}`, {
             method: 'GET',
             // headers: {
@@ -46,7 +48,7 @@ export const Chatbox = ({ onMessageSent }) => {
 
   return (
     <div className="flex items-center h-screen justify-end">
-      <div className="container mx-auto bg-gray-100 rounded-[12px] shadow-lg h-dvh p-8 flex flex-col" style={{ width: '4000px', height: '800px', margin: '10px' }}>
+      <div className="container mx-auto bg-gray-100 rounded-[12px] shadow-lg h-dvh p-8 flex flex-col" style={{ width: '100dvw', height: '90dvh', margin: '10px', marginTop: "40dvh" }}>
         <div className="text-black font-bold text-4xl mb-4">AI Chat Helper</div>
         {/* Contenedor para mostrar la conversación */}
         <div className="flex-grow overflow-auto border border-gray-300 rounded-md p-4">
