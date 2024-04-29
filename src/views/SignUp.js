@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Importa Link de react-router-dom
-import pdfAnalyzerlogo from ".../pdf-reader/src/Images/pdf_analyzer_logo.png"
+import pdfAnalyzerlogo from '@images/pdf_analyzer_logo.png';
 
 
 
