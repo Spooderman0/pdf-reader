@@ -45,6 +45,7 @@ export const  PDFAnalysisIndice = () => {
 
   useEffect(() => {
     // console.log('Location state:', location.state)
+    console.log("Si está actualizado!!!!!!!!!")
     if(location.state) {
         setFileText(location.state.fileText)
         setFileUrl(location.state.fileUrl)
