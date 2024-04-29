@@ -46,7 +46,7 @@ export const  PDFAnalysisTerminos = () => {
 
     
 
-    function extractWords(text) {
+   /* function extractWords(text) {
         const wordsArray = text.split(/\s+/);
         const wordCounts = wordsArray.reduce((acc, word) => {
             word = word.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, ""); // Remueve la puntuación
@@ -59,7 +59,7 @@ export const  PDFAnalysisTerminos = () => {
         return Object.entries(wordCounts).map(([text, value]) => {
             return { text, value: value * 10 }; // Ajuste el tamaño de la fuente multiplicando por 10 o cualquier otro factor
         });
-    }
+    }*/
 
   return (
     <div className="flex flex-col min-h-screen bg-white">

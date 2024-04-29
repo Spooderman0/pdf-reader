@@ -8,16 +8,6 @@ import Summary from './Summary';
 import SeccionTerminosIzquierda from '../Components/SeccionTerminosIzquierda';
 import SeccionTerminosDerecha from '../Components/SeccionTerminosDerecha';
 
-const ShowVistaPreliminar = ({url, onClose}) => {
-    return (
-        <div className="popup-overlay" onClick={onClose}>
-          <div className="popup">
-            <iframe src={url} frameborder="0" allowfullscreen></iframe>
-          </div>
-        </div>
-      );
-}
-
 
 export const  PDFAnalysisIndice = () => {
   const [currentSection, setCurrentSection] = useState("indice");
