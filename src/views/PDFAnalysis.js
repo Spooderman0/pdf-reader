@@ -2,24 +2,12 @@ import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
-import Portada from '../Components/Portada';
 import AnalysisButtons from '../Components/AnalysisButtons';
-import Summary from './Summary';
-import SeccionTerminosIzquierda from '../Components/SeccionTerminosIzquierda';
-import SeccionTerminosDerecha from '../Components/SeccionTerminosDerecha';
-
-const ShowVistaPreliminar = ({url, onClose}) => {
-    return (
-        <div className="popup-overlay" onClick={onClose}>
-          <div className="popup">
-            <iframe src={url} frameborder="0" allowfullscreen></iframe>
-          </div>
-        </div>
-      );
-}
+import { Portada, Summary } from '../Components/SeccionIndice';
+import { SeccionTerminosIzquierda, SeccionTerminosDerecha } from '../Components/SeccionTerminos';
 
 
-export const  PDFAnalysisIndice = () => {
+export const  PDFAnalysis = () => {
   const [currentSection, setCurrentSection] = useState("indice");
 
   const location = useLocation();
@@ -122,4 +110,4 @@ export const  PDFAnalysisIndice = () => {
   );
 }
 
-export default PDFAnalysisIndice;
+export default PDFAnalysis;
