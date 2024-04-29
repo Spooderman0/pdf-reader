@@ -43,6 +43,7 @@ const LogIn = () => {
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
                 className="mx-auto h-28 w-auto"
+                // Logo
                 src={pdfAnalyzerlogo}
                 alt="Your Company"
               />
@@ -118,8 +119,11 @@ const LogIn = () => {
                 </Link>
               </p>
             </div>
+
           </div>
+
         </div>
+
       </div>
   );
 };
