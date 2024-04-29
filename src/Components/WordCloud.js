@@ -32,7 +32,7 @@ const WordCloud = ({ words }) => {
         //.fontSize(d => (d.size * 20)) // por lo que no se muestra la dif. de tamaño osea si le pongo *1000 ya pero es too big
         .on('end', draw);
 
-      console.log('las words', layout.words())
+      //console.log('las words', layout.words())
 
       layout.start();
 
