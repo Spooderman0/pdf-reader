@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'; // Importa Link de react-r
 import pdfAnalyzerLogo from '@Images/pdf_analyzer_logo.png';
 
 
-
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
