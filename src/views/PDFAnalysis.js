@@ -21,16 +21,9 @@ const ShowVistaPreliminar = ({url, onClose}) => {
 
 export const  PDFAnalysisIndice = () => {
   const [currentSection, setCurrentSection] = useState("indice");
-
-  const location = useLocation();
-  const [fileText, setFileText] = useState('');
-  const [fileUrl, setFileUrl] = useState('');
-  const [keywords, setKeywords] = useState([]);
-  const navigate = useNavigate()
   const { docId } = useParams();
   const [docData, setDocData] = useState({});
   const [analysisData, setAnalysisData] = useState({});
-  const [docURL, setDocURL] = useState('');
 
 
   useEffect(() => {
@@ -43,17 +36,6 @@ export const  PDFAnalysisIndice = () => {
   
   }, [currentSection, docId]);
 
-  useEffect(() => {
-    // console.log('Location state:', location.state)
-    if(location.state) {
-        setFileText(location.state.fileText)
-        setFileUrl(location.state.fileUrl)
-        setKeywords(location.state.keywords)
-        //setDocID(location.state.docID)
-    }
-  }, [location, location.state]);
-
-  console.log('el url es', fileUrl)
 
   const getAnalysisData = async (docId) => {
     
@@ -68,13 +50,12 @@ export const  PDFAnalysisIndice = () => {
       const uploadData = await uploadResponse.json();
       console.log(uploadData);
       setAnalysisData({...uploadData});
-      // console.log(docData);
 
     } catch (error) {
       console.error('Failed to get document data:', error);
     }
-
   };
+
 
   const getDocData = async (docId) => {
     
@@ -89,15 +70,11 @@ export const  PDFAnalysisIndice = () => {
       const uploadData = await uploadResponse.json();
       console.log(uploadData);
       setDocData({...uploadData});
-      // console.log(docData);
     } catch (error) {
       console.error('Failed to get document data:', error);
     }
-
   };
 
-  console.log(analysisData.Abstract)
-  console.log(docData.Storage_URL)
 
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>

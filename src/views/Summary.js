@@ -4,27 +4,13 @@ import { useLocation } from 'react-router-dom'
 
 
 
-export const  Summary = ({summary}) => {
-
-  const location = useLocation();
-  const [fileText, setFileText] = useState('');
-  const [fileUrl, setFileUrl] = useState('');
-
-
-  useEffect(() => {
-    console.log('Location state:', location.state)
-    if(location.state) {
-        setFileText(location.state.fileText)
-        setFileUrl(location.state.fileUrl)
-    }
-  }, [location, location.state]);
-  //console.log('Estoy en la vista de Summary y este es', summary)
+export const  Summary = ({summary}) => {  
 
   return (
         <div className="flex flex-col justify-between" style={{height: "70dvh"}}>
             <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto" style={{width: "60dvw", height: "40dvh"}}>
                 <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
-                <p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>
+                {/*<p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>*/}
                 {/* <p> URL del archivo: {fileUrl} </p> */}
                 <p> {summary} </p>
                 
