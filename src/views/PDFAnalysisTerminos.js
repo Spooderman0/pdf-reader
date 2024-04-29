@@ -2,23 +2,14 @@ import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import { Link, useLocation } from "react-router-dom";
 import terminosRelacionadosImg from '../Images/TerminosRelacionados.png'
-import nubePalabrasImg from '../Images/NubePalabras.png'
 import frecuenciaPalabrasImg from '../Images/FrecuenciaPalabras.png'
 import WordCloud from '../Components/WordCloud';
-import { doc } from 'firebase/firestore/lite';
 
 export const  PDFAnalysisTerminos = () => {
 
-    const location = useLocation();
-    const [fileText, setFileText] = useState('');
     //const [docID, setDocID] = useState('');
     const [wordCloudData, setWordCloudData] = useState([]);
 
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true); 
-  const closeModal = () => setIsModalOpen(false);
 
 
     /*useEffect(() => {
