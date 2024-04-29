@@ -49,7 +49,13 @@ export const  AnalysisButtons = ({setCurrentSection}) => {
                     TÉRMINOS
                 </button>
             <Link to="#"><button className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2">FIGURAS</button></Link>
-            <Link to="/chatbot"><button className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2">FRIDA</button></Link>
+            {/* <Link to="/chatbot"><button className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2">FRIDA</button></Link> */}
+            <button 
+                className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2"
+                onClick={() => setCurrentSection("frida")} 
+                >
+                    FRIDA
+            </button>
             {/* <Link to="/pdf-analysis-indice"><button className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2">ÍNDICE</button></Link>
             <Link 
                 to={{
