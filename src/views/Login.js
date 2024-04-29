@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import pdfAnalyzerLogo from '@Images/pdf_analyzer_logo.png';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
@@ -43,7 +44,7 @@ const LogIn = () => {
               <img
                 className="mx-auto h-28 w-auto"
                 // Logo
-                src={pdfAnalyzerlogo}
+                src={pdfAnalyzerLogo}
                 alt="Your Company"
               />
               <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
