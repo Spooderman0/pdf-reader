@@ -34,8 +34,8 @@ export const  PDFAnalysisIndice = () => {
 
 
   useEffect(() => {
-    console.log('Current section:', currentSection)
-    console.log(docId)
+    // console.log('Current section:', currentSection)
+    // console.log(docId)
     if(docId){
       getDocData(docId);
       getAnalysisData(docId)
@@ -45,7 +45,6 @@ export const  PDFAnalysisIndice = () => {
 
   useEffect(() => {
     // console.log('Location state:', location.state)
-    console.log("Si está actualizado!!!!!!!!!")
     if(location.state) {
         setFileText(location.state.fileText)
         setFileUrl(location.state.fileUrl)
@@ -54,7 +53,7 @@ export const  PDFAnalysisIndice = () => {
     }
   }, [location, location.state]);
 
-  console.log('el url es', fileUrl)
+  // console.log('el url es', fileUrl)
 
   const getAnalysisData = async (docId) => {
     
@@ -67,7 +66,7 @@ export const  PDFAnalysisIndice = () => {
       });
 
       const uploadData = await uploadResponse.json();
-      console.log(uploadData);
+      // console.log(uploadData);
       setAnalysisData({...uploadData});
       // console.log(docData);
 
@@ -88,7 +87,7 @@ export const  PDFAnalysisIndice = () => {
       });
 
       const uploadData = await uploadResponse.json();
-      console.log(uploadData);
+      // console.log(uploadData);
       setDocData({...uploadData});
       // console.log(docData);
     } catch (error) {
@@ -97,8 +96,8 @@ export const  PDFAnalysisIndice = () => {
 
   };
 
-  console.log(analysisData.Abstract)
-  console.log(docData.Storage_URL)
+  // console.log(analysisData.Abstract)
+  // console.log(docData.Storage_URL)
 
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
