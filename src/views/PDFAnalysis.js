@@ -27,8 +27,8 @@ export const  PDFAnalysisIndice = () => {
 
 
   useEffect(() => {
-    console.log('Current section:', currentSection)
-    console.log(docId)
+    // console.log('Current section:', currentSection)
+    // console.log(docId)
     if(docId){
       getDocData(docId);
       getAnalysisData(docId)
@@ -48,7 +48,7 @@ export const  PDFAnalysisIndice = () => {
       });
 
       const uploadData = await uploadResponse.json();
-      console.log(uploadData);
+      // console.log(uploadData);
       setAnalysisData({...uploadData});
 
     } catch (error) {
@@ -68,13 +68,15 @@ export const  PDFAnalysisIndice = () => {
       });
 
       const uploadData = await uploadResponse.json();
-      console.log(uploadData);
+      // console.log(uploadData);
       setDocData({...uploadData});
     } catch (error) {
       console.error('Failed to get document data:', error);
     }
   };
 
+  // console.log(analysisData.Abstract)
+  // console.log(docData.Storage_URL)
 
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
