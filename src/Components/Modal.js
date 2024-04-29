@@ -21,10 +21,12 @@ const Modal = ({isOpen, close }) => {
 
     try {
       setIsLoading(true);
-      const uploadResponse = await fetch('https://pdf-reader-9s86.onrender.com/U1/upload_file2', {
-      //const uploadResponse = await fetch('https://fridarender.onrender.com/upload_file', {
+      const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
         method: 'POST',
         body: formData,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        }
       });
 
       if(!uploadResponse.ok)
@@ -32,10 +34,11 @@ const Modal = ({isOpen, close }) => {
         throw new Error(uploadData.error || 'Failed to upload file');
       }
       const uploadData = await uploadResponse.json();
+      console.log(uploadData)
 
-      console.log('Data to be sent:', uploadData.public_url, uploadData.text);
+      // console.log('Docref:', uploadData.doc_ref);
 
-      navigate('/pdf-analysis', { state: { fileText: uploadData.text, fileUrl: uploadData.public_url } });
+      navigate(`../main/pdf-analysis/${uploadData.doc_id}`)
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);
@@ -121,11 +124,13 @@ const Modal = ({isOpen, close }) => {
             <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300 w-full">
               Subir desde URL
             </button>
+          <input type="url" placeholder="Subir URL" className="px-4 py-2 border rounded w-full" />
           </Link>
         </div>
         <div className="mb-4">
           <input type="text" placeholder="Ingresar texto" className="px-4 py-2 border rounded w-full" />
         </div>
+
             </>
         )}
 

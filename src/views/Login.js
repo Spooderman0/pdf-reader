@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import pdfAnalyzerlogo from "C:/Users/emhug/OneDrive/Escritorio/PROGRAMAS TEC/PDF READER/pdf-reader/src/Images/pdf_analyzer_logo.png"
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +11,7 @@ const LogIn = () => {
       e.preventDefault(); 
 
       // const response = await fetch ('http://localhost:5000/login', {
-      const response = await fetch ('https://pdf-reader-9s86.onrender.com/login', {
+      const response = await fetch ('https://frida-backend.onrender.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

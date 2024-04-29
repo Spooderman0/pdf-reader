@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import portadaLibro from '../Images/PortadaLibro.png'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
-export const  Portada = () => {
 
-  const location = useLocation();
-  const [fileText, setFileText] = useState('');
-  const [fileUrl, setFileUrl] = useState('');
+export const  Portada = ({docURL}) => {
+
   const navigate = useNavigate()
-
-  const handleOpenPopup = () => navigate('/vistapreliminar', { state: {fileUrl } })
-
-
-  useEffect(() => {
-    console.log('Location state:', location.state)
-    if(location.state) {
-        setFileText(location.state.fileText)
-        setFileUrl(location.state.fileUrl)
-    }
-  }, [location, location.state]);
+  const handleOpenPopup = () => navigate('/vistapreliminar', { state: {docURL } })
 
   return (
     <div className="card p-3 bg-gray-100 border-0 shadow-md" style={{height: "70dvh"}}>

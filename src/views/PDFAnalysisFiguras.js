@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar, Line, Doughnut } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import Navbar from '../Components/Navbar';
 import { Link } from "react-router-dom";
 import {

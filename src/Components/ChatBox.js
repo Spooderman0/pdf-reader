@@ -13,14 +13,16 @@ export const Chatbox = ({ onMessageSent }) => {
         setConversation(prevConversation => [...prevConversation, { owner: "Usuario", message: message }]);
 
         // const response = await fetch(`https://httpsflaskexample-2qaksr7roa-uc.a.run.app/chatbot/${message}`, {
-        const response = await fetch(`https://httpsflaskexample-2qaksr7roa-uc.a.run.app/chatbot/${message}`, {
+        const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${message}`, {
+        // const response = await fetch(`http://127.0.0.1:5000/U1/chatbot/${message}`, {
             method: 'GET',
-            headers: {
-                'Access-Control-Allow-Origin':  '*',
-                'Content-Type': 'application/json',
-                // Add any additional headers if needed
-            },
+            // headers: {
+            //     'Access-Control-Allow-Origin':  '*',
+            //     'Content-Type': 'application/json',
+            //     // Add any additional headers if needed
+            // },
         });
+        console.log(response)
 
         if (!response.ok) {
             throw new Error('Network response was not ok');

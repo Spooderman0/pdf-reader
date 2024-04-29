@@ -2,31 +2,51 @@ import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import { Link, useLocation } from "react-router-dom";
 import terminosRelacionadosImg from '../Images/TerminosRelacionados.png'
-import nubePalabrasImg from '../Images/NubePalabras.png'
 import frecuenciaPalabrasImg from '../Images/FrecuenciaPalabras.png'
 import WordCloud from '../Components/WordCloud';
 
 export const  PDFAnalysisTerminos = () => {
 
-    const location = useLocation();
-    const [fileText, setFileText] = useState('');
+    //const [docID, setDocID] = useState('');
     const [wordCloudData, setWordCloudData] = useState([]);
 
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true); 
-  const closeModal = () => setIsModalOpen(false);
-
-
-    useEffect(() => {
-        if (location.state?.fileText) {
-            setFileText(location.state.fileText);
-            setWordCloudData(extractWords(location.state.fileText));
+    /*useEffect(() => {
+        console.log(location.state)
+        if (location.state) {
+            //setFileText(location.state.fileText);
+            //setDocID(extractWords(location.state.keywords));
+            setDocID(location.state.docID);
         }
-    }, [location]);
+    }, [location, location.state]);*/
+   // console.log('estoy en terminos y el docid es', docID)
 
-    function extractWords(text) {
+   /*
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            //const response = await fetch(`https://pdf-reader-9s86.onrender.com/U1/keyterms/${docID}`);
+            const response = await fetch(`https://localhost:5000/U1/keyterms/${docID}`);
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data)
+            } else {
+                throw new Error('Failed to fetch data');
+            }
+        } catch (error) {
+        console.error('Error fetching data:', error);
+        }
+  };
+
+  if (docID) {
+    fetchData();
+  }
+}, [docID]); */
+
+    
+
+   /* function extractWords(text) {
         const wordsArray = text.split(/\s+/);
         const wordCounts = wordsArray.reduce((acc, word) => {
             word = word.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, ""); // Remueve la puntuación
@@ -39,7 +59,7 @@ export const  PDFAnalysisTerminos = () => {
         return Object.entries(wordCounts).map(([text, value]) => {
             return { text, value: value * 10 }; // Ajuste el tamaño de la fuente multiplicando por 10 o cualquier otro factor
         });
-    }
+    }*/
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -57,7 +77,7 @@ export const  PDFAnalysisTerminos = () => {
                         <img className='h-auto' style={{height: "25dvh"}} src={terminosRelacionadosImg} alt='terminos'/>
                     </div>
                 </div>
-                <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{ height: "33dvh" }}>
+                <div className="relative h-64 w-full" style={{ height: "33dvh" }}>
                         <h6 className='font-medium'>Nube de palabras</h6>
                         <WordCloud words={wordCloudData} />
                 </div>
