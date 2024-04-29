@@ -12,8 +12,6 @@ export const  AnalysisButtons = ({setCurrentSection}) => {
   const [fileUrl, setFileUrl] = useState('');
   const navigate = useNavigate()
 
-  const handleOpenPopup = () => navigate('/vistapreliminar', { state: {fileUrl } })
-
 
   useEffect(() => {
     console.log('Location state:', location.state)

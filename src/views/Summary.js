@@ -1,31 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
-import portadaLibro from '../Images/PortadaLibro.png'
-import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
-import Portada from '../Components/Portada';
-import AnalysisButtons from '../Components/AnalysisButtons';
 
-const ShowVistaPreliminar = ({url, onClose}) => {
-    return (
-        <div className="popup-overlay" onClick={onClose}>
-          <div className="popup">
-            <iframe src={url} frameborder="0" allowfullscreen></iframe>
-          </div>
-        </div>
-      );
-}
 
 
 export const  Summary = ({summary}) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const location = useLocation();
   const [fileText, setFileText] = useState('');
   const [fileUrl, setFileUrl] = useState('');
-  const navigate = useNavigate()
-
-  const handleOpenPopup = () => navigate('/vistapreliminar', { state: {fileUrl } })
 
 
   useEffect(() => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
-import portadaLibro from '../Images/PortadaLibro.png'
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
 import Portada from '../Components/Portada';
 import AnalysisButtons from '../Components/AnalysisButtons';
@@ -32,8 +31,6 @@ export const  PDFAnalysisIndice = () => {
   const [docData, setDocData] = useState({});
   const [analysisData, setAnalysisData] = useState({});
   const [docURL, setDocURL] = useState('');
-
-  const handleOpenPopup = () => navigate('/vistapreliminar', { state: {fileUrl } })
 
 
   useEffect(() => {
