@@ -24,7 +24,7 @@ const WordCloud = ({ words }) => {
           wordCloudRef.current.parentElement.offsetHeight
         ])
         //.words(filteredWords.map(word => ({ text: word.text, size: (1 - word.value) }))) // asi si sirve pero los valores estan muy cercanos
-        .words(filteredWords.map(word => ({ text: word.text, size: (0.1999 - word.value) * 150 })))
+        .words(filteredWords.map(word => ({ text: word.text, size: (0.1999 - word.value[0]) * 150 })))
 
         .padding(3)
         .rotate(0)
