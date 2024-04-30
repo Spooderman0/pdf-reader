@@ -1,6 +1,0 @@
-flask
-firebase-admin
-PyPDF2
-pdfplumber
-python-docx
-google-cloud

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import Modal from '../Components/Modal';
 import leftImage from '../Images/undraw_Online_articles_re_yrkj.png'; 
-import Navbar from '../Components/Navbar';
 
 export const  UploadPDF = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,7 +11,6 @@ export const  UploadPDF = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <Navbar />
       <div className="flex flex-grow">
         <div className="w-4/5 flex flex-col items-center justify-center p-8 space-y-4"> {/* Ajuste para mover a la izquierda */}
           <img src={leftImage} alt="Online articles" className="max-w-sm" />

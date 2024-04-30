@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../Images/pdf_analyzer_logo.png';
+import logo from '../Images/pdf_analyzer_logo2.png';
 import { CgMenu } from 'react-icons/cg';
 import { IoMdClose } from 'react-icons/io';
 
@@ -21,8 +21,8 @@ const Navbar = () => {
         </div>
         
         <div className="flex items-center space-x-4">
-          <Link to="/login" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Login
+          <Link to="/SignUp" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            SignUp
           </Link>
           <Link to="/logout" className="bg-black-500 text-white font-bold py-2 px-4 rounded">
             Logout
