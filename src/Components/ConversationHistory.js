@@ -6,7 +6,7 @@ const ConversationHistory = () => {
   const conversations = [
     { title: "Este un titulo como ejemplo para poder guardar la conversacion del chat" },
     { title: "Este un titulo como ejemplo para poder guardar la conversacion del chat" },
-    { title: "Este un titulo como ejemplo para poder guardar la conversacion del chat" },
+    { title: "Este un titulo como ejemplo para poder guardar la conversacio del chat" },
     { title: "Este un titulo como ejemplo para poder guardar la conversacion del chat" },
     { title: "Este un titulo como ejemplo para poder guardar la conversacion del chat" },
     { title: "Este un titulo como ejemplo para poder guardar la conversacion del chat" },
