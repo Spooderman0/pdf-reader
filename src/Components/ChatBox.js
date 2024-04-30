@@ -48,7 +48,7 @@ export const Chatbox = ({ onMessageSent, docId }) => {
 
   return (
     <div className="flex items-center h-screen justify-end">
-      <div className="container mx-auto bg-gray-100 rounded-[12px] shadow-lg h-dvh p-8 flex flex-col" style={{ width: '100dvw', height: '90dvh', margin: '10px', marginTop: "40dvh" }}>
+      <div className="container mx-auto bg-gray-100 rounded-[12px] shadow-lg h-dvh p-8 flex flex-col" style={{ width: '90dvw', height: '90dvh', margin: '200px', marginTop: "100dvh" }}>
         <div className="text-black font-bold text-4xl mb-4">AI Chat Helper</div>
         {/* Contenedor para mostrar la conversación */}
         <div className="flex-grow overflow-auto border border-gray-300 rounded-md p-4">
