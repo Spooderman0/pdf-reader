@@ -10,32 +10,44 @@ export const Chatbox = ({ onMessageSent, docId }) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
     try {
-        setConversation(prevConversation => [...prevConversation, { owner: "Usuario", message: message }]);
+        // setConversation(prevConversation => [...prevConversation, { owner: "Usuario", message: message }]);
 
-        // const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${message}`, {
-        // console.log("=======Doc id: ", docId)
         const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/${message}`, {
         // const response = await fetch(`http://127.0.0.1:5000/U1/chatbot/${docId}/${message}`, {
-        // const response = await fetch(`http://127.0.0.1:5000/U1/chatbot/${message}`, {
             method: 'GET',
-            // headers: {
-            //     'Access-Control-Allow-Origin':  '*',
-            //     'Content-Type': 'application/json',
-            //     // Add any additional headers if needed
-            // },
+
         });
-        console.log(response)
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
 
         const data = await response.json();
-        setConversation(prevConversation => [...prevConversation, { owner: "AI", message: data["respuestaAI"] }]);
+        // setConversation(prevConversation => [...prevConversation, { owner: "AI", message: data["respuestaAI"] }]);
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+  };
+
+  const getConversation = async () => {
+    try {
+        const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/conversation`, {
+        // const response = await fetch(`http://127.0.0.1:5000/U1/chatbot/${docId}/conversation`, {
+            method: 'GET',
+        });
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok while getting conversation');
+        }
+        
+        const data = await response.json();
+        setConversation(data.conversation)
+    } catch (error) {
+        console.error('Error fetching conversation:', error);
+    }
 };
+
+
 
   const scrollToBottom = () => {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -43,6 +55,7 @@ export const Chatbox = ({ onMessageSent, docId }) => {
 
   // Hacer scroll hacia abajo cada vez que la conversación se actualiza
   useEffect(() => {
+    getConversation();
     scrollToBottom();
   }, [conversation]);
 
