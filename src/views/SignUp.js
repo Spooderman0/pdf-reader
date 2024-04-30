@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Importa Link de react-router-dom
-
+import pdfAnalyzerLogo from '@Images/pdf_analyzer_logo.png';
 
 
 const SignUp = () => {
@@ -43,8 +43,8 @@ const SignUp = () => {
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
                 className="mx-auto h-28 w-auto"
-                
-                src={"../Components/src/Images/pdf_analyzer_logo.png"}
+                //Logo
+                src={pdfAnalyzerLogo}
                 alt="Your Company"
               />
               <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -110,11 +110,7 @@ const SignUp = () => {
                     placeholder='************'
                     className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
-                  <div className="text-sm">
-                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                      Forgot password?
-                    </a>
-                  </div>
+             
                 </div>
               </div>
 
@@ -135,8 +131,11 @@ const SignUp = () => {
                 </Link>
               </p>
             </div>
+
           </div>
+
         </div>  
+        
     </div>
   );
 };
