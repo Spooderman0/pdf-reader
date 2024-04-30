@@ -8,7 +8,7 @@ const ForgotPasswordModal = ({ showModal, closeModal }) => {
           {/* Fondo oscuro */}
           <div className="fixed inset-0 bg-black bg-opacity-10 transition-opacity" aria-hidden="true" onClick={closeModal}></div>
           {/* Contenido del modal */}
-          <div className="absolute bg-white w-full max-w-md mx-auto p-6 rounded-xl shadow-lg">
+          <div className="absolute bg-white w-full max-w-md mx-auto p-8 rounded-xl shadow-lg">
             <div className=" bg-white rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700">
               <div className="p-4 sm:p-7">
                 <div className="text-center">
