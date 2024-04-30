@@ -27,7 +27,7 @@ const ConversationHistory = () => {
     <div className="relative h-32 w-32">
       <div className="absolute inset-y-0 left-0 w-16" style={{ marginTop: '-510px' }}>
         <div className="container bg-gray-100 rounded-[12px] shadow-lg lg:w-[350px] lg:h-[760px] flex flex-col justify-start items-center overflow-y-auto overflow-x-hidden">
-          <div className="text-black font-bold text-2xl mb-4 bg-gray-100" style={{position: 'sticky', top: 0, width: '100%', zIndex: 1, padding: '10px 0', marginLeft:'100px' }}>Conversation History</div>
+          <div className="text-black font-bold text-2xl mb-4 bg-gray-100" style={{position: 'center', top: 0, width: '100%', zIndex: 1, padding: '10px 0', marginLeft:'100px' }}>Conversation History</div>
           <Scrollbars autoHide>
             <div className=' conversation-list mt-3' style={{marginLeft:'58px'}}>
                 {conversations.map((conversation, index) => (
