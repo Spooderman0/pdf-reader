@@ -3,9 +3,10 @@ import { useLocation } from 'react-router-dom'
 
 export const VistaPreliminar = () => {
     const location = useLocation();
-    const { docURL } = location.state;
+    const docURL = location.state && location.state.docURL;
+    //const { docURL } = location.state;
 
-    console.log('el url que se debe de ver en vista preliminar es', docURL)
+    //console.log('el url que se debe de ver en vista preliminar es', docURL)
     return (
         <div>
             <iframe
