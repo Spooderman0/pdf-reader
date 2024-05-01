@@ -12,16 +12,17 @@ export const  Portada = ({docURL}) => {
   const [fileUrl, setFileUrl] = useState('');
   const navigate = useNavigate()
 
+  //console.log('estoy e portada y el url que recibi como prop es', docURL)
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: {docURL } })
 
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log('Location state:', location.state)
     if(location.state) {
         setFileText(location.state.fileText)
         setFileUrl(location.state.fileUrl)
     }
-  }, [location, location.state]);
+  }, [location, location.state]);*/
 
   //console.log('estoy en portada y el url es', docURL)
 
@@ -48,13 +49,13 @@ export const  Summary = ({summary}) => {
     const [fileUrl, setFileUrl] = useState('');
   
   
-    useEffect(() => {
+    /*useEffect(() => {
       console.log('Location state:', location.state)
       if(location.state) {
           setFileText(location.state.fileText)
           setFileUrl(location.state.fileUrl)
       }
-    }, [location, location.state]);
+    }, [location, location.state]);*/
     //console.log('Estoy en la vista de Summary y este es', summary)
   
     return (

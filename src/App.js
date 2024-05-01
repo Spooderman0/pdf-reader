@@ -10,7 +10,7 @@ import Navbar from './Components/Navbar'; // Ajusta la ruta según la ubicación
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
 import PDFAnalysis from "./views/PDFAnalysis";
-import vistaPreliminar from "./views/vistaPreliminar";
+import VistaPreliminar from "./views/vistaPreliminar";
 
 
 
@@ -27,7 +27,7 @@ function App() {
           <Route path="main/pdf-analysis-terminos" exact element={<PDFAnalysisTerminos />} />
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/loading" exact element={<LoadingScreen/>} />
-          <Route path="/vistapreliminar" exact element={<vistaPreliminar/>} />
+          <Route path="/vistapreliminar" exact element={<VistaPreliminar/>} />
           <Route path="/history" exact element={<DocSummaryPage/>} />
         </Routes>
       </div>
