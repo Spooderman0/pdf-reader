@@ -66,7 +66,7 @@ export const  PDFAnalysis = () => {
   };
 
   // console.log(analysisData.Abstract)
-  // console.log(docData.Storage_URL)
+  //console.log(docData.Storage_URL)
 
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
