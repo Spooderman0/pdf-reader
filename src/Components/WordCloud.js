@@ -7,6 +7,8 @@ const WordCloud = ({ words }) => {
   const maxWordsToShow = 50; // Limita el número máximo de palabras a mostrar
   //const minimumWordFrequency = 3; // Muestra solo palabras con una frecuencia mayor a este valor
   //const minimumWordFrequency = 0.0001;
+  //const colorScale = d3.scaleSequential().interpolator(d3.interpolateBlues).domain([0, 1]);
+
 
   useEffect(() => {
     if (words.length && wordCloudRef.current) {
@@ -23,13 +25,12 @@ const WordCloud = ({ words }) => {
           wordCloudRef.current.parentElement.offsetWidth,
           wordCloudRef.current.parentElement.offsetHeight
         ])
-        //.words(filteredWords.map(word => ({ text: word.text, size: (1 - word.value) }))) // asi si sirve pero los valores estan muy cercanos
-        .words(filteredWords.map(word => ({ text: word.text, size: (0.1999 - word.value[0]) * 150 })))
-
+        //.words(filteredWords.map(word => ({ text: word.text, size: (1 - word.value[0]) }))) // asi si sirve pero los valores estan muy cercanos
+        .words(filteredWords.map(word => ({ text: word.text, size: (0.9999 - word.value[0]) * 25 })))
         .padding(3)
         .rotate(0)
         .fontSize(d => (d.size))
-        //.fontSize(d => (d.size * 20)) // por lo que no se muestra la dif. de tamaño osea si le pongo *1000 ya pero es too big
+        //.spiral('archimedean')
         .on('end', draw);
 
       //console.log('las words', layout.words())
@@ -48,6 +49,7 @@ const WordCloud = ({ words }) => {
           .append('text')
           .style('font-size', d => `${d.size}px`)
           .style('fill', () => `hsl(${Math.random() * 360},100%,50%)`)
+          //.style('fill', (d, i) => `hsl(${colorScale(i)},100%,50%)`)
           .attr('text-anchor', 'middle')
           .attr('transform', d => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
           .text(d => d.text);
