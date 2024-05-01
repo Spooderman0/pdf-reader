@@ -23,7 +23,7 @@ export const  Portada = ({docURL}) => {
     }
   }, [location, location.state]);
 
-  console.log('estoy en portada y el url es', docURL)
+  //console.log('estoy en portada y el url es', docURL)
 
   return (
     <div className="card p-3 bg-gray-100 border-0 shadow-md" style={{height: "70dvh"}}>
