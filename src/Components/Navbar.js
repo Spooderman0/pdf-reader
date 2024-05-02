@@ -24,7 +24,7 @@ const Navbar = () => {
           <Link to="/SignUp" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             SignUp
           </Link>
-          <Link to="/logout" className="bg-black-500 text-white font-bold py-2 px-4 rounded">
+          <Link to="/" className="bg-black-500 text-white font-bold py-2 px-4 rounded">
             Logout
           </Link>
         </div>

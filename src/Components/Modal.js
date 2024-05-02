@@ -119,17 +119,8 @@ const Modal = ({isOpen, close }) => {
             )
             )}
         </div>
-        <div className="mb-4">
-          <Link to="pdf-analysis" >
-            <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-300 w-full">
-              Subir desde URL
-            </button>
-          <input type="url" placeholder="Subir URL" className="px-4 py-2 border rounded w-full" />
-          </Link>
-        </div>
-        <div className="mb-4">
-          <input type="text" placeholder="Ingresar texto" className="px-4 py-2 border rounded w-full" />
-        </div>
+        
+        
 
             </>
         )}
