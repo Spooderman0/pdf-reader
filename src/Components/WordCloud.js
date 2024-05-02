@@ -6,9 +6,7 @@ const WordCloud = ({ words }) => {
   const wordCloudRef = useRef();
   const maxWordsToShow = 50; // Limita el número máximo de palabras a mostrar
   //const minimumWordFrequency = 3; // Muestra solo palabras con una frecuencia mayor a este valor
-  //const minimumWordFrequency = 0.0001;
-  //const colorScale = d3.scaleSequential().interpolator(d3.interpolateBlues).domain([0, 1]);
-  
+  //const minimumWordFrequency = 0.0001; 
 
 
   useEffect(() => {
