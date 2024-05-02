@@ -1,13 +1,39 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../Images/pdf_analyzer_logo2.png';
 import { CgMenu } from 'react-icons/cg';
 import { IoMdClose } from 'react-icons/io';
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => setMenuOpen(!isMenuOpen);
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('https://frida-backend.onrender.com/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Necesario si estás usando cookies para la autenticación
+      });
+
+      if (response.status === 200) {
+        // Aquí puedes también limpiar cualquier estado en el cliente, como tokens de autenticación o datos de sesión
+        // Ejemplo: localStorage.removeItem('userToken');
+
+        navigate('/'); // Asegúrate de redirigir al usuario a la página de login o a la página principal
+      } else {
+        const data = await response.json();
+        console.error('Cierre de sesión fallido:', data.message); // Asegúrate de ajustar esto según la respuesta de tu backend
+      }
+    } catch (error) {
+      console.error('Error al cerrar sesión', error);
+    }
+  }
+
 
   return (
     <>
@@ -24,9 +50,9 @@ const Navbar = () => {
           <Link to="/SignUp" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             SignUp
           </Link>
-          <Link to="/" className="bg-black-500 text-white font-bold py-2 px-4 rounded">
+          <button onClick={handleLogout} className="bg-black-500 text-white font-bold py-2 px-4 rounded">
             Logout
-          </Link>
+          </button>
         </div>
       </nav>
 
