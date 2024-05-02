@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { BACKEND_LINK } from '../utils/constants';
 import Scrollbars from 'react-custom-scrollbars';
 
 export const Chatbox = ({ onMessageSent, docId }) => {
@@ -14,10 +15,12 @@ export const Chatbox = ({ onMessageSent, docId }) => {
     try {
       setConversation(prevConversation => [...prevConversation, { owner: "Usuario", message: message }]);
 
-      const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/${message}`, {
-        method: 'GET',
-      });
-
+        // const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/${message}`, {
+        const response = await fetch(`${BACKEND_LINK}/U1/chatbot/${docId}/${message}`, {
+        // const response = await fetch(`http://127.0.0.1:5000/U1/chatbot/${docId}/${message}`, {
+            method: 'GET',
+        });
+        
       if (!response.ok) {
         throw new Error('La respuesta de la red no fue correcta');
       }
@@ -28,6 +31,27 @@ export const Chatbox = ({ onMessageSent, docId }) => {
       console.error('Error al obtener los datos:', error);
     }
   };
+
+  const getConversation = async () => {
+    try {
+      // const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/conversation`, {
+        // const response = await fetch(`http://127.0.0.1:5000/U1/chatbot/${docId}/conversation`, {
+          const response = await fetch(`${BACKEND_LINK}/U1/chatbot/${docId}/conversation`, {
+            method: 'GET',
+        });
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok while getting conversation');
+        }
+        
+        const data = await response.json();
+        setConversation(data.conversation)
+    } catch (error) {
+        console.error('Error fetching conversation:', error);
+    }
+};
+
+
 
   const scrollToBottom = () => {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" });

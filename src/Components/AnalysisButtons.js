@@ -12,14 +12,14 @@ export const  AnalysisButtons = ({setCurrentSection}) => {
   const [fileUrl, setFileUrl] = useState('');
   const navigate = useNavigate()
 
-
+/*
   useEffect(() => {
     console.log('Location state:', location.state)
     if(location.state) {
         setFileText(location.state.fileText)
         setFileUrl(location.state.fileUrl)
     }
-  }, [location, location.state]);
+  }, [location, location.state]);*/
 
   return (
         <div className="container w-full flex justify-between px-0 items-center" style={{height: "15dvh"}}>
