@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import frecuenciaPalabrasImg from '../Images/FrecuenciaPalabras.png'
 import terminosRelacionadosImg from '../Images/TerminosRelacionados.png'
 import WordCloud from './WordCloud';
+import { BACKEND_LINK } from '../utils/constants';
 
 export const  SeccionTerminosIzquierda = ({docID}) => {
 
@@ -11,7 +12,8 @@ export const  SeccionTerminosIzquierda = ({docID}) => {
     useEffect(() => {
         const termsData = async () => {
             try {
-                const response = await fetch(`https://frida-backend.onrender.com/U1/keyterms/${docID}`)
+                // const response = await fetch(`https://frida-backend.onrender.com/U1/keyterms/${docID}`)
+                const response = await fetch(`${BACKEND_LINK}/U1/keyterms/${docID}`)
                 if (response.ok)
                 {
                     const data = await response.json();
