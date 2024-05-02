@@ -13,6 +13,7 @@ const WordCloud = ({ words }) => {
     if (words.length && wordCloudRef.current) {
       //const scale = Math.min(wordCloudRef.current.parentElement.offsetWidth, wordCloudRef.current.parentElement.offsetHeight) / 500;
       //console.log(scale)
+      console.log(wordCloudRef.current.parentElement.offsetHeight)
 
       const filteredWords = words
         //.filter(word => word.value >= minimumWordFrequency)
@@ -61,7 +62,7 @@ const WordCloud = ({ words }) => {
   }, [words]);
 
   return (
-    <svg ref={wordCloudRef} style={{ width: '100%', height: '100%' }} />
+    <svg ref={wordCloudRef} style={{ width: '100%', height: '100%', maxHeight:'280dvh', maxWidth:'570' }} />
   );
 };
 
