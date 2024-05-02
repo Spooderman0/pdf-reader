@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Importa Link de react-router-dom
 import pdfAnalyzerLogo from '@Images/pdf_analyzer_logo.png';
+import { BACKEND_LINK } from '../utils/constants';
 
 
 const SignUp = () => {
@@ -13,7 +14,8 @@ const SignUp = () => {
     try {
       e.preventDefault(); 
 
-      const response = await fetch ('https://frida-backend.onrender.com/adduser', {
+      // const response = await fetch (`https://frida-backend.onrender.com/adduser`, {
+      const response = await fetch (`${BACKEND_LINK}/adduser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

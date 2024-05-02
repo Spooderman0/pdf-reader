@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { BACKEND_LINK } from '../utils/constants';
 
 export const Chatbox = ({ onMessageSent, docId }) => {
   const [message, setMessage] = useState('');
@@ -12,7 +13,8 @@ export const Chatbox = ({ onMessageSent, docId }) => {
     try {
         // setConversation(prevConversation => [...prevConversation, { owner: "Usuario", message: message }]);
 
-        const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/${message}`, {
+        // const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/${message}`, {
+        const response = await fetch(`${BACKEND_LINK}/U1/chatbot/${docId}/${message}`, {
         // const response = await fetch(`http://127.0.0.1:5000/U1/chatbot/${docId}/${message}`, {
             method: 'GET',
 
@@ -31,8 +33,9 @@ export const Chatbox = ({ onMessageSent, docId }) => {
 
   const getConversation = async () => {
     try {
-        const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/conversation`, {
+      // const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/conversation`, {
         // const response = await fetch(`http://127.0.0.1:5000/U1/chatbot/${docId}/conversation`, {
+          const response = await fetch(`${BACKEND_LINK}/U1/chatbot/${docId}/conversation`, {
             method: 'GET',
         });
         

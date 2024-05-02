@@ -7,6 +7,7 @@ import { Portada, Summary } from '../Components/SeccionIndice';
 import { SeccionTerminosIzquierda, SeccionTerminosDerecha } from '../Components/SeccionTerminos';
 import ChatBox from '../Components/ChatBox';
 import ConversationHistory from '../Components/ConversationHistory';
+import { BACKEND_LINK } from '../utils/constants';
 
 
 export const  PDFAnalysis = () => {
@@ -30,7 +31,8 @@ export const  PDFAnalysis = () => {
   const getAnalysisData = async (docId) => {
     
     try {
-      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
+      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/analysis/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
@@ -50,7 +52,8 @@ export const  PDFAnalysis = () => {
   const getDocData = async (docId) => {
     
     try {
-      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/main_info/${docId}`, {
+      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/main_info/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/main_info/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
