@@ -36,7 +36,7 @@ const Modal = ({isOpen, close }) => {
         throw new Error(uploadData.error || 'Failed to upload file');
       }
       const uploadData = await uploadResponse.json();
-      console.log(uploadData)
+      console.log(uploadData.doc_id)
 
       // console.log('Docref:', uploadData.doc_ref);
 
