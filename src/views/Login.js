@@ -1,7 +1,8 @@
 // LogIn.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import pdfAnalyzerLogo from '@Images/pdf_analyzer_logo.png';
+//import pdfAnalyzerLogo from '@Images/pdf_analyzer_logo.png';
+import pdfAnalyzerLogo from '../Images/pdf_analyzer_logo.png'
 import ForgotPasswordModal from "../Components/ForgotPasswordModal"
 import { BACKEND_LINK } from '../utils/constants';
 

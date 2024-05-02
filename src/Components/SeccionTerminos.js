@@ -58,7 +58,7 @@ export const  SeccionTerminosIzquierda = ({docID}) => {
         </div>
         <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{ height: "33dvh" }}>
             <h6 className='font-medium'>Nube de palabras</h6>
-            <WordCloud words={wordCloudData} />
+            <WordCloud words={wordCloudData}/>
         </div>
 
 
