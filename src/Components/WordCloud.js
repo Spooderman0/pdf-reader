@@ -53,8 +53,8 @@ const WordCloud = ({ words }) => {
           .enter()
           .append('text')
           .style('font-size', d => `${d.size}px`)
-          .style('fill', () => `hsl(${Math.random() * 360},100%,50%)`)
-          //.style('fill', (d, i) => `hsl(${colorScale(i)},100%,50%)`)
+          .style('fill', () => `hsl(${Math.random() * 60 + 200},100%,${Math.random() * 60 + 20}%)`)
+          //.style('text-shadow', '1px 1px 2px rgba(0,0,0,0.5)')
           .attr('text-anchor', 'middle')
           .attr('transform', d => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
           .text(d => d.text);
