@@ -82,7 +82,6 @@ export const  SeccionTerminosDerecha = () => {
                 <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{height: "33dvh"}}>
                     <h6 className='font-medium'>Frecuencia de términos</h6>
                     <div className="flex mt-1 justify-center">
-                        <img className='h-auto' style={{height: "25dvh"}} src={frecuenciaPalabrasImg} alt='terminos'/>
                     </div>
                 </div>
         </div>
