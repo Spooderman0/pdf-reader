@@ -8,12 +8,12 @@ export const Chatbox = ({ onMessageSent, docId }) => {
 
   const conversationEndRef = useRef(null);
   const inputRef = useRef(null);
+  
 
   const handleSubmitQuery = async (event) => {
     event.preventDefault(); // Prevenir el comportamiento de envío de formulario predeterminado
 
     try {
-      setConversation(prevConversation => [...prevConversation, { owner: "Usuario", message: message }]);
 
         // const response = await fetch(`https://frida-backend.onrender.com/U1/chatbot/${docId}/${message}`, {
         const response = await fetch(`${BACKEND_LINK}/U1/chatbot/${docId}/${message}`, {
@@ -26,7 +26,6 @@ export const Chatbox = ({ onMessageSent, docId }) => {
       }
 
       const data = await response.json();
-      setConversation(prevConversation => [...prevConversation, { owner: "AI", message: data["respuestaAI"] }]);
     } catch (error) {
       console.error('Error al obtener los datos:', error);
     }
@@ -59,6 +58,7 @@ export const Chatbox = ({ onMessageSent, docId }) => {
 
   // Hacer scroll hacia abajo cada vez que la conversación se actualiza
   useEffect(() => {
+    getConversation();
     scrollToBottom();
   }, [conversation]);
 

@@ -37,7 +37,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-black text-white py-4 px-6 flex justify-between items-center">
+      <nav className="bg-black text-white py-4 px-6 flex justify-between items-center" style={{height: "10dvh"}}>
         <div className="flex items-center space-x-4">
           <CgMenu className="text-3xl cursor-pointer" onClick={toggleMenu} />
           <img src={logo} alt="PDF Analyst Logo" className="h-10" />

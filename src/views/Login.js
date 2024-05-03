@@ -45,15 +45,15 @@ const LogIn = () => {
 
   return (
     <div>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="container mx-auto bg-gray-100 rounded-[12px] shadow-lg p-8 lg:w-[600px] lg:h-[590px]" style={{ boxSizing: 'border-box' }}>
+      <div className="flex flex-1 flex-col justify-center" style={{height: "90dvh"}}>
+        <div className="container mx-auto px-5 bg-gray-100 rounded-[12px] shadow-lg " style={{ boxSizing: 'border-box', height: "85dvh", width: "50dvw" }}>
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               className="mx-auto h-28 w-auto"
               src={pdfAnalyzerLogo}
               alt="Your Company"
             />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Login
             </h2>
           </div>

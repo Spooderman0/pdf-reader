@@ -38,9 +38,9 @@ const SignUp = () => {
   return (
     <div>
       {/* Agrega el componente Navbar */}
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center" style={{height: "90dvh"}}>
       {/* Contenido de la vista SignUp */}
-        <div class="container mx-auto bg-gray-100  rounded-[12px] shadow-lg p-8 lg:w-[600px] lg:h-[700px]" style={{ boxSizing: 'border-box' }}>
+        <div class="container mx-auto bg-gray-100  rounded-[12px] shadow-lg px-5 lg:w-[600px] lg:h-[700px]" style={{ boxSizing: 'border-box', height: "85dvh", width: "50dvw" }}>
           
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
@@ -49,12 +49,12 @@ const SignUp = () => {
                 src={pdfAnalyzerLogo}
                 alt="Your Company"
               />
-              <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+              <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                 Create an Account
               </h2>
             </div>
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <form className="space-y-6" onSubmit={handleSignUp}>
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
@@ -126,7 +126,7 @@ const SignUp = () => {
                 </div>
               </form>
 
-              <p className="mt-10 text-center text-sm text-gray-500">
+              <p className="mt-5 text-center text-sm text-gray-500">
                 Already have an account?{' '}
                 <Link to="/" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                   Log in

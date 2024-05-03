@@ -10,7 +10,7 @@ export const  UploadPDF = () => {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col bg-white" style={{height: "90dvh"}}>
       <div className="flex flex-grow">
         <div className="w-4/5 flex flex-col items-center justify-center p-8 space-y-4"> {/* Ajuste para mover a la izquierda */}
           <img src={leftImage} alt="Online articles" className="max-w-sm" />
