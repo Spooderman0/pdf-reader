@@ -15,6 +15,7 @@ export const  PDFAnalysis = () => {
   const { docId } = useParams();
   const [docData, setDocData] = useState({});
   const [analysisData, setAnalysisData] = useState({});
+  const [wordCloudData, setWordCloudData] = useState([]);
 
 
   useEffect(() => {
@@ -24,6 +25,7 @@ export const  PDFAnalysis = () => {
     if(docId){
       getDocData(docId);
       getAnalysisData(docId)
+      getWordCloudData(docId)
     }
   
   }, [currentSection, docId]);
@@ -53,7 +55,6 @@ export const  PDFAnalysis = () => {
   const getDocData = async (docId) => {
     
     try {
-      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/main_info/${docId}`, {
       const uploadResponse = await fetch(`${BACKEND_LINK}/U1/main_info/${docId}`, {
         method: 'GET',
         headers: {
@@ -69,7 +70,24 @@ export const  PDFAnalysis = () => {
     }
   };
 
-  // console.log(analysisData.Abstract)
+  const getWordCloudData = async (docId) => {
+    
+    try {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/keyterms/${docId}`, {
+        method: 'GET',
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+
+      const data = await uploadResponse.json();
+      const terminosArray = Object.entries(data.terms).map(([text, value]) => ({ text, value }));
+      setWordCloudData(terminosArray);
+    } catch (error) {
+      console.error('Failed to get document data:', error);
+    }
+  };
+
   //console.log(docData.Storage_URL)
 
   return (
@@ -88,7 +106,7 @@ export const  PDFAnalysis = () => {
             </div>
             {/* Cambiar componentes izquierda dependiendo de la seccion  */}
             {currentSection === "indice" && <Portada docURL = {docData.Storage_URL}/>}
-            {currentSection === "terminos" && <SeccionTerminosIzquierda docID ={docId}/>}
+            {currentSection === "terminos" && <SeccionTerminosIzquierda wordCloudData ={wordCloudData}/>}
           </div>
           <div className="basis-3/5 flex flex-col py-3 px-3">
             <AnalysisButtons 
@@ -96,7 +114,7 @@ export const  PDFAnalysis = () => {
             />
             {/* Cambiar componentes derecha dependiendo de la seccion  */}
             {currentSection === "indice" && <Summary summary={analysisData.Abstract}/>}
-            {currentSection === "terminos" && <SeccionTerminosDerecha/>}
+            {currentSection === "terminos" && <SeccionTerminosDerecha wordCloudData ={wordCloudData}/>}
           </div>
         </>
       )}
