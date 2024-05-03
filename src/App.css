@@ -1,17 +1,18 @@
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .spinner {
-  border: 4px solid rgba(255, 255, 255, 0.3);
+  border: 8px solid rgba(255, 255, 255, 0.3); /* Aumentamos el grosor del borde */
   border-radius: 50%;
   border-top-color: #3498db;
-  width: 50px;
-  height: 50px;
+  width: 200px; /* Aumentamos el ancho */
+  height: 200px; /* Aumentamos la altura */
   animation: spin 1s linear infinite;
+}
+
+/* Mantenemos la animación igual */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
