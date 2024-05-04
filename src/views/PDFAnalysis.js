@@ -35,11 +35,12 @@ export const  PDFAnalysis = () => {
     
     try {
       // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
-      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/analysis/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/analysis/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        }
+        },
+        credentials:'include',
       });
 
       const uploadData = await uploadResponse.json();
@@ -55,11 +56,12 @@ export const  PDFAnalysis = () => {
   const getDocData = async (docId) => {
     
     try {
-      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/main_info/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/main_info/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        }
+        },
+        credentials:'include',
       });
 
       const uploadData = await uploadResponse.json();
@@ -73,11 +75,12 @@ export const  PDFAnalysis = () => {
   const getWordCloudData = async (docId) => {
     
     try {
-      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/keyterms/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/keyterms/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        }
+        },
+        credentials:'include',
       });
 
       const data = await uploadResponse.json();

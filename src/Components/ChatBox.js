@@ -18,6 +18,10 @@ export const Chatbox = ({ onMessageSent, docId }) => {
 
         const response = await fetch(`${BACKEND_LINK}/U1/chatbot/${docId}/${message}`, {
             method: 'GET',
+            headers: {
+              "Access-Control-Allow-Origin": "*"
+            },
+            credentials:'include',
         });
         
       if (!response.ok) {
