@@ -22,8 +22,13 @@ const LogIn = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials:'include',
         body: JSON.stringify({ email, pwd }),
       });
+
+      //console.log(response)
+      const r = await response.json();
+      console.log(r)
 
       if (response.status === 200) {
         navigate('/main');

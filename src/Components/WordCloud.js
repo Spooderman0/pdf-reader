@@ -13,7 +13,7 @@ const WordCloud = ({ words }) => {
     if (words.length && wordCloudRef.current) {
       //const scale = Math.min(wordCloudRef.current.parentElement.offsetWidth, wordCloudRef.current.parentElement.offsetHeight) / 500;
       //console.log(scale)
-      console.log(wordCloudRef.current.parentElement.offsetHeight)
+      //console.log(wordCloudRef.current.parentElement.offsetHeight)
 
       const filteredWords = words
         //.filter(word => word.value >= minimumWordFrequency)
@@ -36,7 +36,7 @@ const WordCloud = ({ words }) => {
         .spiral('archimedean')
         .on('end', draw);
 
-      console.log('las words', layout.words())
+      //console.log('las words', layout.words())
 
       layout.start();
 
