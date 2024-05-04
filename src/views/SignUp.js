@@ -9,6 +9,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const navigate = useNavigate();
+  const [showError, setShowError] = useState(false);
 
   const handleSignUp = async (e) => {
     try {
@@ -28,9 +29,11 @@ const SignUp = () => {
       } else {
         const data = await response.json()
         console.error('Inicio de sesión fallido:', data.error);
+        setShowError(true);
       }
     }
     catch (error) {
+      setShowError(true);
       console.error('Error en LogIn', error);
     }
   }
@@ -40,7 +43,7 @@ const SignUp = () => {
       {/* Agrega el componente Navbar */}
       <div className="flex min-h-full flex-1 flex-col justify-center" style={{height: "90dvh"}}>
       {/* Contenido de la vista SignUp */}
-        <div class="container mx-auto bg-gray-100  rounded-[12px] shadow-lg px-5 lg:w-[600px] lg:h-[700px]" style={{ boxSizing: 'border-box', height: "85dvh", width: "50dvw" }}>
+        <div class="container mx-auto bg-gray-100  rounded-[12px] shadow-lg px-5 lg:w-[600px] lg:h-[700px] overflow-auto" style={{ boxSizing: 'border-box', height: "85dvh", width: "50dvw" }}>
           
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
@@ -50,15 +53,15 @@ const SignUp = () => {
                 alt="Your Company"
               />
               <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                Create an Account
+                Crear cuenta
               </h2>
             </div>
 
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
               <form className="space-y-6" onSubmit={handleSignUp}>
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                    Username
+                    Nombre de usuario
                   </label>
                   <div className="mt-2">
                     <input
@@ -77,7 +80,7 @@ const SignUp = () => {
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                    Email address
+                    E-mail
                   </label>
                   <div className="mt-2">
                     <input
@@ -97,7 +100,7 @@ const SignUp = () => {
               <div>
                 <div className="flex items-center justify-between">
                   <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                    Password
+                    Contraseña
                   </label>
                 </div>
                 <div className="mt-2">
@@ -117,19 +120,25 @@ const SignUp = () => {
               </div>
 
                 <div>
+
+                  { showError && (
+                    <p class="text-sm font-semibold text-red-600 mb-2 text-right">
+                    Error al crear cuenta!!
+                  </p>
+                  )}
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Sign up
+                    Registrarse
                   </button>
                 </div>
               </form>
 
-              <p className="mt-5 text-center text-sm text-gray-500">
-                Already have an account?{' '}
-                <Link to="/" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                  Log in
+              <p className="my-5 text-center text-sm text-gray-500">
+                Ya tienes cuenta?
+                <Link to="/" className=" ml-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                  Iniciar sesión
                 </Link>
               </p>
             </div>

@@ -10,6 +10,7 @@ const LogIn = () => {
   const [pwd, setPwd] = useState('');
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState(false);
 
   const handleLogIn = async (e) => {
     try {
@@ -28,10 +29,12 @@ const LogIn = () => {
       } else {
         const data = await response.json()
         console.error('Inicio de sesión fallido:', data.error);
+        setLoginError(true);
       }
     }
     catch (error) {
       console.error('Error en LogIn', error);
+      setLoginError(true);
     }
   }
 
@@ -54,14 +57,14 @@ const LogIn = () => {
               alt="Your Company"
             />
             <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Login
+              Inicio de sesión
             </h2>
           </div>
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" onSubmit={handleLogIn}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                  Email address
+                  E-mail
                 </label>
                 <div className="mt-2">
                   <input
@@ -79,7 +82,7 @@ const LogIn = () => {
               </div>
               <div>
                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
+                  Contraseña
                 </label>
                 <div className="mt-2">
                   <input
@@ -96,24 +99,30 @@ const LogIn = () => {
                   <div className="text-sm">
                     {/* Agregar evento de clic al enlace "Forgot password?" */}
                     <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500" onClick={openModal}>
-                      Forgot password?
+                      Olvidaste tu contraseña?
                     </a>
                   </div>
                 </div>
               </div>
               <div>
+                {loginError && (
+                  <p class="text-sm font-semibold text-red-600 mb-2 text-right">
+                    Email o contraseña incorrectos!!
+                  </p>
+
+                )}
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Login
+                  Iniciar sesión
                 </button>
               </div>
             </form>
             <p className="mt-10 text-center text-sm text-gray-500">
               No tienes cuenta?{' '}
               <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                SignUp
+                Crear cuenta
               </Link>
             </p>
           </div>
