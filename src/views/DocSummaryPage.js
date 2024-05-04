@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BACKEND_LINK } from '../utils/constants';
 
 const DocSummaryPage = () => {
   const [docs, setDocs] = useState([]);
   const [selectedDocURL, setSelectedDocURL] = useState(null);
-  const userId = 'U1';
-  const baseUrl = 'https://frida-backend.onrender.com';
+  //const userId = 'U1';
+  //const baseUrl = 'https://frida-backend.onrender.com';
 
-  useEffect(() => {
+  /*useEffect(() => {
     async function fetchDocs() {
       try {
         const response = await axios.get(`${baseUrl}/${userId}/docs`);
@@ -22,7 +23,32 @@ const DocSummaryPage = () => {
       }
     }
     fetchDocs();
-  }, [userId, baseUrl]);
+  }, [userId, baseUrl]);*/
+
+  useEffect(() => {
+    getAnalysisData()
+  }, []);
+
+  const getAnalysisData = async () => {
+    
+    try {
+      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/docs`, {
+        method: 'GET',
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
+        credentials:'include',
+      });
+
+      const uploadData = await uploadResponse.json();
+      // console.log(uploadData);
+      setDocs(uploadData);
+
+    } catch (error) {
+      console.error('Failed to get document data:', error);
+    }
+  };
 
   const handleSelectDoc = (index) => {
     const doc = docs[index];
@@ -33,6 +59,7 @@ const DocSummaryPage = () => {
       setSelectedDocURL(null);
     }
   };
+  
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -47,9 +74,10 @@ const DocSummaryPage = () => {
         </ul>
       </div>
       <div className="w-3/4 p-5">
-        {selectedDocURL ? (
+      {selectedDocURL ? (
           <iframe
             src={selectedDocURL}
+            //src={'https://storage.googleapis.com/pruebaapi-43fcf.appspot.com/ranas%20prueba.pdf'}
             title="Document Preview"
             width="100%"
             height="600"
@@ -58,6 +86,7 @@ const DocSummaryPage = () => {
         ) : (
           <p className="text-center text-gray-500">Selecciona un documento para ver su vista previa.</p>
         )}
+        
       </div>
     </div>
   );
