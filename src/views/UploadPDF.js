@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import Modal from '../Components/Modal';
 import leftImage from '../Images/undraw_Online_articles_re_yrkj.png'; 

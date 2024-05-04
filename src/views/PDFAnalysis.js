@@ -7,6 +7,7 @@ import { Portada, Summary } from '../Components/SeccionIndice';
 import { SeccionTerminosIzquierda, SeccionTerminosDerecha } from '../Components/SeccionTerminos';
 import ChatBox from '../Components/ChatBox';
 import ConversationHistory from '../Components/ConversationHistory';
+import { BACKEND_LINK } from '../utils/constants';
 
 
 export const  PDFAnalysis = () => {
@@ -14,6 +15,7 @@ export const  PDFAnalysis = () => {
   const { docId } = useParams();
   const [docData, setDocData] = useState({});
   const [analysisData, setAnalysisData] = useState({});
+  const [wordCloudData, setWordCloudData] = useState([]);
 
 
   useEffect(() => {
@@ -22,6 +24,7 @@ export const  PDFAnalysis = () => {
     if(docId){
       getDocData(docId);
       getAnalysisData(docId)
+      getWordCloudData(docId)
     }
   
   }, [currentSection, docId]);
@@ -30,17 +33,12 @@ export const  PDFAnalysis = () => {
   const getAnalysisData = async (docId) => {
     
     try {
-<<<<<<< Updated upstream
-      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
-=======
-      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/user_id/analysis/${docId}`, {
-      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/analysis/${docId}`, {
->>>>>>> Stashed changes
+      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/analysis/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        },
-        credentials: 'include'
+        }
       });
 
       const uploadData = await uploadResponse.json();
@@ -56,16 +54,11 @@ export const  PDFAnalysis = () => {
   const getDocData = async (docId) => {
     
     try {
-<<<<<<< Updated upstream
-      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/main_info/${docId}`, {
-=======
-      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/main_info/${docId}`, {
->>>>>>> Stashed changes
+      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/main_info/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        },
-        credentials: 'include'
+        }
       });
 
       const uploadData = await uploadResponse.json();
@@ -76,13 +69,10 @@ export const  PDFAnalysis = () => {
     }
   };
 
-<<<<<<< Updated upstream
-  // console.log(analysisData.Abstract)
-=======
   const getWordCloudData = async (docId) => {
     
     try {
-      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/keyterms/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/keyterms/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
@@ -97,7 +87,6 @@ export const  PDFAnalysis = () => {
     }
   };
 
->>>>>>> Stashed changes
   //console.log(docData.Storage_URL)
 
   return (
@@ -116,7 +105,7 @@ export const  PDFAnalysis = () => {
             </div>
             {/* Cambiar componentes izquierda dependiendo de la seccion  */}
             {currentSection === "indice" && <Portada docURL = {docData.Storage_URL}/>}
-            {currentSection === "terminos" && <SeccionTerminosIzquierda docID ={docId}/>}
+            {currentSection === "terminos" && <SeccionTerminosIzquierda wordCloudData ={wordCloudData}/>}
           </div>
           <div className="basis-3/5 flex flex-col py-3 px-3">
             <AnalysisButtons 
@@ -124,7 +113,7 @@ export const  PDFAnalysis = () => {
             />
             {/* Cambiar componentes derecha dependiendo de la seccion  */}
             {currentSection === "indice" && <Summary summary={analysisData.Abstract}/>}
-            {currentSection === "terminos" && <SeccionTerminosDerecha/>}
+            {currentSection === "terminos" && <SeccionTerminosDerecha wordCloudData ={wordCloudData}/>}
           </div>
         </>
       )}

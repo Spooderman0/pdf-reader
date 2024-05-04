@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
+import { BACKEND_LINK } from '../utils/constants';
 
 const Modal = ({isOpen, close }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -21,18 +22,13 @@ const Modal = ({isOpen, close }) => {
 
     try {
       setIsLoading(true);
-<<<<<<< Updated upstream
-      const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
-=======
       // const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
-      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/upload_file2`, {
->>>>>>> Stashed changes
+      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/upload_file2`, {
         method: 'POST',
         body: formData,
         headers: {
           "Access-Control-Allow-Origin": "*",
-        },
-        credentials: 'include',
+        }
       });
 
       if(!uploadResponse.ok)
@@ -40,7 +36,7 @@ const Modal = ({isOpen, close }) => {
         throw new Error(uploadData.error || 'Failed to upload file');
       }
       const uploadData = await uploadResponse.json();
-      console.log(uploadData)
+      console.log(uploadData.doc_id)
 
       // console.log('Docref:', uploadData.doc_ref);
 

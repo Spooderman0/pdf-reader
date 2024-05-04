@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 //import pdfAnalyzerLogo from '@Images/pdf_analyzer_logo.png';
 import pdfAnalyzerLogo from '../Images/pdf_analyzer_logo.png'
 import ForgotPasswordModal from "../Components/ForgotPasswordModal"
+import { BACKEND_LINK } from '../utils/constants';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +16,8 @@ const LogIn = () => {
     try {
       e.preventDefault();
 
-      const response = await fetch ('https://frida-backend.onrender.com/login', {
+      // const response = await fetch ('https://frida-backend.onrender.com/login', {
+      const response = await fetch (`${BACKEND_LINK}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
