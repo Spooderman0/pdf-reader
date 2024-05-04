@@ -48,10 +48,10 @@ const Navbar = () => {
         
         <div className="flex items-center space-x-4">
           <Link to="/SignUp" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            SignUp
+            Registrarse
           </Link>
           <button onClick={handleLogout} className="bg-black-500 text-white font-bold py-2 px-4 rounded">
-            Logout
+            Cerrar sesión
           </button>
         </div>
       </nav>
