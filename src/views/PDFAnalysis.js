@@ -21,6 +21,7 @@ export const  PDFAnalysis = () => {
   useEffect(() => {
     // console.log('Current section:', currentSection)
     // console.log(docId)
+    // console.log(docId)
     if(docId){
       getDocData(docId);
       getAnalysisData(docId)
