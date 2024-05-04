@@ -1,28 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BACKEND_LINK } from '../utils/constants';
 
 const DocSummaryPage = () => {
   const [docs, setDocs] = useState([]);
   const [selectedDocURL, setSelectedDocURL] = useState(null);
-  const userId = 'U1';
   const baseUrl = 'https://frida-backend.onrender.com';
+
+
 
   useEffect(() => {
     async function fetchDocs() {
       try {
-        const response = await axios.get(`${baseUrl}/${userId}/docs`);
-        if (response.data) {
-          setDocs(response.data);
-          console.log("Documentos obtenidos:", response.data);
+        const response = await fetch(`${BACKEND_LINK}/user_id/docs`, {
+          method: 'GET',
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          },
+          credentials: 'include'
+        });
+        const data = await response.json();
+  
+        if (data.docs) {
+          setDocs(data.docs);
         } else {
-          console.log("No se recibieron datos de la API.");
+          console.error('No se encontraron documentos:', data.error);
         }
       } catch (error) {
         console.error('Error al obtener documentos:', error);
       }
     }
-    fetchDocs();
-  }, [userId, baseUrl]);
+    
+    fetchDocs(); // Call fetchDocs function inside the useEffect
+  }, []); // Empty dependency array to run once on mount
+  
 
   const handleSelectDoc = (index) => {
     const doc = docs[index];

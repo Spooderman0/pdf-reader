@@ -21,12 +21,18 @@ const Modal = ({isOpen, close }) => {
 
     try {
       setIsLoading(true);
+<<<<<<< Updated upstream
       const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
+=======
+      // const uploadResponse = await fetch('https://frida-backend.onrender.com/U1/upload_file2', {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/upload_file2`, {
+>>>>>>> Stashed changes
         method: 'POST',
         body: formData,
         headers: {
           "Access-Control-Allow-Origin": "*",
-        }
+        },
+        credentials: 'include',
       });
 
       if(!uploadResponse.ok)

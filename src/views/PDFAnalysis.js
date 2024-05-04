@@ -30,11 +30,17 @@ export const  PDFAnalysis = () => {
   const getAnalysisData = async (docId) => {
     
     try {
+<<<<<<< Updated upstream
       const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
+=======
+      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/user_id/analysis/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/analysis/${docId}`, {
+>>>>>>> Stashed changes
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        }
+        },
+        credentials: 'include'
       });
 
       const uploadData = await uploadResponse.json();
@@ -50,11 +56,16 @@ export const  PDFAnalysis = () => {
   const getDocData = async (docId) => {
     
     try {
+<<<<<<< Updated upstream
       const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/main_info/${docId}`, {
+=======
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/main_info/${docId}`, {
+>>>>>>> Stashed changes
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        }
+        },
+        credentials: 'include'
       });
 
       const uploadData = await uploadResponse.json();
@@ -65,7 +76,28 @@ export const  PDFAnalysis = () => {
     }
   };
 
+<<<<<<< Updated upstream
   // console.log(analysisData.Abstract)
+=======
+  const getWordCloudData = async (docId) => {
+    
+    try {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/keyterms/${docId}`, {
+        method: 'GET',
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+
+      const data = await uploadResponse.json();
+      const terminosArray = Object.entries(data.terms).map(([text, value]) => ({ text, value }));
+      setWordCloudData(terminosArray);
+    } catch (error) {
+      console.error('Failed to get document data:', error);
+    }
+  };
+
+>>>>>>> Stashed changes
   //console.log(docData.Storage_URL)
 
   return (
