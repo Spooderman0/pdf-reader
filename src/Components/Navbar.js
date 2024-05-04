@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../Images/pdf_analyzer_logo2.png';
 import { CgMenu } from 'react-icons/cg';
 import { IoMdClose } from 'react-icons/io';
+import { BACKEND_LINK } from '../utils/constants';
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -12,7 +13,8 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('https://frida-backend.onrender.com/logout', {
+      //const response = await fetch('https://frida-backend.onrender.com/logout', {
+      const response = await fetch(`${BACKEND_LINK}/logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
