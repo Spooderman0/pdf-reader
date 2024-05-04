@@ -26,7 +26,7 @@ const LogIn = () => {
         },
         credentials:'include',
         body: JSON.stringify({ email, pwd }),
-        credentials: 'include'
+        //credentials: 'include'
       });
 
       //console.log(response)
