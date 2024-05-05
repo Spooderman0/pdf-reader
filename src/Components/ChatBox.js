@@ -16,7 +16,7 @@ export const Chatbox = ({ onMessageSent, docId }) => {
     setMessageIsLoading(true);
     try {
 
-        const response = await fetch(`${BACKEND_LINK}/U1/chatbot/${docId}/${message}`, {
+        const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/${docId}/${message}`, {
             method: 'GET',
             headers: {
               "Access-Control-Allow-Origin": "*"
@@ -40,8 +40,13 @@ export const Chatbox = ({ onMessageSent, docId }) => {
 
   const getConversation = async () => {
     try {
-        const response = await fetch(`${BACKEND_LINK}/U1/chatbot/${docId}/conversation`, {
+        const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/${docId}/conversation`, {
+        // const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/test`, {
           method: 'GET',
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          },
+          credentials:'include',
         });
         
         if (!response.ok) {
@@ -49,6 +54,8 @@ export const Chatbox = ({ onMessageSent, docId }) => {
         }
         
         const data = await response.json();
+        // console.log(`Data=========`);
+        // console.log(data);
         setConversation(data.conversation)
     } catch (error) {
         console.error('Error fetching conversation:', error);
