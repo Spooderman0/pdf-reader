@@ -1,17 +1,45 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../Images/pdf_analyzer_logo2.png';
 import { CgMenu } from 'react-icons/cg';
 import { IoMdClose } from 'react-icons/io';
+import { BACKEND_LINK } from '../utils/constants';
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => setMenuOpen(!isMenuOpen);
 
+  const handleLogout = async () => {
+    try {
+      //const response = await fetch('https://frida-backend.onrender.com/logout', {
+      const response = await fetch(`${BACKEND_LINK}/logout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Necesario si estás usando cookies para la autenticación
+      });
+
+      if (response.status === 200) {
+        // Aquí puedes también limpiar cualquier estado en el cliente, como tokens de autenticación o datos de sesión
+        // Ejemplo: localStorage.removeItem('userToken');
+
+        navigate('/'); // Asegúrate de redirigir al usuario a la página de login o a la página principal
+      } else {
+        const data = await response.json();
+        console.error('Cierre de sesión fallido:', data.message); // Asegúrate de ajustar esto según la respuesta de tu backend
+      }
+    } catch (error) {
+      console.error('Error al cerrar sesión', error);
+    }
+  }
+
+
   return (
     <>
-      <nav className="bg-black text-white py-4 px-6 flex justify-between items-center">
+      <nav className="bg-black text-white py-4 px-6 flex justify-between items-center" style={{height: "10dvh"}}>
         <div className="flex items-center space-x-4">
           <CgMenu className="text-3xl cursor-pointer" onClick={toggleMenu} />
           <img src={logo} alt="PDF Analyst Logo" className="h-10" />
@@ -22,11 +50,11 @@ const Navbar = () => {
         
         <div className="flex items-center space-x-4">
           <Link to="/SignUp" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            SignUp
+            Registrarse
           </Link>
-          <Link to="/logout" className="bg-black-500 text-white font-bold py-2 px-4 rounded">
-            Logout
-          </Link>
+          <button onClick={handleLogout} className="bg-black-500 text-white font-bold py-2 px-4 rounded">
+            Cerrar sesión
+          </button>
         </div>
       </nav>
 
