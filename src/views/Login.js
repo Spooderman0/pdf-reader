@@ -59,7 +59,7 @@ const LogIn = () => {
 
   return (
     <div>
-      <div className="flex flex-1 flex-col justify-center" style={{height: "90dvh"}}>
+      <div className="flex flex-1 flex-col justify-center" style={{height: "70dvh"}}>
         <div className="container mx-auto px-5 bg-gray-100 rounded-[12px] shadow-lg " style={{ boxSizing: 'border-box', height: "85dvh", width: "50dvw" }}>
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
