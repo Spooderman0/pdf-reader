@@ -16,3 +16,28 @@
     transform: rotate(360deg);
   }
 }
+
+/* Estilos para la burbuja de chat */
+.chat {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+/* Estilos para la burbuja de chat del usuario */
+.chat-user {
+  justify-content: flex-end;
+}
+
+/* Estilos para el contenedor de la burbuja de chat */
+.chat-bubble {
+  background-color: #DCF8C6;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+/* Estilos para la burbuja de chat del usuario */
+.chat-bubble-user {
+  background-color: #C2D0FF;
+}
