@@ -121,11 +121,10 @@ export const  PDFAnalysis = () => {
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
       {currentSection === "frida" ? (
-            <div style={{ overflowY: 'hidden' }}> {/* Aquí establecemos overflowY: hidden para ocultar el scroll vertical */}
-
-            <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} /> 
+          <div className="flex flex-row w-full overflow-hidden"> {/* Asegúrate de usar flex-row aquí */}
+            <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} />
             <ConversationHistory />
-          </div>
+        </div>
         ) : (
         <>
           <div className="basis-2/5 flex flex-col py-3 px-3">
