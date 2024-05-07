@@ -16,29 +16,54 @@ export const  PDFAnalysis = () => {
   const [docData, setDocData] = useState({});
   const [analysisData, setAnalysisData] = useState({});
   const [wordCloudData, setWordCloudData] = useState([]);
+  const [allData, setAllData] = useState({});
 
 
   useEffect(() => {
     // console.log('Current section:', currentSection)
     // console.log(docId)
+    // console.log(docId)
     if(docId){
-      getDocData(docId);
-      getAnalysisData(docId)
-      getWordCloudData(docId)
+      //getDocData(docId);
+      //getAnalysisData(docId)
+      //getWordCloudData(docId)
+      getAllNew(docId)
     }
   
   }, [currentSection, docId]);
 
-
-  const getAnalysisData = async (docId) => {
+  const getAllNew = async (docId) => {
     
     try {
       // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
-      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/analysis/${docId}`, {
+      const response = await fetch(`${BACKEND_LINK}/getAllInfo/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        }
+        },
+        credentials:'include',
+      });
+
+      const data = await response.json();
+      const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
+      setWordCloudData(terminos);
+      setAllData({...data});
+
+    } catch (error) {
+      console.error('Failed to get document data:', error);
+    }
+  };
+
+  /*const getAnalysisData = async (docId) => {
+    
+    try {
+      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/analysis/${docId}`, {
+        method: 'GET',
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
+        credentials:'include',
       });
 
       const uploadData = await uploadResponse.json();
@@ -48,17 +73,18 @@ export const  PDFAnalysis = () => {
     } catch (error) {
       console.error('Failed to get document data:', error);
     }
-  };
+  };*/
 
 
-  const getDocData = async (docId) => {
+  /*const getDocData = async (docId) => {
     
     try {
-      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/main_info/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/main_info/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        }
+        },
+        credentials:'include',
       });
 
       const uploadData = await uploadResponse.json();
@@ -67,16 +93,17 @@ export const  PDFAnalysis = () => {
     } catch (error) {
       console.error('Failed to get document data:', error);
     }
-  };
+  };*/
 
-  const getWordCloudData = async (docId) => {
+  /*const getWordCloudData = async (docId) => {
     
     try {
-      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/keyterms/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/keyterms/${docId}`, {
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        }
+        },
+        credentials:'include',
       });
 
       const data = await uploadResponse.json();
@@ -85,9 +112,11 @@ export const  PDFAnalysis = () => {
     } catch (error) {
       console.error('Failed to get document data:', error);
     }
-  };
+  };*/
 
-  //console.log(docData.Storage_URL)
+  //console.log(docData)
+  //console.log(allData.Abstract)
+  //console.log(wordCloudData2)
 
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
@@ -104,7 +133,7 @@ export const  PDFAnalysis = () => {
                 <h4 className="mb-4 text-4xl font-bold">Algoritmos: análisis, diseño e implementación</h4>
             </div>
             {/* Cambiar componentes izquierda dependiendo de la seccion  */}
-            {currentSection === "indice" && <Portada docURL = {docData.Storage_URL}/>}
+            {currentSection === "indice" && <Portada docURL = {allData.Storage_URL}/>}
             {currentSection === "terminos" && <SeccionTerminosIzquierda wordCloudData ={wordCloudData}/>}
           </div>
           <div className="basis-3/5 flex flex-col py-3 px-3">
@@ -112,7 +141,7 @@ export const  PDFAnalysis = () => {
               setCurrentSection={setCurrentSection}
             />
             {/* Cambiar componentes derecha dependiendo de la seccion  */}
-            {currentSection === "indice" && <Summary summary={analysisData.Abstract}/>}
+            {currentSection === "indice" && <Summary summary={allData.Abstract}/>}
             {currentSection === "terminos" && <SeccionTerminosDerecha wordCloudData ={wordCloudData}/>}
           </div>
         </>

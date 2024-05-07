@@ -13,7 +13,7 @@ const TrendChart = ({ words }) => {
     }
   }, [words]);
 
-  console.log(words)
+  //console.log(words)
 
   // Función para obtener los N términos más populares
   function getTopWords(wordsArray, n) {
