@@ -19,6 +19,7 @@ export const  PDFAnalysis = () => {
   useEffect(() => {
     // console.log('Current section:', currentSection)
     // console.log(docId)
+    // console.log(docId)
     if(docId){
       getDocData(docId);
       getAnalysisData(docId)
@@ -30,11 +31,15 @@ export const  PDFAnalysis = () => {
   const getAnalysisData = async (docId) => {
     
     try {
-      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
+
+      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/analysis/${docId}`, {
+
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
-        }
+        },
+        credentials:'include',
       });
 
       const uploadData = await uploadResponse.json();
@@ -50,7 +55,9 @@ export const  PDFAnalysis = () => {
   const getDocData = async (docId) => {
     
     try {
-      const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/main_info/${docId}`, {
+
+      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/main_info/${docId}`, {
+
         method: 'GET',
         headers: {
           "Access-Control-Allow-Origin": "*"
@@ -65,17 +72,35 @@ export const  PDFAnalysis = () => {
     }
   };
 
-  // console.log(analysisData.Abstract)
-  // console.log(docData.Storage_URL)
+
+  const getWordCloudData = async (docId) => {
+    
+    try {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/U1/keyterms/${docId}`, {
+        method: 'GET',
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+
+      const data = await uploadResponse.json();
+      const terminosArray = Object.entries(data.terms).map(([text, value]) => ({ text, value }));
+      setWordCloudData(terminosArray);
+    } catch (error) {
+      console.error('Failed to get document data:', error);
+    }
+  };
+
+  //console.log(docData.Storage_URL)
+
 
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
       {currentSection === "frida" ? (
-            <div style={{ overflowY: 'hidden' }}> {/* Aquí establecemos overflowY: hidden para ocultar el scroll vertical */}
-
-            <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} /> 
+          <div className="flex flex-row w-full overflow-hidden"> {/* Asegúrate de usar flex-row aquí */}
+            <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} />
             <ConversationHistory />
-          </div>
+        </div>
         ) : (
         <>
           <div className="basis-2/5 flex flex-col py-3 px-3">
