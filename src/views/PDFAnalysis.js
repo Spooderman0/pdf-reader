@@ -118,6 +118,9 @@ export const  PDFAnalysis = () => {
   //console.log(allData.Abstract)
   //console.log(wordCloudData2)
 
+  const title = allData.Title || 'Cargando...';
+  const cleanTitle = title.split('.').slice(0, -1).join('.');
+
   return (
     <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
       {currentSection === "frida" ? (
@@ -130,7 +133,7 @@ export const  PDFAnalysis = () => {
         <>
           <div className="basis-2/5 flex flex-col py-3 px-3">
             <div style={{ height: '15dvh' }}>
-                <h4 className="mb-4 text-4xl font-bold">Algoritmos: análisis, diseño e implementación</h4>
+                <h4 className="mb-4 text-4xl font-bold">{cleanTitle}</h4>
             </div>
             {/* Cambiar componentes izquierda dependiendo de la seccion  */}
             {currentSection === "indice" && <Portada docURL = {allData.Storage_URL}/>}
