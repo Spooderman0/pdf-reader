@@ -24,16 +24,16 @@ const ConversationHistory = () => {
     
   ];
   return (
-    <div className="relative h-32 w-32">
-      <div className="absolute inset-y-0 left-0 w-16" style={{ marginTop: '-510px' }}>
-        <div className="container bg-gray-100 rounded-[12px] shadow-lg lg:w-[350px] lg:h-[760px] flex flex-col justify-start items-center overflow-y-auto overflow-x-hidden">
-          <div className="text-black font-bold text-2xl mb-4 bg-gray-100" style={{position: 'center', top: 0, width: '100%', zIndex: 1, padding: '10px 0', marginLeft:'100px' }}>Conversation History</div>
+    <div className="flex items-center h-screen justify-left"> {/* Adjusted to fill parent container */}
+      <div className="absolute inset-0" style={{ marginLeft: '2rem', marginRight: '1350px', marginTop: '160px' }}> {/* Adjust for specific positioning */}
+        <div className="container bg-gray-100 rounded-[12px] shadow-lg w-full h-full flex flex-col justify-start items-center overflow-y-auto overflow-x-hidden">
+          <div className="text-black font-bold text-2xl mb-4 bg-gray-100" style={{ width: '100%', padding: '10px 0' }}>Conversation History</div>
           <Scrollbars autoHide>
-            <div className=' conversation-list mt-3' style={{marginLeft:'58px'}}>
-                {conversations.map((conversation, index) => (
-                  <div key={index} className="bg-gray-200 rounded-md p-4 mb-4 w-56 truncate">{conversation.title}</div>
-                ))}
-              </div>
+            <div className='conversation-list mt-3'>
+              {conversations.map((conversation, index) => (
+                <div key={index} className="bg-gray-200 rounded-md p-4 mb-4 truncate">{conversation.title}</div>
+              ))}
+            </div>
           </Scrollbars>
         </div>
       </div>
