@@ -28,7 +28,7 @@ export const  AnalysisButtons = ({setCurrentSection}) => {
                 onClick={() => setCurrentSection("indice")} 
                 className="bg-gray-100 focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2"
                 >
-                    ÍNDICE
+                    ANÁLISIS
                 </button>
             
             {/* <Link 
