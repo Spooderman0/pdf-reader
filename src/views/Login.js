@@ -1,5 +1,5 @@
 // LogIn.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import pdfAnalyzerLogo from '../Images/pdf_analyzer_logo.png'
 import ForgotPasswordModal from "../Components/ForgotPasswordModal"
@@ -12,6 +12,32 @@ const LogIn = () => {
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const verifySession = async () => {
+      try {
+        const response = await fetch(`${BACKEND_LINK}/currentuser`, {
+          method: 'GET',
+          credentials: 'include', // Asegúrate de enviar cookies con la petición
+        });
+
+        if (!response.ok) {
+          throw new Error('Session verification failed');
+        }
+
+        // Si el servidor retorna 200, entonces la sesión es válida
+        const data = await response.json();
+        console.log("Usuario verificado:", data);
+        navigate('/main');
+
+      } catch (error) {
+        console.error('Session verification error:', error);
+        navigate('/login');
+      }
+    };
+
+    verifySession();
+  }, [navigate]);
 
   const handleLogIn = async (e) => {
     try {
@@ -59,7 +85,7 @@ const LogIn = () => {
 
   return (
     <div>
-      <div className="flex flex-1 flex-col justify-center" style={{height: "70dvh"}}>
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="container mx-auto px-5 bg-gray-100 rounded-[12px] shadow-lg " style={{ boxSizing: 'border-box', height: "85dvh", width: "50dvw" }}>
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
