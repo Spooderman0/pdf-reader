@@ -32,7 +32,7 @@ const LogIn = () => {
 
       } catch (error) {
         console.error('Session verification error:', error);
-        navigate('/login');
+        navigate('/');
       }
     };
 
