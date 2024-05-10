@@ -85,26 +85,25 @@ export const Chatbox = ({ onMessageSent, docId }) => {
   };
 
   return (
-    <div className="flex items-center h-screen justify-center">
-    <div className="container bg-gray-100 rounded-[12px] shadow-lg h-dvh p-8 flex flex-col w-2/3 absolute top-2/3 right-0 transform -translate-y-1/2" style={{marginRight: '40px'}}>
-      <div className="text-black font-bold text-4xl mb-4">AI Chat Helper</div>
-      <Scrollbars autoHide autoHideTimeout={1000}>
-        <div className="flex-grow overflow-auto border border-gray-300 rounded-md p-4">
-        {conversation.map((msg, index) => (
-            <div key={index} className={`mb-2 flex ${msg.owner === "Usuario" ? "justify-end" : "justify-start"}`}>
-              <div className={`rounded-lg p-2 max-w-80 break-words ${msg.owner === "Usuario" ? "bg-blue-200 text-blue-800" : "bg-green-200 text-green-800"}`}>
-                {msg.owner === "Usuario" ? <span>Usuario: </span> : <span>ChatBot: </span>}
-                {msg.message}
+    <div className="container bg-gray-100 rounded-[12px] shadow-lg flex flex-col w-3/4 p-2">
+      <div className="text-black font-bold text-xl mb-2">AI Chat Helper</div>
+      <div className="border border-gray-300 rounded-md w-full h-full px-2">
+        <Scrollbars autoHide>
+          {conversation.map((msg, index) => (
+              <div key={index} className={`mb-2 flex ${msg.owner === "Usuario" ? "justify-end" : "justify-start"}`}>
+                <div className={`rounded-lg p-2 max-w-80 ${msg.owner === "Usuario" ? "bg-blue-200 text-blue-800" : "bg-green-200 text-green-800"}`}>
+                  {msg.owner === "Usuario" ? <span>Usuario: </span> : <span>ChatBot: </span>}
+                  {msg.message}
+                </div>
               </div>
-            </div>
-          ))}
-          <div ref={conversationEndRef}></div>
-        </div>
-      </Scrollbars>
-      <div className="flex justify-between items-end px-4 py-2 bg-white rounded-lg mt-4">
+            ))}
+            <div ref={conversationEndRef}></div>
+        </Scrollbars>
+      </div>
+      <div className="flex justify-between items-end px-2 py-2 bg-white rounded-lg mt-4">
         <textarea
           rows={1}
-          placeholder="Escribe tu mensaje..."
+          placeholder="Haz una pregunta..."
           className="flex-grow p-2 border rounded-md outline-none resize-none"
           value={message}
           ref={inputRef}
@@ -136,7 +135,6 @@ export const Chatbox = ({ onMessageSent, docId }) => {
         </button>
       </div>
     </div>
-  </div>
   );
 }
 

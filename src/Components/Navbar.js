@@ -49,9 +49,7 @@ const Navbar = () => {
         </div>
         
         <div className="flex items-center space-x-4">
-          <Link to="/SignUp" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Registrarse
-          </Link>
+          
           <button onClick={handleLogout} className="bg-black-500 text-white font-bold py-2 px-4 rounded">
             Cerrar sesión
           </button>
@@ -66,7 +64,7 @@ const Navbar = () => {
         <nav className="text-center text-black p-4">
           <Link to="/settings" className="block px-4 py-2 hover:bg-gray-200 text-lg">Configuración</Link>
           <Link to="/about" className="block px-4 py-2 hover:bg-gray-200 text-lg">Acerca de</Link>
-          <Link to="/" className="block px-4 py-2 hover:bg-gray-200 text-lg">Nuevo documento</Link>
+          <Link to="/main" className="block px-4 py-2 hover:bg-gray-200 text-lg">Nuevo documento</Link>
           <Link to="/history" className="block px-4 py-2 hover:bg-gray-200 text-lg">Historial</Link>
           {/* Agrega aquí más enlaces según sea necesario */}
         </nav>
