@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import { useNavigate, useParams } from "react-router-dom";
-import { useLocation } from 'react-router-dom'
 import AnalysisButtons from '../Components/AnalysisButtons';
-import { Portada, Summary } from '../Components/SeccionIndice';
-import { SeccionTerminosIzquierda, SeccionTerminosDerecha } from '../Components/SeccionTerminos';
+import { SeccionAnalisis } from '../Components/SeccionAnalisis';
+import { SeccionTerminos } from '../Components/SeccionTerminos';
+import SeccionFiguras, { seccionFiguras } from '../Components/SeccionFiguras';
 import ChatBox from '../Components/ChatBox';
 import ConversationHistory from '../Components/ConversationHistory';
 import { BACKEND_LINK } from '../utils/constants';
@@ -122,34 +122,40 @@ export const  PDFAnalysis = () => {
   const cleanTitle = title.split('.').slice(0, -1).join('.');
 
   return (
-    <div className="bg-white w-full flex flex-row" style={{ height: '90vh' }}>
-      {currentSection === "frida" ? (
-            <div style={{ overflowY: 'hidden' }}> {/* Aquí establecemos overflowY: hidden para ocultar el scroll vertical */}
+    <div className="bg-white w-full flex flex-col" style={{ height: '90vh' }}>
+      <div className='flex flex-row'>
+        <div className='basis-2/5 flex px-3' style={{ height: '15dvh' }}>
+            <h4 className="mb-4 text-4xl font-bold">{cleanTitle}</h4>
+        </div>
+        <div className='basis-3/5 flex px-3' style={{ height: '15dvh' }}>
+        <AnalysisButtons 
+          setCurrentSection={setCurrentSection}
+        />
+        </div>
 
-            <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} /> 
-            <ConversationHistory />
-          </div>
-        ) : (
-        <>
-          <div className="basis-2/5 flex flex-col py-3 px-3">
-            <div style={{ height: '15dvh' }}>
-                <h4 className="mb-4 text-4xl font-bold">{cleanTitle}</h4>
+      </div>
+        <div >
+          {currentSection === "indice" && (
+              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract}/>
+          )}
+
+          {currentSection === "terminos" && (
+              <SeccionTerminos wordCloudData ={wordCloudData}/>
+          )}
+          {currentSection === "frida" && (
+            <div className='flex flex-row'>
+              <ConversationHistory />
+              <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} /> 
             </div>
-            {/* Cambiar componentes izquierda dependiendo de la seccion  */}
-            {currentSection === "indice" && <Portada docURL = {allData.Storage_URL}/>}
-            {currentSection === "terminos" && <SeccionTerminosIzquierda wordCloudData ={wordCloudData}/>}
-          </div>
-          <div className="basis-3/5 flex flex-col py-3 px-3">
-            <AnalysisButtons 
-              setCurrentSection={setCurrentSection}
-            />
-            {/* Cambiar componentes derecha dependiendo de la seccion  */}
-            {currentSection === "indice" && <Summary summary={allData.Abstract}/>}
-            {currentSection === "terminos" && <SeccionTerminosDerecha wordCloudData ={wordCloudData}/>}
-          </div>
-        </>
-      )}
+          )}
+          {currentSection === "figuras" && (
+            <div className='flex flex-row'>
+              <SeccionFiguras /> 
+            </div>
+          )}
 
+
+        </div>
 
     </div>
   );
