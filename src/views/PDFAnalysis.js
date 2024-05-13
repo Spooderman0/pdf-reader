@@ -35,7 +35,6 @@ export const  PDFAnalysis = () => {
   const getAllNew = async (docId) => {
     
     try {
-      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
       const response = await fetch(`${BACKEND_LINK}/getAllInfo/${docId}`, {
         method: 'GET',
         headers: {
