@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
+import { UserRoutes } from "./utils/UserRoutes";
 import UploadPDF from "./views/UploadPDF";
 import Settings from "./views/Settings";
 import LoadingScreen from "./views/LoadingScreen";
@@ -26,7 +27,7 @@ function App() {
 
   useEffect(() => {
     // Define en qué rutas NO quieres mostrar la Navbar
-    const hideNavbarRoutes = ['/', '/signup'];
+    const hideNavbarRoutes = ['/', '/signup', '/loading'];
     setShowNavbar(!hideNavbarRoutes.includes(location.pathname));
   }, [location]);
 
@@ -36,12 +37,14 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Login />} />
         <Route path="/signup" exact element={<SignUp />} />
-        <Route path="/main" exact element={<UploadPDF />} />
-        <Route path="main/pdf-analysis/:docId" exact element={<PDFAnalysis />} />
-        <Route path="/settings" exact element={<Settings />} />
         <Route path="/loading" exact element={<LoadingScreen />} />
-        <Route path="/vistapreliminar" exact element={<VistaPreliminar />} />
-        <Route path="/history" exact element={<DocSummaryPage />} />
+        <Route element={<UserRoutes />}>
+          <Route path="/main" exact element={<UploadPDF />} />
+          <Route path="main/pdf-analysis/:docId" exact element={<PDFAnalysis />} />
+          <Route path="/settings" exact element={<Settings />} />
+          <Route path="/vistapreliminar" exact element={<VistaPreliminar />} />
+          <Route path="/history" exact element={<DocSummaryPage />} />
+        </Route>
       </Routes>
     </div>
   );
