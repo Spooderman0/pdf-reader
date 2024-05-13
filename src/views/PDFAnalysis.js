@@ -139,7 +139,7 @@ export const  PDFAnalysis = () => {
           )}
 
           {currentSection === "terminos" && (
-              <SeccionTerminos wordCloudData ={wordCloudData}/>
+              <SeccionTerminos wordCloudData ={wordCloudData} terms_defs={allData.Definitions}/>
           )}
           {currentSection === "frida" && (
             <div className='flex flex-row'>
