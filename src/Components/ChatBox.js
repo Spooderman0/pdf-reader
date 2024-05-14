@@ -10,7 +10,6 @@ export const Chatbox = ({ onMessageSent, docId, conversationId }) => {
 
   const conversationEndRef = useRef(null);
   const inputRef = useRef(null);
-  
 
   const handleSubmitQuery = async (event) => {
     event.preventDefault(); // Prevenir el comportamiento de envío de formulario predeterminado
@@ -34,6 +33,9 @@ export const Chatbox = ({ onMessageSent, docId, conversationId }) => {
       setMessage('');
       setMessageIsLoading(false);
 
+      // Limpiar el campo de mensaje después de enviarlo
+      setMessage('');
+
     } catch (error) {
       setMessageIsLoading(false);
       console.error('Error al obtener los datos:', error);
@@ -52,20 +54,16 @@ export const Chatbox = ({ onMessageSent, docId, conversationId }) => {
           credentials:'include',
         });
         
-        if (!response.ok) {
-          throw new Error('Network response was not ok while getting conversation');
-        }
+      if (!response.ok) {
+        throw new Error('Network response was not ok while getting conversation');
+      }
         
-        const data = await response.json();
-        // console.log(`Data=========`);
-        // console.log(data);
-        setConversation(data.conversation)
+      const data = await response.json();
+      setConversation(data.conversation)
     } catch (error) {
-        console.error('Error fetching conversation:', error);
+      console.error('Error fetching conversation:', error);
     }
-};
-
-
+  };
 
   const scrollToBottom = () => {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" });
