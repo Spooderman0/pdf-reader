@@ -3,7 +3,7 @@ import { BACKEND_LINK } from '../utils/constants';
 import Scrollbars from 'react-custom-scrollbars';
 
 
-export const Chatbox = ({ onMessageSent, docId }) => {
+export const Chatbox = ({ onMessageSent, docId, conversationId }) => {
   const [message, setMessage] = useState('');
   const [conversation, setConversation] = useState([]);
   const [messageIsLoading, setMessageIsLoading] = useState(false);
@@ -17,7 +17,7 @@ export const Chatbox = ({ onMessageSent, docId }) => {
     setMessageIsLoading(true);
     try {
 
-        const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/${docId}/${message}`, {
+        const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/${docId}/${conversationId}/${message}`, {
             method: 'GET',
             headers: {
               "Access-Control-Allow-Origin": "*"
@@ -29,7 +29,7 @@ export const Chatbox = ({ onMessageSent, docId }) => {
         throw new Error('La respuesta de la red no fue correcta');
       }
 
-      const data = await response.json();
+      // const data = await response.json();
       getConversation();
       setMessage('');
       setMessageIsLoading(false);
@@ -40,9 +40,10 @@ export const Chatbox = ({ onMessageSent, docId }) => {
     }
   };
 
+
   const getConversation = async () => {
     try {
-        const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/${docId}/conversation`, {
+        const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/${docId}/conversation/${conversationId}`, {
         // const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/test`, {
           method: 'GET',
           headers: {
@@ -71,8 +72,10 @@ export const Chatbox = ({ onMessageSent, docId }) => {
   };
 
   useEffect(() => {
-    getConversation();
-  }, []);
+    if(conversationId){
+      getConversation();
+    }
+  }, [conversationId]);
 
   // Hacer scroll hacia abajo cada vez que la conversación se actualiza
   useEffect(() => {
@@ -90,10 +93,10 @@ export const Chatbox = ({ onMessageSent, docId }) => {
 
   return (
     <div className="container bg-gray-100 rounded-[12px] shadow-lg flex flex-col w-3/4 p-2">
-      <div className="text-black font-bold text-xl mb-2">AI Chat Helper</div>
+      <div className="text-black font-bold text-xl mb-2">Asistente con IA</div>
       <div className="border border-gray-300 rounded-md w-full h-full px-2">
         <Scrollbars autoHide>
-          {conversation.map((msg, index) => (
+          {conversation && conversation.map((msg, index) => (
               <div key={index} className={`mb-2 flex ${msg.owner === "Usuario" ? "justify-end" : "justify-start"}`}>
                 <div className={`rounded-lg p-2 max-w-80 ${msg.owner === "Usuario" ? "bg-blue-200 text-blue-800" : "bg-green-200 text-green-800"}`}>
                   {msg.owner === "Usuario" ? <span>Usuario: </span> : <span>ChatBot: </span>}

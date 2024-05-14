@@ -17,6 +17,7 @@ export const  PDFAnalysis = () => {
   const [analysisData, setAnalysisData] = useState({});
   const [wordCloudData, setWordCloudData] = useState([]);
   const [allData, setAllData] = useState({});
+  const [conversationId, setConversationId] = useState(null);
 
 
   useEffect(() => {
@@ -29,8 +30,9 @@ export const  PDFAnalysis = () => {
       //getWordCloudData(docId)
       getAllNew(docId)
     }
+    console.log(conversationId);
   
-  }, [currentSection, docId]);
+  }, [currentSection, docId, conversationId]);
 
   const getAllNew = async (docId) => {
     
@@ -44,6 +46,7 @@ export const  PDFAnalysis = () => {
       });
 
       const data = await response.json();
+      console.log(data);
       const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
       setWordCloudData(terminos);
       setAllData({...data});
@@ -51,6 +54,10 @@ export const  PDFAnalysis = () => {
     } catch (error) {
       console.error('Failed to get document data:', error);
     }
+  };
+
+  const handleConversationIdChange = (newConversationId) => {
+    setConversationId(newConversationId);
   };
 
   /*const getAnalysisData = async (docId) => {
@@ -135,7 +142,7 @@ export const  PDFAnalysis = () => {
       </div>
         <div >
           {currentSection === "indice" && (
-              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract}/>
+              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract} />
           )}
 
           {currentSection === "terminos" && (
@@ -143,8 +150,8 @@ export const  PDFAnalysis = () => {
           )}
           {currentSection === "frida" && (
             <div className='flex flex-row'>
-              <ConversationHistory />
-              <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} /> 
+              <ConversationHistory docId={docId} handleConversationIdChange={handleConversationIdChange} />
+              <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} conversationId={conversationId} /> 
             </div>
           )}
           {currentSection === "figuras" && (

@@ -28,7 +28,7 @@ export const  SeccionTerminos = ({wordCloudData, terms_defs}) => {
           <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{height: "35dvh", overflowY: "auto"}}>
               <h6 className='font-medium'>Hechos y definiciones</h6>
               <br/>
-              {Object.entries(terms_defs).map(([term, definition], index) => (
+              {terms_defs && Object.entries(terms_defs).map(([term, definition], index) => (
               <p key={index}><b>{term}:</b><br/>{definition}</p>
               ))}
           </div>
