@@ -36,7 +36,6 @@ const DocSummaryPage = () => {
   const getAnalysisData = async () => {
     
     try {
-      // const uploadResponse = await fetch(`https://frida-backend.onrender.com/U1/analysis/${docId}`, {
       const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/docs`, {
         method: 'GET',
         headers: {

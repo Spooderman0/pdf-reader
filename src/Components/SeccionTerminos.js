@@ -4,7 +4,9 @@ import WordCloud from './WordCloud';
 import { BACKEND_LINK } from '../utils/constants';
 import TrendChart from './TrendChart';
 
-export const  SeccionTerminos = ({wordCloudData}) => {
+export const  SeccionTerminos = ({wordCloudData, terms_defs}) => {
+
+  console.log('terms and defs', terms_defs)
 
   return (
     <div className='flex flex-row'>
@@ -23,12 +25,12 @@ export const  SeccionTerminos = ({wordCloudData}) => {
 
       </div>
       <div className="flex flex-col justify-between basis-3/5 px-3" style={{height: "73dvh"}}>
-          <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{height: "35dvh"}}>
+          <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{height: "35dvh", overflowY: "auto"}}>
               <h6 className='font-medium'>Hechos y definiciones</h6>
-              <p><b>a. Impacto en el Diagnóstico:</b><br/>Examiner cómo los algoritmos de aprendizaje profundo pueden 
-              mejorar la detección temprana de enfermedades.</p>
-              <p><b>b. Ética y Privacidad:</b><br/> Analizar las preocupaciones éticas relacionadas con la utilización de datos
-              médicos sensibles.</p>
+              <br/>
+              {terms_defs && Object.entries(terms_defs).map(([term, definition], index) => (
+              <p key={index}><b>{term}:</b><br/>{definition}</p>
+              ))}
           </div>
           <div className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{height: "35dvh"}} >
               <h6 className='font-medium'>Frecuencia de términos</h6>
