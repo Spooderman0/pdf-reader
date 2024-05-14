@@ -86,7 +86,7 @@ const LogIn = () => {
   return (
     <div>
       <div className="flex items-center justify-center min-h-screen bg-white">
-        <div className="container mx-auto px-5 bg-gray-100 rounded-[12px] shadow-lg " style={{ boxSizing: 'border-box', height: "85dvh", width: "50dvw" }}>
+        <div className="container mx-auto px-5 bg-gray-100 rounded-[12px] shadow-lg " style={{ boxSizing: 'border-box', height: "65dvh", width: "40dvw" }}>
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               className="mx-auto h-28 w-auto"
