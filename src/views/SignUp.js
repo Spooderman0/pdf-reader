@@ -45,9 +45,9 @@ const SignUp = () => {
   return (
     <div>
       {/* Agrega el componente Navbar */}
-      <div className="flex min-h-full flex-1 flex-col justify-center" style={{height: "70dvh"}}>
+      <div className="flex items-center justify-center min-h-screen bg-white">
       {/* Contenido de la vista SignUp */}
-        <div class="container mx-auto bg-gray-100  rounded-[12px] shadow-lg px-5 lg:w-[600px] lg:h-[700px] overflow-auto" style={{ boxSizing: 'border-box', height: "85dvh", width: "50dvw" }}>
+        <div class="container mx-auto bg-gray-100  rounded-[12px] shadow-lg px-5 lg:w-[700px] lg:h-[600px] overflow-auto" style={{ boxSizing: 'border-box', height: "65dvh", width: "40dvw" }}>
           
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
