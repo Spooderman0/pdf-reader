@@ -5,6 +5,9 @@ import { CgMenu } from 'react-icons/cg';
 import { IoMdClose } from 'react-icons/io';
 import { BACKEND_LINK } from '../utils/constants';
 
+import { FaUser } from "react-icons/fa";
+
+
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -49,7 +52,7 @@ const Navbar = () => {
         </div>
         
         <div className="flex items-center space-x-4">
-          
+            
           <button onClick={handleLogout} className="bg-black-500 text-white font-bold py-2 px-4 rounded">
             Cerrar sesión
           </button>
@@ -58,14 +61,14 @@ const Navbar = () => {
 
       {/* Menú lateral que se despliega */}
       <div className={`fixed inset-y-0 left-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} w-64 z-30 bg-white shadow-lg transition duration-300 ease-in-out`}>
-        <div className="bg-black text-white p-4 flex justify-end">
-          <IoMdClose className="text-2xl cursor-pointer" onClick={toggleMenu} />
+        <div className="bg-black text-white flex justify-end">
+          <IoMdClose className="mx-3 text-2xl cursor-pointer" style={{height: "10dvh"}} onClick={toggleMenu} />
         </div>
         <nav className="text-center text-black p-4">
-          <Link to="/settings" className="block px-4 py-2 hover:bg-gray-200 text-lg">Configuración</Link>
-          <Link to="/about" className="block px-4 py-2 hover:bg-gray-200 text-lg">Acerca de</Link>
-          <Link to="/main" className="block px-4 py-2 hover:bg-gray-200 text-lg">Nuevo documento</Link>
-          <Link to="/history" className="block px-4 py-2 hover:bg-gray-200 text-lg">Historial</Link>
+          <Link to="/settings" className="block px-4 py-2 hover:bg-gray-200 text-lg" onClick={toggleMenu}>Configuración</Link>
+          <Link to="/about" className="block px-4 py-2 hover:bg-gray-200 text-lg" onClick={toggleMenu}>Acerca de</Link>
+          <Link to="/main" className="block px-4 py-2 hover:bg-gray-200 text-lg" onClick={toggleMenu}>Nuevo documento</Link>
+          <Link to="/history" className="block px-4 py-2 hover:bg-gray-200 text-lg" onClick={toggleMenu}>Historial</Link>
           {/* Agrega aquí más enlaces según sea necesario */}
         </nav>
       </div>

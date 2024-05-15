@@ -30,7 +30,20 @@ export const SeccionAnalisis = ({ docURL, summary }) => {
         </div>
         <div className="flex flex-col justify-between basis-3/5 mx-3" style={{height: "73dvh"}}>
             <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto" style={{width: "60dvw", height: "40dvh"}}>
-                <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
+                <div className='flex flex-row justify-between items-center'>
+                    <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
+                    {/* Tabs START */}
+                    <ul class="flex flex-wrap text-sm font-medium text-center border-b border-gray-200">
+                        <li class="me-2">
+                            <a href="#" class="inline-block px-3 py-2 rounded-t-lg hover:bg-gray-600 hover:text-white">Resumen</a>
+                        </li>
+                        <li class="me-2">
+                            <a href="#" class="inline-block px-3 py-2 rounded-t-lg hover:bg-gray-600 hover:text-white">Capítulos</a>
+                        </li>
+                    </ul>
+                    {/* Tabs END */}
+
+                </div>
                 <p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>
 
                 {!summary && (
@@ -43,10 +56,6 @@ export const SeccionAnalisis = ({ docURL, summary }) => {
                 </div>
                 )}
                 <p> {summary} </p>
-                
-                <div className="flex justify-end">
-                    <button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-5 py-2.5">Capítulos</button>
-                </div>
             </div>
 
             <div className="container flex justify-between p-0">
