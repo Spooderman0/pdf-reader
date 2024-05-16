@@ -13,7 +13,16 @@
     "headers": [{
       "source":"**",
       "headers": [
-        {"key":"Content-Security-Policy","value":"script-src 'self'"}
+        {"key":"Content-Security-Policy","value":"script-src 'self'"},
+        {"key":"Content-Security-Policy","value":"style-src 'self'"},
+        {"key":"Content-Security-Policy","value":"img-src 'self'"},
+        {"key":"Content-Security-Policy","value":"connect-src 'self'"},
+        {"key":"Content-Security-Policy","value":"frame-src 'self'"},
+        {"key":"Content-Security-Policy","value":"font-src 'self'"},
+        {"key":"Content-Security-Policy","value":"media-src 'self'"},
+        {"key":"Content-Security-Policy","value":"object-src 'self'"},
+        {"key":"Content-Security-Policy","value":"manifest-src 'self'"},
+        {"key":"Content-Security-Policy","value":"form-action 'self'"}
       ]
     }]
 
