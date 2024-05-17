@@ -9,10 +9,10 @@ export const AnalysisButtons = ({ setCurrentSection, currentSection }) => {
     { id: 'frida', label: 'FRIDA' },
   ];
 
-  const buttonStyles = "focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-2 mb-2";
+  const buttonStyles = "focus:outline-none font-medium rounded-3xl px-5 py-2.5 me-1 mb-1"; 
 
   return (
-    <div className="container w-full flex justify-between px-0 items-center" style={{ height: "15dvh" }}>
+    <div className="container w-full flex justify-between px-0 items-center space-x-2" style={{ height: "15dvh", marginRight: '20%' }}> {/* Added space-x-2 */}
       {sections.map(section => (
         <button
           key={section.id}
