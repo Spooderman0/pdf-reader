@@ -6,25 +6,22 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [ {
-      "source": "**",
-      "destination": "/index.html"
-    } ],
-    "headers": [{
-      "source":"**",
-      "headers": [
-        {"key":"Content-Security-Policy","value":"script-src 'self'"},
-        {"key":"Content-Security-Policy","value":"style-src 'self'"},
-        {"key":"Content-Security-Policy","value":"img-src 'self'"},
-        {"key":"Content-Security-Policy","value":"connect-src 'self'"},
-        {"key":"Content-Security-Policy","value":"frame-src 'self'"},
-        {"key":"Content-Security-Policy","value":"font-src 'self'"},
-        {"key":"Content-Security-Policy","value":"media-src 'self'"},
-        {"key":"Content-Security-Policy","value":"object-src 'self'"},
-        {"key":"Content-Security-Policy","value":"manifest-src 'self'"},
-        {"key":"Content-Security-Policy","value":"form-action 'self'"}
-      ]
-    }]
-
-    }
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; frame-src 'self'; font-src 'self'; media-src 'self'; object-src 'self'; manifest-src 'self'; form-action 'self'"
+          }
+        ]
+      }
+    ]
+  }
 }
