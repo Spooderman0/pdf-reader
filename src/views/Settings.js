@@ -24,7 +24,7 @@ export const Settings = () => {
           <div className="space-x-6 mb-4" style={{ paddingTop: "60px" }}>
             <button
               onClick={openChangePasswordModal}
-              className="bg-gray-600 text-white px-16 py-6 rounded-md shadow-lg min-w-80 hover:bg-gray-700 transition duration-300"
+              className="bg-gray-600 text-white px-16 py-10 rounded-md shadow-lg min-w-96 hover:bg-gray-700 transition duration-300"
             >
               Cambiar Contraseña
             </button>
@@ -32,7 +32,7 @@ export const Settings = () => {
           
           <div className="mb-4">
             <button
-              className="bg-gray-600 text-white px-20 py-6 rounded-md shadow-lg min-w-80 hover:bg-gray-700 transition duration-300"
+              className="bg-gray-600 text-white px-20 py-10 rounded-md shadow-lg min-w-96 hover:bg-gray-700 transition duration-300"
             >
               Claro
             </button>
