@@ -10,6 +10,7 @@ import Login from "./views/Login";
 import SignUp from "./views/SignUp";
 import PDFAnalysis from "./views/PDFAnalysis";
 import VistaPreliminar from "./views/vistaPreliminar";
+import About from "./views/About";
 
 
 
@@ -35,7 +36,7 @@ function App() {
     <div>
       {showNavbar && <Navbar />}
       <Routes>
-        <Route path="/" exact element={<Login />} />
+        <Route path="/" exact element={<Login/>} />
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/loading" exact element={<LoadingScreen />} />
         <Route element={<UserRoutes />}>
@@ -44,6 +45,7 @@ function App() {
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/vistapreliminar" exact element={<VistaPreliminar />} />
           <Route path="/history" exact element={<DocSummaryPage />} />
+          <Route path = "/about" exact element= {<About />}/>
         </Route>
       </Routes>
     </div>
