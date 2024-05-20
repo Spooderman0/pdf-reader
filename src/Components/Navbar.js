@@ -4,6 +4,8 @@ import logo from '../Images/pdf_analyzer_logo2.png';
 import { FaUser, FaCog, FaHistory } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import { BACKEND_LINK } from '../utils/constants';
+import { text } from 'd3';
+import { MdInfo } from 'react-icons/md';
 
 const Navbar = () => {
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -44,9 +46,13 @@ const Navbar = () => {
       </div>
       
       <div className="flex items-center space-x-4">
-        
+              
         <Link to="/main" className="hover:text-gray-300">
           <IoMdAdd className="text-2xl" />
+        </Link>
+
+        <Link to="/about" className="hover:text-gray-300">
+          <MdInfo className="text-2xl" />
         </Link>
         <Link to="/history" className="hover:text-gray-300">
           <FaHistory className="text-2xl" />
