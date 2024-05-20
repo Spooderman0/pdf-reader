@@ -100,7 +100,7 @@ export const Chatbox = ({ onMessageSent, docId, conversationId }) => {
         <Scrollbars autoHide>
           {conversation && conversation.map((msg, index) => (
               <div key={index} className={`mb-2 flex ${msg.owner === "Usuario" ? "justify-end" : "justify-start"}`}>
-                <div className={`rounded-lg p-2 ${msg.owner === "Usuario" ? "bg-blue-200 text-blue-800" : "bg-green-200 text-green-800"}`} style={{maxWidth: "50dvw"}}>
+                <div className={`rounded-lg p-2 ${msg.owner === "Usuario" ? "bg-blue-200 text-black" : "bg-green-200 text-black"}`} style={{maxWidth: "50dvw"}}>
                   {msg.owner === "Usuario" ? 
                     <span className='flex flex-row items-center font-bold'>Usuario  <CiUser className='mx-2' /></span> 
                     : 
