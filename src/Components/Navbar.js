@@ -1,80 +1,84 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../Images/pdf_analyzer_logo2.png';
-import { CgMenu } from 'react-icons/cg';
-import { IoMdClose } from 'react-icons/io';
+import { FaUser, FaCog, FaHistory } from "react-icons/fa";
+import { IoMdAdd } from "react-icons/io";
 import { BACKEND_LINK } from '../utils/constants';
 
 const Navbar = () => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
   const navigate = useNavigate();
-
-  const toggleMenu = () => setMenuOpen(!isMenuOpen);
 
   const handleLogout = async () => {
     try {
-      //const response = await fetch('https://frida-backend.onrender.com/logout', {
       const response = await fetch(`${BACKEND_LINK}/logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Necesario si estás usando cookies para la autenticación
+        credentials: 'include',
       });
 
       if (response.status === 200) {
-        // Aquí puedes también limpiar cualquier estado en el cliente, como tokens de autenticación o datos de sesión
-        // Ejemplo: localStorage.removeItem('userToken');
-
-        navigate('/'); // Asegúrate de redirigir al usuario a la página de login o a la página principal
+        navigate('/');
       } else {
         const data = await response.json();
-        console.error('Cierre de sesión fallido:', data.message); // Asegúrate de ajustar esto según la respuesta de tu backend
+        console.error('Cierre de sesión fallido:', data.message);
       }
     } catch (error) {
       console.error('Error al cerrar sesión', error);
     }
-  }
+  };
 
+  const toggleProfileMenu = () => {
+    setProfileMenuOpen(!isProfileMenuOpen);
+  };
 
   return (
-    <>
-      <nav className="bg-black text-white py-4 px-6 flex justify-between items-center" style={{height: "10dvh"}}>
-        <div className="flex items-center space-x-4">
-          <CgMenu className="text-3xl cursor-pointer" onClick={toggleMenu} />
-          <img src={logo} alt="PDF Analyst Logo" className="h-10" />
-          <Link to="/" className='hover:text-gray-300'>
-            <span className="font-bold text-xl">PDF Analyst</span>
-          </Link>
-        </div>
-        
-        <div className="flex items-center space-x-4">
-          
-          <button onClick={handleLogout} className="bg-black-500 text-white font-bold py-2 px-4 rounded">
-            Cerrar sesión
-          </button>
-        </div>
-      </nav>
-
-      {/* Menú lateral que se despliega */}
-      <div className={`fixed inset-y-0 left-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} w-64 z-30 bg-white shadow-lg transition duration-300 ease-in-out`}>
-        <div className="bg-black text-white p-4 flex justify-end">
-          <IoMdClose className="text-2xl cursor-pointer" onClick={toggleMenu} />
-        </div>
-        <nav className="text-center text-black p-4">
-          <Link to="/settings" className="block px-4 py-2 hover:bg-gray-200 text-lg">Configuración</Link>
-          <Link to="/about" className="block px-4 py-2 hover:bg-gray-200 text-lg">Acerca de</Link>
-          <Link to="/main" className="block px-4 py-2 hover:bg-gray-200 text-lg">Nuevo documento</Link>
-          <Link to="/history" className="block px-4 py-2 hover:bg-gray-200 text-lg">Historial</Link>
-          {/* Agrega aquí más enlaces según sea necesario */}
-        </nav>
+    <nav className="bg-black text-white py-4 px-6 flex justify-between items-center" style={{height: "10dvh"}}>
+      <div className="flex items-center space-x-4">
+        <img src={logo} alt="PDF Analyst Logo" className="h-10" />
+        <Link to="/" className='hover:text-gray-300'>
+          <span className="font-bold text-xl">PDF Analyst</span>
+        </Link>
       </div>
-
-      {/* Overlay que aparece cuando el menú está abierto */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-20" onClick={toggleMenu}></div>
-      )}
-    </>
+      
+      <div className="flex items-center space-x-4">
+        
+        <Link to="/main" className="hover:text-gray-300">
+          <IoMdAdd className="text-2xl" />
+        </Link>
+        <Link to="/history" className="hover:text-gray-300">
+          <FaHistory className="text-2xl" />
+        </Link>
+        
+        <div className="relative">
+          <button onClick={toggleProfileMenu} className="hover:text-gray-300">
+            <FaUser className="text-2xl" />
+          </button>
+          {isProfileMenuOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+              <Link
+                to="/settings"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => setProfileMenuOpen(false)}
+              >
+                Ir al perfil
+              </Link>
+              <button
+                onClick={() => {
+                  setProfileMenuOpen(false);
+                  handleLogout();
+                }}
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </nav>
   );
 };
 

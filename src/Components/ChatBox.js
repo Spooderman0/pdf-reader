@@ -2,6 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { BACKEND_LINK } from '../utils/constants';
 import Scrollbars from 'react-custom-scrollbars';
 
+import { VscRobot } from "react-icons/vsc";
+import { CiUser } from "react-icons/ci";
+
+
 
 export const Chatbox = ({ onMessageSent, docId, conversationId }) => {
   const [message, setMessage] = useState('');
@@ -96,8 +100,11 @@ export const Chatbox = ({ onMessageSent, docId, conversationId }) => {
         <Scrollbars autoHide>
           {conversation && conversation.map((msg, index) => (
               <div key={index} className={`mb-2 flex ${msg.owner === "Usuario" ? "justify-end" : "justify-start"}`}>
-                <div className={`rounded-lg p-2 max-w-80 ${msg.owner === "Usuario" ? "bg-blue-200 text-blue-800" : "bg-green-200 text-green-800"}`}>
-                  {msg.owner === "Usuario" ? <span>Usuario: </span> : <span>ChatBot: </span>}
+                <div className={`rounded-lg p-2 ${msg.owner === "Usuario" ? "bg-blue-200 text-black" : "bg-green-200 text-black"}`} style={{maxWidth: "50dvw"}}>
+                  {msg.owner === "Usuario" ? 
+                    <span className='flex flex-row items-center font-bold'>Usuario  <CiUser className='mx-2' /></span> 
+                    : 
+                    <span className='flex flex-row items-center font-bold'>ChatBot  <VscRobot className='mx-2' /></span>}
                   {msg.message}
                 </div>
               </div>

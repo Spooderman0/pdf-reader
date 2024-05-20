@@ -130,12 +130,13 @@ export const  PDFAnalysis = () => {
   return (
     <div className="bg-white w-full flex flex-col" style={{ height: '90vh' }}>
       <div className='flex flex-row'>
-        <div className='basis-2/5 flex px-3' style={{ height: '15dvh' }}>
+        <div className='basis-2/5 items-center flex px-3' style={{ height: '15dvh', marginLeft: '10%' }}>
             <h4 className="mb-4 text-4xl font-bold">{cleanTitle}</h4>
         </div>
         <div className='basis-3/5 flex px-3' style={{ height: '15dvh' }}>
         <AnalysisButtons 
           setCurrentSection={setCurrentSection}
+          currentSection={currentSection}
         />
         </div>
 

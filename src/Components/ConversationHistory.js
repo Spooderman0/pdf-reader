@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { BACKEND_LINK } from '../utils/constants';
 
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { IoIosAddCircle } from "react-icons/io";
+
 
 const ConversationHistory = ({ docId, handleConversationIdChange }) => {
   const [conversationsIdList, setConversationsIdList] = useState([]);
@@ -95,10 +98,10 @@ const ConversationHistory = ({ docId, handleConversationIdChange }) => {
         <div className='flex flex-row justify-between items-center'>
           <p class="text-xl font-bold py-3">Conversaciones</p>
           <button
-            className="ml-2 py-1 px-5 bg-green-300 font-bold text-xl hover:bg-green-500 transition-colors h-1/2 rounded-full"
+            className="text-center py-1 text-white px-5 bg-blue-500 font-bold text-xl hover:bg-blue-600 h-1/2 rounded-full"
             onClick={handleAddConversation}
           >
-            <p>+</p>
+            <IoIosAddCircle />
           </button>
 
         </div>
@@ -117,9 +120,7 @@ const ConversationHistory = ({ docId, handleConversationIdChange }) => {
                         className="ml-2 py-1 px-5 bg-red-300 font-bold text-xl hover:bg-red-500 transition-colors h-1/2 rounded-full"
                         onClick={() => handleDeleteConversation(conversationId)}
                       >
-                      <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                          <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M8 8v1h4V8m4 7H4a1 1 0 0 1-1-1V5h14v9a1 1 0 0 1-1 1ZM2 1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Z"/>
-                      </svg>
+                      <RiDeleteBin5Line className='text-white' />
                       </button>
                   </div>
                 </button>
