@@ -21,7 +21,7 @@ export const SeccionAnalisis = ({ docURL, summary }) => {
 
   return (
     <div className='flex flex-row'>
-      <div className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh" }}>
+      <div className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh", marginLeft: '10%' }}>
         <h6 className="mb-4 text-2xl font-bold">Vista preliminar</h6>
         <div className="p-4 flex justify-center">
           <img
@@ -33,8 +33,8 @@ export const SeccionAnalisis = ({ docURL, summary }) => {
           />
         </div>
       </div>
-      <div className="flex flex-col justify-between basis-3/5 mx-3" style={{ height: "73dvh" }}>
-        <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto" style={{ width: "60dvw", height: "40dvh" }}>
+      <div className="flex flex-col justify-between basis-3/5 mx-3" style={{ height: "73dvh", marginRight: '10%' }}>
+        <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto" style={{ width: "100%", height: "40dvh" }}>
           <div className='flex flex-row justify-between items-center'>
             <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
             {/* Tabs START */}
