@@ -6,7 +6,6 @@ import { FaClipboard } from "react-icons/fa";
 import { Tab } from '@headlessui/react';
 
 export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
-  const [fileText, setFileText] = useState('');
   const [vistaPreTab, setVistaPreTab] = useState('');
   const navigate = useNavigate();
 
@@ -55,16 +54,6 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
               alt="Portada"
             />
           )}
-          {/*<img
-            onClick={handleOpenPopup}
-            className="cursor-pointer"
-            style={{ height: '55vh' }}
-            src={portadaLibro}
-            alt="Portada"
-          />*/}
-          {/*<p style={{ whiteSpace: 'pre-wrap' }}>
-            {raw_text}
-        </p>*/}
         </div>
       </div>
       <div className="flex flex-col justify-between basis-3/5 mx-3" style={{ height: "73dvh", marginRight: '10%' }}>
@@ -82,7 +71,6 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
             </ul>
             {/* Tabs END */}
           </div>
-          {/*<p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>*/}
           {!summary && (
             <div role="status" className='flex items-center justify-center' style={{ height: "60%" }}>
               <svg aria-hidden="true" className="inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
