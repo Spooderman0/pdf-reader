@@ -3,9 +3,11 @@ import 'tailwindcss/tailwind.css';
 import portadaLibro from '../Images/PortadaLibro.png';
 import { useNavigate } from "react-router-dom";
 import { FaClipboard } from "react-icons/fa";
+import { Tab } from '@headlessui/react';
 
-export const SeccionAnalisis = ({ docURL, summary }) => {
+export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
   const [fileText, setFileText] = useState('');
+  const [vistaPreTab, setVistaPreTab] = useState('');
   const navigate = useNavigate();
 
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: { docURL } });
@@ -19,18 +21,50 @@ export const SeccionAnalisis = ({ docURL, summary }) => {
     });
   };
 
+  const handleVistaPreliminar_Tab = (tab) => {
+    setVistaPreTab(tab)
+  };
+
   return (
     <div className='flex flex-row'>
-      <div className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh", marginLeft: '10%' }}>
-        <h6 className="mb-4 text-2xl font-bold">Vista preliminar</h6>
+      <div className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh", marginLeft: '10%', overflowY:'auto' }}>
+        <div className='flex flex-row justify-between items-center'>
+            <h5 className="mb-4 text-2xl font-bold">Vista preliminar</h5>
+            {/* Tabs START */}
+            <ul className="flex flex-wrap text-sm font-medium text-center border-b border-gray-200">
+              <li className="me-2">
+                <a href="#" onClick={() => handleVistaPreliminar_Tab('text')} className="inline-block px-3 py-2 rounded-t-lg hover:bg-gray-600 hover:text-white">Texto</a>
+              </li>
+              <li className="me-2">
+                <a href="#" onClick={() => handleVistaPreliminar_Tab('file')} className="inline-block px-3 py-2 rounded-t-lg hover:bg-gray-600 hover:text-white">Archivo</a>
+              </li>
+            </ul>
+            {/* Tabs END */}
+        </div>
         <div className="p-4 flex justify-center">
-          <img
+          {vistaPreTab === 'text' ? (
+            <p style={{ whiteSpace: 'pre-wrap' }}>
+              {raw_text}
+            </p>
+          ) : (
+            <img
+              onClick={handleOpenPopup}
+              className="cursor-pointer"
+              style={{ height: '55vh' }}
+              src={portadaLibro}
+              alt="Portada"
+            />
+          )}
+          {/*<img
             onClick={handleOpenPopup}
             className="cursor-pointer"
             style={{ height: '55vh' }}
             src={portadaLibro}
             alt="Portada"
-          />
+          />*/}
+          {/*<p style={{ whiteSpace: 'pre-wrap' }}>
+            {raw_text}
+        </p>*/}
         </div>
       </div>
       <div className="flex flex-col justify-between basis-3/5 mx-3" style={{ height: "73dvh", marginRight: '10%' }}>
@@ -48,7 +82,7 @@ export const SeccionAnalisis = ({ docURL, summary }) => {
             </ul>
             {/* Tabs END */}
           </div>
-          <p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>
+          {/*<p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>*/}
           {!summary && (
             <div role="status" className='flex items-center justify-center' style={{ height: "60%" }}>
               <svg aria-hidden="true" className="inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
