@@ -41,7 +41,7 @@ export const Settings = () => {
           <div>
             <button
               onClick={openDeleteAccountModal}
-              className="text-white bg-red-600 px-20 py-6 rounded-md shadow-lg min-w-80 hover:bg-gray-700 transition duration-300 "
+              className="text-white bg-red-600 px-20 py-10 rounded-md shadow-lg min-w-96 hover:bg-gray-700 transition duration-300 "
             >
               Borrar cuenta
             </button>

@@ -4,6 +4,7 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}", // esto incluye todos los archivos de React en tu directorio src
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       // Aquí puedes extender tu tema, por ejemplo, añadiendo colores personalizados o fuentes
