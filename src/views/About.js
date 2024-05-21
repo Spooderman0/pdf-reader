@@ -34,7 +34,7 @@ const AboutPage = () => {
     },
     {
       title: '¿Puedo usar PDF Reader en cualquier dispositivo?',
-      content: 'Sí, AskYourPDF es accesible desde cualquier dispositivo con navegadores estándar y una conexión a Internet..',
+      content: 'Sí, PDF Reader es accesible desde cualquier dispositivo con navegadores estándar y una conexión a Internet..',
     },
     {
       title: '¿Esta página ofrece servicios adicionales?',
