@@ -98,7 +98,7 @@ const ConversationHistory = ({ docId, handleConversationIdChange }) => {
         <div className='flex flex-row justify-between items-center'>
           <p class="text-xl font-bold py-3">Conversaciones</p>
           <button
-            className="text-center py-1 text-white px-5 bg-green-300 font-bold text-xl hover:bg-green-500 h-1/2 rounded-full"
+            className="text-center py-1 text-white px-5 bg-blue-500 font-bold text-xl hover:bg-blue-600 h-1/2 rounded-full"
             onClick={handleAddConversation}
           >
             <IoIosAddCircle />
