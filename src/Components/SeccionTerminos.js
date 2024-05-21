@@ -6,7 +6,7 @@ import TrendChart from './TrendChart';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
-export const SeccionTerminos = ({ wordCloudData }) => {
+export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
   const layout = [
     { i: '1', x: 0, y: 0, w: 1, h: 1 },
     { i: '2', x: 1, y: 0, w: 1, h: 1 },
@@ -36,10 +36,12 @@ export const SeccionTerminos = ({ wordCloudData }) => {
         <h6 className="font-medium">Nube de palabras</h6>
         <WordCloud words={wordCloudData} />
       </div>
-      <div key="3" className="card px-3 py-2 bg-gray-100 border-0 shadow-md">
+      <div key="3" className="card px-3 py-2 bg-gray-100 border-0 shadow-md" style={{height: "35dvh", overflowY: "auto"}}>
         <h6 className="font-medium">Hechos y definiciones</h6>
-        <p><b>a. Impacto en el Diagnóstico:</b><br />Examinar cómo los algoritmos de aprendizaje profundo pueden mejorar la detección temprana de enfermedades.</p>
-        <p><b>b. Ética y Privacidad:</b><br /> Analizar las preocupaciones éticas relacionadas con la utilización de datos médicos sensibles.</p>
+        <br/>
+        {terms_defs && Object.entries(terms_defs).map(([term, definition], index) => (
+            <p key={index}><b>{term}:</b><br/>{definition}<br/><br></br></p>
+        ))}
       </div>
       <div key="4" className="card px-3 py-2 bg-gray-100 border-0 shadow-md">
         <h6 className="font-medium">Frecuencia de términos</h6>
