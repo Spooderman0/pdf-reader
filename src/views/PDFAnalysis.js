@@ -46,7 +46,7 @@ export const  PDFAnalysis = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+      //console.log(data);
       const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
       setWordCloudData(terminos);
       setAllData({...data});
@@ -143,7 +143,7 @@ export const  PDFAnalysis = () => {
       </div>
         <div >
           {currentSection === "indice" && (
-              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract} />
+              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} />
           )}
 
           {currentSection === "terminos" && (
@@ -157,7 +157,7 @@ export const  PDFAnalysis = () => {
           )}
           {currentSection === "figuras" && (
             <div className='flex flex-row'>
-              <SeccionFiguras /> 
+              <SeccionFiguras  figuras = {allData.Figuras}/> 
             </div>
           )}
 

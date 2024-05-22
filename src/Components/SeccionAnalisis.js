@@ -4,8 +4,9 @@ import portadaLibro from '../Images/PortadaLibro.png';
 import { useNavigate } from "react-router-dom";
 import { FaClipboard } from "react-icons/fa";
 
-export const SeccionAnalisis = ({ docURL, summary }) => {
-  const [fileText, setFileText] = useState('');
+export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
+  const [vistaPreTab, setVistaPreTab] = useState('text');
+  const [selectedTab, setSelectedTab] = useState('Resumen');
   const navigate = useNavigate();
 
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: { docURL } });
@@ -19,18 +20,53 @@ export const SeccionAnalisis = ({ docURL, summary }) => {
     });
   };
 
+  const handleVistaPreliminar_Tab = (tab) => {
+    setVistaPreTab(tab);
+  };
+
+  const handleTabClick = (tab) => {
+    setSelectedTab(tab);
+  };
+
   return (
     <div className='flex flex-row'>
-      <div className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh", marginLeft: '10%' }}>
-        <h6 className="mb-4 text-2xl font-bold">Vista preliminar</h6>
+      <div className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh", marginLeft: '10%', overflowY: 'auto' }}>
+        <div className='flex flex-row justify-between items-center'>
+          <h5 className="mb-4 text-2xl font-bold">Vista preliminar</h5>
+          {/* Tabs START */}
+          <div className="relative flex bg-gray-600 rounded-full p-0.5">
+            <div
+              className={`absolute top-0 left-0 w-1/2 h-full bg-white rounded-full transform transition-transform duration-300 ${vistaPreTab === 'file' ? 'translate-x-full' : ''}`}
+            />
+            <button
+              onClick={() => handleVistaPreliminar_Tab('text')}
+              className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${vistaPreTab === 'text' ? 'text-black' : 'text-white'}`}
+            >
+              Texto
+            </button>
+            <button
+              onClick={() => handleVistaPreliminar_Tab('file')}
+              className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${vistaPreTab === 'file' ? 'text-black' : 'text-white'}`}
+            >
+              Archivo
+            </button>
+          </div>
+          {/* Tabs END */}
+        </div>
         <div className="p-4 flex justify-center">
-          <img
-            onClick={handleOpenPopup}
-            className="cursor-pointer"
-            style={{ height: '55vh' }}
-            src={portadaLibro}
-            alt="Portada"
-          />
+          {vistaPreTab === 'text' ? (
+            <p style={{ whiteSpace: 'pre-wrap' }}>
+              {raw_text}
+            </p>
+          ) : (
+            <img
+              onClick={handleOpenPopup}
+              className="cursor-pointer"
+              style={{ height: '55vh' }}
+              src={portadaLibro}
+              alt="Portada"
+            />
+          )}
         </div>
       </div>
       <div className="flex flex-col justify-between basis-3/5 mx-3" style={{ height: "73dvh", marginRight: '10%' }}>
@@ -38,17 +74,25 @@ export const SeccionAnalisis = ({ docURL, summary }) => {
           <div className='flex flex-row justify-between items-center'>
             <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
             {/* Tabs START */}
-            <ul className="flex flex-wrap text-sm font-medium text-center border-b border-gray-200">
-              <li className="me-2">
-                <a href="#" className="inline-block px-3 py-2 rounded-t-lg hover:bg-gray-600 hover:text-white">Resumen</a>
-              </li>
-              <li className="me-2">
-                <a href="#" className="inline-block px-3 py-2 rounded-t-lg hover:bg-gray-600 hover:text-white">Capítulos</a>
-              </li>
-            </ul>
+            <div className="relative flex bg-gray-600 rounded-full p-0.5">
+              <div
+                className={`absolute top-0 left-0 w-1/2 h-full bg-white rounded-full transform transition-transform duration-300 ${selectedTab === 'Capítulos' ? 'translate-x-full' : ''}`}
+              />
+              <button
+                onClick={() => handleTabClick('Resumen')}
+                className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${selectedTab === 'Resumen' ? 'text-black' : 'text-white'}`}
+              >
+                Resumen
+              </button>
+              <button
+                onClick={() => handleTabClick('Capítulos')}
+                className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${selectedTab === 'Capítulos' ? 'text-black' : 'text-white'}`}
+              >
+                Capítulos
+              </button>
+            </div>
             {/* Tabs END */}
           </div>
-          <p style={{ whiteSpace: 'pre-wrap' }}>{fileText}</p>
           {!summary && (
             <div role="status" className='flex items-center justify-center' style={{ height: "60%" }}>
               <svg aria-hidden="true" className="inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

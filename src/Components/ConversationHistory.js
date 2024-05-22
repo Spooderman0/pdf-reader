@@ -105,13 +105,13 @@ const ConversationHistory = ({ docId, handleConversationIdChange }) => {
           </button>
 
         </div>
-        <div className="container bg-gray-400 rounded-[12px] border w-full h-full flex flex-col justify-start items-center" style={{height: "63dvh"}}>
+        <div className="container bg-white rounded-[12px] border w-full h-full flex flex-col justify-start items-center" style={{height: "63dvh"}}>
           <Scrollbars autoHide>
             <div className='m-3'>
               {conversationsIdList && conversationsIdList.map((conversationId) => 
                 <button 
                 type="button" 
-                class={`relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-300 hover:bg-white ${conversationId === currentConversationId ? "bg-white text-blue-700" : "bg-gray-200"}`}
+                class={`relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-white hover:bg-gray-300 ${conversationId === currentConversationId ? "bg-gray-300 text-blue-700" : "bg-white"}`}
                 onClick={() => handleConversationClick(conversationId)}
                 >
                   <div className='flex flex-row justify-between items-center w-full'>
