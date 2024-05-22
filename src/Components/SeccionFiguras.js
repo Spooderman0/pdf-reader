@@ -55,7 +55,7 @@ const optionsForLineChart = {
   },
 };
 
-const SeccionFiguras = () => {
+const SeccionFiguras = ({figuras}) => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100"  style={{height: "70dvh"}}>
       <div className="container mx-auto p-6">
@@ -65,7 +65,13 @@ const SeccionFiguras = () => {
         <div className="flex flex-col lg:flex-row">
           {/* Section for the charts */}
           <div className="lg:w-2/3">
-            <Line data={dataForLineChart} options={optionsForLineChart} />
+            {/*<Line data={dataForLineChart} options={optionsForLineChart} />*/}
+            <img src={figuras[0]}
+              onError={event => {
+                event.target.src = "https://jamc.jakarta.go.id/portal/public/publicimg/imgnotfound.jpg"
+                event.onerror = null
+              }}
+              />
             {/* You can add Bar and Doughnut charts similarly */}
           </div>
           {/* Section for the text */}
