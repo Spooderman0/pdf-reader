@@ -3,10 +3,10 @@ import 'tailwindcss/tailwind.css';
 import portadaLibro from '../Images/PortadaLibro.png';
 import { useNavigate } from "react-router-dom";
 import { FaClipboard } from "react-icons/fa";
-import { Tab } from '@headlessui/react';
 
 export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
   const [vistaPreTab, setVistaPreTab] = useState('');
+  const [selectedTab, setSelectedTab] = useState('Resumen');
   const navigate = useNavigate();
 
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: { docURL } });
@@ -21,24 +21,28 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
   };
 
   const handleVistaPreliminar_Tab = (tab) => {
-    setVistaPreTab(tab)
+    setVistaPreTab(tab);
+  };
+
+  const handleTabClick = (tab) => {
+    setSelectedTab(tab);
   };
 
   return (
     <div className='flex flex-row'>
-      <div className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh", marginLeft: '10%', overflowY:'auto' }}>
+      <div className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh", marginLeft: '10%', overflowY: 'auto' }}>
         <div className='flex flex-row justify-between items-center'>
-            <h5 className="mb-4 text-2xl font-bold">Vista preliminar</h5>
-            {/* Tabs START */}
-            <ul className="flex flex-wrap text-sm font-medium text-center border-b border-gray-200">
-              <li className="me-2">
-                <a href="#" onClick={() => handleVistaPreliminar_Tab('text')} className="inline-block px-3 py-2 rounded-t-lg hover:bg-gray-600 hover:text-white">Texto</a>
-              </li>
-              <li className="me-2">
-                <a href="#" onClick={() => handleVistaPreliminar_Tab('file')} className="inline-block px-3 py-2 rounded-t-lg hover:bg-gray-600 hover:text-white">Archivo</a>
-              </li>
-            </ul>
-            {/* Tabs END */}
+          <h5 className="mb-4 text-2xl font-bold">Vista preliminar</h5>
+          {/* Tabs START */}
+          <ul className="flex flex-wrap text-sm font-medium text-center border-b border-gray-200">
+            <li className="me-2">
+              <a href="#" onClick={() => handleVistaPreliminar_Tab('text')} className={`inline-block px-3 py-2 rounded-t-lg ${vistaPreTab === 'text' ? 'bg-gray-600 text-white' : 'hover:bg-gray-600 hover:text-white'}`}>Texto</a>
+            </li>
+            <li className="me-2">
+              <a href="#" onClick={() => handleVistaPreliminar_Tab('file')} className={`inline-block px-3 py-2 rounded-t-lg ${vistaPreTab === 'file' ? 'bg-gray-600 text-white' : 'hover:bg-gray-600 hover:text-white'}`}>Archivo</a>
+            </li>
+          </ul>
+          {/* Tabs END */}
         </div>
         <div className="p-4 flex justify-center">
           {vistaPreTab === 'text' ? (
@@ -63,10 +67,10 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
             {/* Tabs START */}
             <ul className="flex flex-wrap text-sm font-medium text-center border-b border-gray-200">
               <li className="me-2">
-                <a href="#" className="inline-block px-3 py-2 rounded-t-lg hover:bg-gray-600 hover:text-white">Resumen</a>
+                <a href="#" onClick={() => handleTabClick('Resumen')} className={`inline-block px-3 py-2 rounded-t-lg ${selectedTab === 'Resumen' ? 'bg-gray-600 text-white' : 'hover:bg-gray-600 hover:text-white'}`}>Resumen</a>
               </li>
               <li className="me-2">
-                <a href="#" className="inline-block px-3 py-2 rounded-t-lg hover:bg-gray-600 hover:text-white">Capítulos</a>
+                <a href="#" onClick={() => handleTabClick('Capítulos')} className={`inline-block px-3 py-2 rounded-t-lg ${selectedTab === 'Capítulos' ? 'bg-gray-600 text-white' : 'hover:bg-gray-600 hover:text-white'}`}>Capítulos</a>
               </li>
             </ul>
             {/* Tabs END */}
