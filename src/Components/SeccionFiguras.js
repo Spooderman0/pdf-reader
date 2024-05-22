@@ -66,8 +66,12 @@ const SeccionFiguras = ({figuras}) => {
           {/* Section for the charts */}
           <div className="lg:w-2/3">
             {/*<Line data={dataForLineChart} options={optionsForLineChart} />*/}
-            <img src={figuras[0]}/>
-
+            <img src={figuras[0]}
+              onError={event => {
+                event.target.src = "https://jamc.jakarta.go.id/portal/public/publicimg/imgnotfound.jpg"
+                event.onerror = null
+              }}
+              />
             {/* You can add Bar and Doughnut charts similarly */}
           </div>
           {/* Section for the text */}
