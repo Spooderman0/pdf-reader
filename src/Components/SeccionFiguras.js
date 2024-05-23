@@ -1,97 +1,75 @@
-import React from 'react';
-import { Line } from 'react-chartjs-2';
-import { Link } from "react-router-dom";
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-  } from 'chart.js';
-  
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  );
-  
+import React, { useState } from 'react';
 
-const dataForLineChart = {
-  labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-  datasets: [
-    {
-      label: 'Primer Dataset',
-      data: [65, 59, 80, 81, 56, 55],
-      fill: false,
-      backgroundColor: 'rgb(75,192,192)',
-      borderColor: 'rgba(75,192,192,0.2)',
-    },
-    {
-      label: 'Segundo Dataset',
-      data: [28, 48, 40, 19, 86, 27],
-      fill: false,
-      backgroundColor: 'rgb(255,99,132)',
-      borderColor: 'rgba(255,99,132,0.2)',
-    },
-  ],
-};
+const SeccionFiguras = ({ figuras }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-const optionsForLineChart = {
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-        },
-      },
-    ],
-  },
-};
+  const goToNextSlide = () => {
+    const nextIndex = (currentIndex + 1) % figuras.length;
+    setCurrentIndex(nextIndex);
+  };
 
-const SeccionFiguras = ({figuras}) => {
+  const goToPrevSlide = () => {
+    const prevIndex = (currentIndex - 1 + figuras.length) % figuras.length;
+    setCurrentIndex(prevIndex);
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100"  style={{height: "70dvh"}}>
-      <div className="container mx-auto p-6">
-        <h2 className="text-3xl font-semibold mb-4 text-center">
-          Algoritmos: análisis, diseño e implementación
-        </h2>
-        <div className="flex flex-col lg:flex-row">
-          {/* Section for the charts */}
-          <div className="lg:w-2/3">
-            {/*<Line data={dataForLineChart} options={optionsForLineChart} />*/}
-            <img src={figuras[0]}
-              onError={event => {
-                event.target.src = "https://jamc.jakarta.go.id/portal/public/publicimg/imgnotfound.jpg"
-                event.onerror = null
-              }}
-              />
-            {/* You can add Bar and Doughnut charts similarly */}
-          </div>
-          {/* Section for the text */}
-          <div className="lg:w-1/3 p-4 bg-gray-200 rounded-lg shadow-inner">
-            <p>
-              La gráfica representa la evolución de cierta variable a lo largo del tiempo, y se
-              caracteriza por sus marcados picos y valles. Estos altos y bajos en la línea trazada reflejan
-              fluctuaciones significativas en la magnitud de la variable medida...
-              {/* Continue with the placeholder text */}
-            </p>
-          </div>
-        </div>
-        <div className="flex justify-center mt-4">
-          {/* Navigation buttons */}
-          <Link to="../main" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            ÍNDICE
-          </Link>
-          {/* ...other buttons */}
+    <div className="relative w-full">
+      {/* Carousel wrapper */}
+      <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+        {/* Current slide */}
+        <div className="absolute inset-0 flex justify-center items-center">
+          <img
+            src={figuras[currentIndex]}
+            alt={`Slide ${currentIndex + 1}`}
+            className="block w-auto h-auto max-h-full max-w-full"
+          />
         </div>
       </div>
+      {/* Slide indicators */}
+      <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {figuras.map((_, index) => (
+          <span
+            key={index}
+            className={`w-2 h-2 rounded-full bg-black/50 ${currentIndex === index ? 'bg-black' : 'bg-black/20'}`}
+          />
+        ))}
+      </div>
+      {/* Slider controls */}
+      <button
+        type="button"
+        className="absolute top-1/2 start-0 z-30 transform -translate-y-1/2 flex items-center justify-center h-10 px-4 cursor-pointer group focus:outline-none text-black"
+        onClick={goToPrevSlide}
+      >
+        {/* Previous button */}
+        <svg
+          className="w-6 h-6 text-black"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        className="absolute top-1/2 end-0 z-30 transform -translate-y-1/2 flex items-center justify-center h-10 px-4 cursor-pointer group focus:outline-none text-black"
+        onClick={goToNextSlide}
+      >
+        {/* Next button */}
+        <svg
+          className="w-6 h-6 text-black"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
     </div>
   );
 };
