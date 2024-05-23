@@ -37,8 +37,8 @@ const Card = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70vw; /* Ajusta este tamaño según tus necesidades */
-    height: 85vh; /* Ajusta este tamaño según tus necesidades */
+    width: 55vw; /* Ajusta este tamaño según tus necesidades */
+    height: 55vh; /* Ajusta este tamaño según tus necesidades */
     z-index: 1000;
     overflow: auto;
   `}
