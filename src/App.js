@@ -11,6 +11,7 @@ import SignUp from "./views/SignUp";
 import PDFAnalysis from "./views/PDFAnalysis";
 import VistaPreliminar from "./views/vistaPreliminar";
 import About from "./views/About";
+import QuickAnalysis from "./Components/QuickAnalysis";
 
 
 
@@ -46,6 +47,7 @@ function App() {
           <Route path="/vistapreliminar" exact element={<VistaPreliminar />} />
           <Route path="/history" exact element={<DocSummaryPage />} />
           <Route path = "/about" exact element= {<About />}/>
+          <Route path = "/quick-analysis" exact element= {<QuickAnalysis />}/>
         </Route>
       </Routes>
     </div>
