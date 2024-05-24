@@ -137,6 +137,7 @@ export const  PDFAnalysis = () => {
         <AnalysisButtons 
           setCurrentSection={setCurrentSection}
           currentSection={currentSection}
+          data={allData}
         />
         </div>
 
