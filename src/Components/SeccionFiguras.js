@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 
 const SeccionFiguras = ({ figuras }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,63 +14,36 @@ const SeccionFiguras = ({ figuras }) => {
     setCurrentIndex(prevIndex);
   };
 
+  const goToSlide = (slideIndex) => {
+    setCurrentIndex(slideIndex);
+  };
+
   return (
-    <div className="relative w-full">
-      {/* Carousel wrapper */}
-      <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-        {/* Current slide */}
-        <div className="absolute inset-0 flex justify-center items-center">
-          <img
-            src={figuras[currentIndex]}
-            alt={`Slide ${currentIndex + 1}`}
-            className="block w-auto h-auto max-h-full max-w-full"
-          />
-        </div>
+    <div className='max-w-[800px] h-[500px] w-full m-auto py-8 px-4 relative group'>
+      <div
+        style={{ backgroundImage: `url(${figuras[currentIndex]})` }}
+        className='w-full h-full rounded-2xl bg-center bg-contain bg-no-repeat duration-500'
+      ></div>
+      {/* Left Arrow */}
+      <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
+        <BsChevronCompactLeft onClick={goToPrevSlide} size={30} />
       </div>
-      {/* Slide indicators */}
-      <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {figuras.map((_, index) => (
-          <span
+      {/* Right Arrow */}
+      <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
+        <BsChevronCompactRight onClick={goToNextSlide} size={30} />
+      </div>
+      {/* Thumbnails */}
+      <div className='flex justify-center py-2 space-x-2 mt-4'>
+        {figuras.map((figura, index) => (
+          <div
             key={index}
-            className={`w-2 h-2 rounded-full bg-black/50 ${currentIndex === index ? 'bg-black' : 'bg-black/20'}`}
-          />
+            onClick={() => goToSlide(index)}
+            className={`cursor-pointer p-1 border-2 ${currentIndex === index ? 'border-black' : 'border-transparent'}`}
+          >
+            <img src={figura} alt={`Thumbnail ${index + 1}`} className='w-76 h-32 object-cover rounded-md' />
+          </div>
         ))}
       </div>
-      {/* Slider controls */}
-      <button
-        type="button"
-        className="absolute top-1/2 start-0 z-30 transform -translate-y-1/2 flex items-center justify-center h-10 px-4 cursor-pointer group focus:outline-none text-black"
-        onClick={goToPrevSlide}
-      >
-        {/* Previous button */}
-        <svg
-          className="w-6 h-6 text-black"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        className="absolute top-1/2 end-0 z-30 transform -translate-y-1/2 flex items-center justify-center h-10 px-4 cursor-pointer group focus:outline-none text-black"
-        onClick={goToNextSlide}
-      >
-        {/* Next button */}
-        <svg
-          className="w-6 h-6 text-black"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
     </div>
   );
 };
