@@ -1,7 +1,7 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
 
-export const AnalysisButtons = ({ setCurrentSection, currentSection }) => {
+export const AnalysisButtons = ({ setCurrentSection, currentSection, data }) => {
   const sections = [
     { id: 'indice', label: 'ANÁLISIS' },
     { id: 'terminos', label: 'TÉRMINOS' },
@@ -16,7 +16,12 @@ export const AnalysisButtons = ({ setCurrentSection, currentSection }) => {
       {sections.map(section => (
         <button
           key={section.id}
-          onClick={() => setCurrentSection(section.id)}
+          //onClick={() => setCurrentSection(section.id)}
+          onClick={() => {
+            if (section.id !== "figuras" || data.Figuras.length > 0) {
+              setCurrentSection(section.id);
+            }
+          }}
           className={`${buttonStyles} ${currentSection === section.id ? "bg-gray-300" : "bg-gray-100"}`}
         >
           {section.label}
