@@ -17,7 +17,7 @@ export const  PDFAnalysis = () => {
   const [analysisData, setAnalysisData] = useState({});
   const [wordCloudData, setWordCloudData] = useState([]);
   const [allData, setAllData] = useState({});
-  const [conversationId, setConversationId] = useState(null);
+  const [currentConversation, setCurrentConversation] = useState(null);
 
 
   useEffect(() => {
@@ -30,9 +30,9 @@ export const  PDFAnalysis = () => {
       //getWordCloudData(docId)
       getAllNew(docId)
     }
-    console.log(conversationId);
+    // console.log(currentConversation);
   
-  }, [currentSection, docId, conversationId]);
+  }, [currentSection, docId, currentConversation]);
 
   const getAllNew = async (docId) => {
     
@@ -46,7 +46,7 @@ export const  PDFAnalysis = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
       setWordCloudData(terminos);
       setAllData({...data});
@@ -56,8 +56,8 @@ export const  PDFAnalysis = () => {
     }
   };
 
-  const handleConversationIdChange = (newConversationId) => {
-    setConversationId(newConversationId);
+  const handleCurrentConversationChange = (newCurrentConversation) => {
+    setCurrentConversation(newCurrentConversation);
   };
 
   /*const getAnalysisData = async (docId) => {
@@ -151,8 +151,8 @@ export const  PDFAnalysis = () => {
           )}
           {currentSection === "frida" && (
             <div className='flex flex-row'>
-              <ConversationHistory docId={docId} handleConversationIdChange={handleConversationIdChange} />
-              <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} conversationId={conversationId} /> 
+              <ConversationHistory docId={docId} handleCurrentConversationChange={handleCurrentConversationChange} />
+              <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} currentConversation={currentConversation} /> 
             </div>
           )}
           {currentSection === "figuras" && (
