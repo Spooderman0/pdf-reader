@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useLocation } from "react-router-dom";
 import 'tailwindcss/tailwind.css';
-import portadaLibro from '../Images/PortadaLibro.png';
-import { useNavigate } from "react-router-dom";
+import { SeccionAnalisis } from '../Components/SeccionAnalisis';
 import { FaClipboard } from "react-icons/fa";
 
-export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
-  const [vistaPreTab, setVistaPreTab] = useState('text');
-  const [selectedTab, setSelectedTab] = useState('Resumen');
-  const navigate = useNavigate();
+const QuickAnalysis = () => {
+  const location = useLocation();
+  const analysisData = location.state?.analysisData || {};
 
-  const handleOpenPopup = () => navigate('/vistapreliminar', { state: { docURL } });
+  const title = analysisData.Title || 'Cargando...';
+  const cleanTitle = title.split('.').slice(0, -1).join('.');
 
   const handleCopyReference = () => {
     const referenceText = "González, D. (2018, 24 enero). Metodología Proceso unificado (UP) - blog Yunbit Software.";
@@ -20,80 +20,40 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
     });
   };
 
-  const handleVistaPreliminar_Tab = (tab) => {
-    setVistaPreTab(tab);
-  };
-
-  const handleTabClick = (tab) => {
-    setSelectedTab(tab);
-  };
-
-  return (
-    <div className='flex flex-row'>
+  /*return (
+    <div className="bg-white w-full flex flex-col" style={{ height: '90vh' }}>
+      <div className='flex flex-row'>
+        <div className='basis-2/5 items-center flex px-3' style={{ height: '15dvh', marginLeft: '10%' }}>
+          <h4 className="mb-4 text-4xl font-bold">{cleanTitle}</h4>
+        </div>
+      </div>
+      <div>
+        <SeccionAnalisis
+          docURL={analysisData.Storage_URL}
+          summary={analysisData.Summary}
+          raw_text={analysisData.Text}
+        />
+      </div>
+    </div>
+  );*/
+  return(
+  <div className='flex flex-row'>
       <div className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh", marginLeft: '10%', overflowY: 'auto' }}>
         <div className='flex flex-row justify-between items-center'>
           <h5 className="mb-4 text-2xl font-bold">Vista preliminar</h5>
-          {/* Tabs START */}
-          <div className="relative flex bg-gray-600 rounded-full p-0.5">
-            <div
-              className={`absolute top-0 left-0 w-1/2 h-full bg-white rounded-full transform transition-transform duration-300 ${vistaPreTab === 'file' ? 'translate-x-full' : ''}`}
-            />
-            <button
-              onClick={() => handleVistaPreliminar_Tab('text')}
-              className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${vistaPreTab === 'text' ? 'text-black' : 'text-white'}`}
-            >
-              Texto
-            </button>
-            <button
-              onClick={() => handleVistaPreliminar_Tab('file')}
-              className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${vistaPreTab === 'file' ? 'text-black' : 'text-white'}`}
-            >
-              Archivo
-            </button>
-          </div>
-          {/* Tabs END */}
         </div>
         <div className="p-4 flex justify-center">
-          {vistaPreTab === 'text' ? (
             <p style={{ whiteSpace: 'pre-wrap' }}>
-              {raw_text}
+              {analysisData.Text}
             </p>
-          ) : (
-            <img
-              onClick={handleOpenPopup}
-              className="cursor-pointer"
-              style={{ height: '55vh' }}
-              src={portadaLibro}
-              alt="Portada"
-            />
-          )}
         </div>
       </div>
       <div className="flex flex-col justify-between basis-3/5 mx-3" style={{ height: "73dvh", marginRight: '10%' }}>
         <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto" style={{ width: "100%", height: "40dvh" }}>
           <div className='flex flex-row justify-between items-center'>
             <h5 className="mb-4 text-2xl font-bold">Resumen</h5>
-            {/* Tabs START */}
-            <div className="relative flex bg-gray-600 rounded-full p-0.5">
-              <div
-                className={`absolute top-0 left-0 w-1/2 h-full bg-white rounded-full transform transition-transform duration-300 ${selectedTab === 'Capítulos' ? 'translate-x-full' : ''}`}
-              />
-              <button
-                onClick={() => handleTabClick('Resumen')}
-                className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${selectedTab === 'Resumen' ? 'text-black' : 'text-white'}`}
-              >
-                Resumen
-              </button>
-              <button
-                onClick={() => handleTabClick('Capítulos')}
-                className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${selectedTab === 'Capítulos' ? 'text-black' : 'text-white'}`}
-              >
-                Capítulos
-              </button>
-            </div>
-            {/* Tabs END */}
           </div>
-          {!summary && (
+          {!analysisData.Summary && (
             <div role="status" className='flex items-center justify-center' style={{ height: "60%" }}>
               <svg aria-hidden="true" className="inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -102,7 +62,7 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
               <span className="sr-only">Loading...</span>
             </div>
           )}
-          <p> {summary} </p>
+          <p> {analysisData.Summary} </p>
         </div>
         <div className="card bg-gray-100 p-3 border-0 shadow-md flex justify-between items-center" style={{ height: "30dvh" }}>
           <div>
@@ -119,6 +79,6 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text }) => {
       </div>
     </div>
   );
-};
+}
 
-export default SeccionAnalisis;
+export default QuickAnalysis;
