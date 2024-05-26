@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { BACKEND_LINK } from '../utils/constants';
 import Scrollbars from 'react-custom-scrollbars';
-import { VscRobot } from "react-icons/vsc";
+import { VscRobot, VscEmptyWindow } from "react-icons/vsc";
 import { CiUser } from "react-icons/ci";
+
 
 export const Chatbox = ({ onMessageSent, docId, currentConversation }) => {
   const [message, setMessage] = useState('');
@@ -12,6 +13,19 @@ export const Chatbox = ({ onMessageSent, docId, currentConversation }) => {
 
   const conversationEndRef = useRef(null);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (currentConversation) {
+      setInitialLoading(true);
+      getConversation();
+    } else {
+      setConversation([])
+    }
+  }, [currentConversation]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [conversation, messageIsLoading]);
 
   const handleSubmitQuery = async (event) => {
     event.preventDefault(); // Prevenir el comportamiento de envío de formulario predeterminado
@@ -70,16 +84,6 @@ export const Chatbox = ({ onMessageSent, docId, currentConversation }) => {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    if (currentConversation) {
-      setInitialLoading(true);
-      getConversation();
-    }
-  }, [currentConversation]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [conversation, messageIsLoading]);
 
   const adjustTextareaHeight = () => {
     const input = inputRef.current;
@@ -93,6 +97,7 @@ export const Chatbox = ({ onMessageSent, docId, currentConversation }) => {
     <div className="container bg-gray-100 rounded-[12px] shadow-lg flex flex-col w-3/4 p-2">
       <div className="text-black font-bold text-xl mb-2">Asistente con IA</div>
       <div className="overflow-auto border border-gray-300 rounded-md w-full p-2" style={{height: "53dvh"}}>
+        
           {initialLoading ? (
               <div className="flex justify-center items-center h-full">
                   <svg aria-hidden="true" class="w-1/6  inline  animate-spin text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

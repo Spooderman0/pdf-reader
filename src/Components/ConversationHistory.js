@@ -41,7 +41,7 @@ const ConversationHistory = ({ docId, handleCurrentConversationChange }) => {
       }
 
       const data = await response.json();
-      console.log(data["conversation_list"]);
+      // console.log(data["conversation_list"]);
       setConversationList(data["conversation_list"]);
       return data["conversation_list"];
     } catch (error) {
@@ -55,7 +55,7 @@ const ConversationHistory = ({ docId, handleCurrentConversationChange }) => {
   };
 
   const handleDeleteConversation = async (conversationId) => {
-    console.log(`delete id: ${conversationId}`);
+    // console.log(`delete id: ${conversationId}`);
     try {
       const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/${docId}/deleteconversation/${conversationId}`, {
         method: 'GET',
@@ -74,6 +74,7 @@ const ConversationHistory = ({ docId, handleCurrentConversationChange }) => {
         setCurrentConversation(updatedConversationList[0]);
       } else {
         setCurrentConversation(null);
+        handleCurrentConversationChange(null)
       }
     } catch (error) {
       console.error('Error deleting conversation:', error);
