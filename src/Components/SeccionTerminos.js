@@ -90,7 +90,7 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
           <MindMap terms={mindMapData.nodes} connections={mindMapData.connections} />
           </div>
         </Card>
-        <Card expanded={expandedCard === 'nubePalabras'} className="card" style={{ height: expandedCard === 'nubePalabras' ? 'auto' : "35dvh" }}>
+        <Card expanded={expandedCard === 'nubePalabras'} className="card" style={{ height: expandedCard === 'nubePalabras' ? '30dvh' : "35dvh" }}>
           <div className="flex justify-between items-center">
             <h6 className='font-medium'>Nube de palabras</h6>
             {expandedCard === 'nubePalabras' ? (

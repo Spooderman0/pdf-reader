@@ -4,8 +4,8 @@ import portadaLibro from '../Images/PortadaLibro.png';
 import { useNavigate } from "react-router-dom";
 import { FaClipboard } from "react-icons/fa";
 
-export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary }) => {
-  const [vistaPreTab, setVistaPreTab] = useState('text');
+export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, portada }) => {
+  const [vistaPreTab, setVistaPreTab] = useState('file');
   const [selectedTab, setSelectedTab] = useState('Resumen');
   const navigate = useNavigate();
 
@@ -36,19 +36,19 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary }) 
           {/* Tabs START */}
           <div className="relative flex bg-gray-600 rounded-full p-0.5">
             <div
-              className={`absolute top-0 left-0 w-1/2 h-full bg-white rounded-full transform transition-transform duration-300 ${vistaPreTab === 'file' ? 'translate-x-full' : ''}`}
+              className={`absolute top-0 left-0 w-1/2 h-full bg-white rounded-full transform transition-transform duration-300 ${vistaPreTab === 'text' ? 'translate-x-full' : ''}`}
             />
-            <button
-              onClick={() => handleVistaPreliminar_Tab('text')}
-              className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${vistaPreTab === 'text' ? 'text-black' : 'text-white'}`}
-            >
-              Texto
-            </button>
             <button
               onClick={() => handleVistaPreliminar_Tab('file')}
               className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${vistaPreTab === 'file' ? 'text-black' : 'text-white'}`}
             >
               Archivo
+            </button>
+            <button
+              onClick={() => handleVistaPreliminar_Tab('text')}
+              className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${vistaPreTab === 'text' ? 'text-black' : 'text-white'}`}
+            >
+              Texto
             </button>
           </div>
           {/* Tabs END */}
@@ -62,9 +62,17 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary }) 
             <img
               onClick={handleOpenPopup}
               className="cursor-pointer"
-              style={{ height: '55vh' }}
-              src={portadaLibro}
+              style={{ height: '55vh', borderRadius:'10px'}}
+              src={portada}
               alt="Portada"
+              onMouseOver={(e) => {
+                //e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+              }}
+              onMouseOut={(e) => {
+                //e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             />
           )}
         </div>
