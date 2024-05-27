@@ -12,19 +12,22 @@ import { BACKEND_LINK } from '../utils/constants';
 export const PDFAnalysis = () => {
   const [currentSection, setCurrentSection] = useState("indice");
   const { docId } = useParams();
-  const [docData, setDocData] = useState({});
-  const [analysisData, setAnalysisData] = useState({});
   const [wordCloudData, setWordCloudData] = useState([]);
   const [allData, setAllData] = useState({});
-  const [conversationId, setConversationId] = useState(null);
+  const [currentConversation, setCurrentConversation] = useState(null);
   const [hasFigures, setHasFigures] = useState(false);
+  const [portada, setPortada] = useState();
+  const [figuras, setFiguras] = useState([]);
+
+
 
   useEffect(() => {
     if (docId) {
       getAllNew(docId);
     }
-    console.log(conversationId);
-  }, [currentSection, docId, conversationId]);
+    // console.log(currentConversation);
+  
+  }, [currentSection, docId, currentConversation]);
 
   const getAllNew = async (docId) => {
     try {
@@ -40,25 +43,33 @@ export const PDFAnalysis = () => {
       const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
       setWordCloudData(terminos);
       setAllData({ ...data });
-    
+      setPortada(data.Figuras[0]);
+
+      // Check if there are figures
+      if (data.Figuras && data.Figuras.length > 1) {
+        setHasFigures(true);
+        setFiguras(data.Figuras.slice(1));
+      } else {
+        setHasFigures(false);
+      }
 
     } catch (error) {
       console.error('Failed to get document data:', error);
     }
   };
 
-  const handleConversationIdChange = (newConversationId) => {
-    setConversationId(newConversationId);
+  const handleCurrentConversationChange = (newCurrentConversation) => {
+    setCurrentConversation(newCurrentConversation);
   };
 
   const title = allData.Title || 'Cargando...';
-  const cleanTitle = title.split('.').slice(0, -1).join('.');
+
 
   return (
     <div className="bg-white w-full flex flex-col" style={{ height: '90vh' }}>
       <div className='flex flex-row'>
         <div className='basis-2/5 items-center flex px-3' style={{ height: '15dvh', marginLeft: '10%' }}>
-          <h4 className="mb-4 text-4xl font-bold">{cleanTitle}</h4>
+          <h4 className="mb-4 text-4xl font-bold">{title}</h4>
         </div>
         <div className='basis-3/5 flex px-3' style={{ height: '15dvh' }}>
           <AnalysisButtons 
@@ -68,25 +79,29 @@ export const PDFAnalysis = () => {
           />
         </div>
       </div>
-      <div>
-        {currentSection === "indice" && (
-          <SeccionAnalisis docURL={allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} />
-        )}
-        {currentSection === "terminos" && (
-          <SeccionTerminos wordCloudData={wordCloudData} terms_defs={allData.Definitions} />
-        )}
-        {currentSection === "frida" && (
-          <div className='flex flex-row'>
-            <ConversationHistory docId={docId} handleConversationIdChange={handleConversationIdChange} />
-            <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} conversationId={conversationId} />
-          </div>
-        )}
-        {currentSection === "figuras" && hasFigures && (
-          <div className='flex flex-row'>
-            <SeccionFiguras figuras={allData.Figuras} />
-          </div>
-        )}
-      </div>
+        <div >
+          {currentSection === "indice" && (
+              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionsSummary={allData.SectionsSummary} portada={portada}/>
+          )}
+
+          {currentSection === "terminos" && (
+              <SeccionTerminos wordCloudData ={wordCloudData} terms_defs={allData.Definitions}/>
+          )}
+          {currentSection === "frida" && (
+            <div className='flex flex-row'>
+              <ConversationHistory docId={docId} handleCurrentConversationChange={handleCurrentConversationChange} />
+              <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} currentConversation={currentConversation} /> 
+            </div>
+          )}
+          {currentSection === "figuras" && (
+            <div className='flex flex-row'>
+              <SeccionFiguras figuras={figuras}/> 
+            </div>
+          )}
+
+
+        </div>
+
     </div>
   );
 }
