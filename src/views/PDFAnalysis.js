@@ -12,12 +12,12 @@ import { BACKEND_LINK } from '../utils/constants';
 export const PDFAnalysis = () => {
   const [currentSection, setCurrentSection] = useState("indice");
   const { docId } = useParams();
-  const [docData, setDocData] = useState({});
-  const [analysisData, setAnalysisData] = useState({});
   const [wordCloudData, setWordCloudData] = useState([]);
   const [allData, setAllData] = useState({});
   const [currentConversation, setCurrentConversation] = useState(null);
   const [hasFigures, setHasFigures] = useState(false);
+  const [portada, setPortada] = useState();
+  const [figuras, setFiguras] = useState([]);
 
 
 
@@ -43,10 +43,12 @@ export const PDFAnalysis = () => {
       const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
       setWordCloudData(terminos);
       setAllData({ ...data });
+      setPortada(data.Figuras[0]);
 
       // Check if there are figures
-      if (data.Figuras && data.Figuras.length > 0) {
+      if (data.Figuras && data.Figuras.length > 1) {
         setHasFigures(true);
+        setFiguras(data.Figuras.slice(1));
       } else {
         setHasFigures(false);
       }
@@ -79,7 +81,7 @@ export const PDFAnalysis = () => {
       </div>
         <div >
           {currentSection === "indice" && (
-              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionsSummary={allData.SectionsSummary} />
+              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionsSummary={allData.SectionsSummary} portada={portada}/>
           )}
 
           {currentSection === "terminos" && (
@@ -93,7 +95,7 @@ export const PDFAnalysis = () => {
           )}
           {currentSection === "figuras" && (
             <div className='flex flex-row'>
-              <SeccionFiguras figuras={allData.Figuras}/> 
+              <SeccionFiguras figuras={figuras}/> 
             </div>
           )}
 
