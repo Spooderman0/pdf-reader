@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import WordCloud from './WordCloud';
 import { BACKEND_LINK } from '../utils/constants';
 import TrendChart from './TrendChart';
-import { FaExpand,FaCompress } from 'react-icons/fa';
+import { FaExpand, FaCompress } from 'react-icons/fa';
 import styled from 'styled-components'; // Importa styled-components
 import MindMap from './MindMap'; // Importa el componente MindMap
+import { Scrollbars } from 'react-custom-scrollbars'; // Importa Scrollbars
 
 
 const IconWrapperExpand = styled(FaExpand)`
-
   color: #a0a0a0;
   transition: color 0.3s ease;
-
   &:hover {
     color: #000000;
   }
@@ -20,7 +19,6 @@ const IconWrapperExpand = styled(FaExpand)`
 const IconWrapperCompress = styled(FaCompress)`
   color: #a0a0a0;
   transition: color 0.3s ease;
-
   &:hover {
     color: #000000;
   }
@@ -37,8 +35,8 @@ const Card = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 55vw; /* Ajusta este tamaño según tus necesidades */
-    height: 55vh; /* Ajusta este tamaño según tus necesidades */
+    width: 55vw;
+    height: 55vh;
     z-index: 1000;
     overflow: auto;
   `}
@@ -51,17 +49,15 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
     setExpandedCard(expandedCard === card ? null : card);
   };
 
-   // Estructura de datos para el mapa mental
-   const mindMapData = {
+  // Estructura de datos para el mapa mental
+  const mindMapData = {
     nodes: [
       { id: 'react', text: 'React' },
       { id: 'tailwind', text: 'Tailwind CSS' },
-      // Más nodos aquí...
     ],
     connections: [
       { source: 'react', target: 'hooks' },
       { source: 'react', target: 'jsx' },
-      // Más conexiones aquí...
     ]
   };
 
@@ -73,10 +69,9 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
     { id: 'components', text: 'Components', target: 'react' },
   ];
 
-
   return (
     <div className='flex flex-row'>
-      <div className='flex flex-col justify-between basis-2/5 px-3' style={{ height: "73dvh" }}>
+      <div className='flex flex-col justify-between basis-2/5 px-3 mx-3' style={{ height: "73dvh", marginLeft: '10%' }}>
         <Card expanded={expandedCard === 'termRelacionados'} className="card" style={{ height: expandedCard === 'termRelacionados' ? 'auto' : "35dvh" }}>
           <div className="flex justify-between items-center">
             <h6 className='font-medium'>Términos relacionados</h6>
@@ -87,7 +82,7 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
             )}
           </div>
           <div className="flex mt-1 justify-center">
-          <MindMap terms={mindMapData.nodes} connections={mindMapData.connections} />
+            <MindMap terms={mindMapData.nodes} connections={mindMapData.connections} />
           </div>
         </Card>
         <Card expanded={expandedCard === 'nubePalabras'} className="card" style={{ height: expandedCard === 'nubePalabras' ? '30dvh' : "35dvh" }}>
@@ -102,8 +97,8 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
           <WordCloud words={wordCloudData} />
         </Card>
       </div>
-      <div className="flex flex-col justify-between basis-3/5 px-3" style={{ height: "73dvh" }}>
-        <Card expanded={expandedCard === 'hechosDefiniciones'} className="card" style={{ height: expandedCard === 'hechosDefiniciones' ? 'auto' : "35dvh", overflowY: "auto" }}>
+      <div className="flex flex-col justify-between basis-3/5 mx-3" style={{ height: "73dvh", marginRight: '10%' }}>
+      <Card expanded={expandedCard === 'hechosDefiniciones'} className="card" style={{ height: expandedCard === 'hechosDefiniciones' ? 'auto' : "35dvh", overflow: 'hidden' }}>
           <div className="flex justify-between items-center">
             <h6 className='font-medium'>Hechos y definiciones</h6>
             {expandedCard === 'hechosDefiniciones' ? (
@@ -113,10 +108,17 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
             )}
           </div>
           <br />
-          {terms_defs && Object.entries(terms_defs).map(([term, definition], index) => (
-            <p key={index}><b>{term}:</b><br />{definition}</p>
-          ))}
+          <div style={{ height: expandedCard === 'hechosDefiniciones' ? '60vh' : 'calc(100% - 2rem)', overflow: 'hidden' }}>
+            <Scrollbars autoHide style={{ height: '100%' }}>
+              <div className="p-2">
+                {terms_defs && Object.entries(terms_defs).map(([term, definition], index) => (
+                  <p key={index}><b>{term}:</b><br />{definition}</p>
+                ))}
+              </div>
+            </Scrollbars>
+          </div>
         </Card>
+
         <Card expanded={expandedCard === 'frecuenciaTerminos'} className="card" style={{ height: expandedCard === 'frecuenciaTerminos' ? 'auto' : "35dvh" }}>
           <div className="flex justify-between items-center">
             <h6 className='font-medium'>Frecuencia de términos</h6>
