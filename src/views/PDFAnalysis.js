@@ -93,7 +93,7 @@ export const PDFAnalysis = () => {
           )}
           {currentSection === "figuras" && (
             <div className='flex flex-row'>
-              <SeccionFiguras /> 
+              <SeccionFiguras figuras={allData.Figuras}/> 
             </div>
           )}
 
