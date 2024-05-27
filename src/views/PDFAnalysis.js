@@ -40,13 +40,7 @@ export const PDFAnalysis = () => {
       const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
       setWordCloudData(terminos);
       setAllData({ ...data });
-
-      // Check if there are figures
-      if (data.Figuras && data.Figuras.length > 0) {
-        setHasFigures(true);
-      } else {
-        setHasFigures(false);
-      }
+    
 
     } catch (error) {
       console.error('Failed to get document data:', error);

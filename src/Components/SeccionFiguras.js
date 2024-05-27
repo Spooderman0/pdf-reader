@@ -19,7 +19,7 @@ const SeccionFiguras = ({ figuras }) => {
   };
 
   return (
-    <div className='max-w-[800px] h-[500px] w-full m-auto py-8 px-4 relative group'>
+    <div className='w-4/5 mx-auto h-[500px] py-8 relative group'>
       <div
         style={{ backgroundImage: `url(${figuras[currentIndex]})` }}
         className='w-full h-full rounded-2xl bg-center bg-contain bg-no-repeat duration-500'
@@ -40,7 +40,7 @@ const SeccionFiguras = ({ figuras }) => {
             onClick={() => goToSlide(index)}
             className={`cursor-pointer p-1 border-2 ${currentIndex === index ? 'border-black' : 'border-transparent'}`}
           >
-            <img src={figura} alt={`Thumbnail ${index + 1}`} className='w-76 h-32 object-cover rounded-md' />
+            <img src={figura} alt={`Thumbnail ${index + 1}`} className='w-32 h-20 object-cover rounded-md' />
           </div>
         ))}
       </div>
