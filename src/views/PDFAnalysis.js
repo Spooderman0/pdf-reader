@@ -44,7 +44,6 @@ export const PDFAnalysis = () => {
       setWordCloudData(terminos);
       setAllData({ ...data });
       setPortada(data.Figuras[0]);
-
       // Check if there are figures
       if (data.Figuras && data.Figuras.length > 1) {
         setHasFigures(true);
@@ -81,7 +80,7 @@ export const PDFAnalysis = () => {
       </div>
         <div >
           {currentSection === "indice" && (
-              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionsSummary={allData.SectionsSummary} portada={portada}/>
+              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionsSummary={allData.Abstract_Chapters} portada={portada}/>
           )}
 
           {currentSection === "terminos" && (
