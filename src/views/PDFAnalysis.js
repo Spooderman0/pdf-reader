@@ -81,7 +81,7 @@ export const PDFAnalysis = () => {
       </div>
         <div >
           {currentSection === "indice" && (
-              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionsSummary={allData.SectionsSummary} portada={portada}/>
+              <SeccionAnalisis docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionsSummary={allData.Abstract_Chapters} portada={portada}/>
           )}
 
           {currentSection === "terminos" && (
