@@ -44,7 +44,6 @@ export const PDFAnalysis = () => {
       setWordCloudData(terminos);
       setAllData({ ...data });
       setPortada(data.Figuras[0]);
-
       // Check if there are figures
       if (data.Figuras && data.Figuras.length > 1) {
         setHasFigures(true);

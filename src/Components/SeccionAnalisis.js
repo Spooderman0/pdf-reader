@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import portadaLibro from '../Images/PortadaLibro.png';
 import { useNavigate } from "react-router-dom";
