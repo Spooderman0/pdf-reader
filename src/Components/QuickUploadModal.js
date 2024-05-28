@@ -37,7 +37,7 @@ const QuickUploadModal = ({ isOpen, close }) => {
       const uploadData = await uploadResponse.json();
       console.log(uploadData);
 
-      navigate('/quick-analysis', { state: { analysisData: uploadData } });
+      navigate('/quick-analysis', { state: { analysisData: uploadData, file: selectedFile } });
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);
