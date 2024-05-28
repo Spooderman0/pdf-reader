@@ -17,31 +17,7 @@ const LogIn = () => {
   const [loginError, setLoginError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const verifySession = async () => {
-      try {
-        const response = await fetch(`${BACKEND_LINK}/currentuser`, {
-          method: 'GET',
-          credentials: 'include', // Asegúrate de enviar cookies con la petición
-        });
 
-        if (!response.ok) {
-          throw new Error('Session verification failed');
-        }
-
-        // Si el servidor retorna 200, entonces la sesión es válida
-        const data = await response.json();
-        console.log("Usuario verificado:", data);
-        navigate('/main');
-
-      } catch (error) {
-        console.error('Session verification error:', error);
-        navigate('/');
-      }
-    };
-
-    verifySession();
-  }, [navigate]);
 
   const handleLogIn = async (e) => {
     try {
