@@ -46,8 +46,7 @@ const Navbar = () => {
           </Link>
         </div>
         
-        <div className="flex items-center space-x-4">
-                
+        <div className="flex items-center space-x-4 ml-10">  {/* Añadir ml-10 aquí */}
           <Link to="/main" className="hover:text-gray-300">
             <IoMdAdd className="text-2xl" />
           </Link>
