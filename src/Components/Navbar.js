@@ -40,7 +40,7 @@ const Navbar = () => {
     <>
       <nav className="bg-black text-white py-4 px-6 flex justify-between items-center fixed top-0 left-0 right-0 z-50" style={{ height: navbarHeight }}>
         <div className="flex items-center space-x-4">
-          <img src={logo} alt="PDF Analyst Logo" className="h-10" />
+          <img src={logo} alt="PDF Analyst Logo" className="h-16" />
           <Link to="/main" className='hover:text-gray-300'>
             <span className="font-bold text-xl">PDF Analyst</span>
           </Link>
