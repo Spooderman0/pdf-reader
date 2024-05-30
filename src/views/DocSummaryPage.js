@@ -90,12 +90,17 @@ const DocSummaryPage = () => {
       <div className="w-3/4 p-5">
         {selectedDocData ? (
           <>
-            <button
-              onClick={() => handleVerAnalisis(selectedDocData.id)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 my-2 px-4 rounded"
-            >
-              Ver análisis
-            </button>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <button
+                  onClick={() => handleVerAnalisis(selectedDocData.id)}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 my-2 px-4 rounded"
+                >
+                  Ver análisis
+                </button>
+                <span className="text-gray-500 ml-4">{new Date(selectedDocData.UploadedDate).toLocaleDateString()}</span>
+              </div>
+            </div>
             <iframe
               src={selectedDocData["Storage_URL"]}
               title="Document Preview"
