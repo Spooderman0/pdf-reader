@@ -17,13 +17,14 @@ export default function ChangePasswordModal({ open, setOpen }) {
         credentials: 'include',
         body: JSON.stringify({email}),
       });
+      alert(' 1 Correo de restablecimiento de contraseña enviado correctamente (try)');
 
       console.log('Estado de la respuesta (try):', response.status);
 
       if(response.status === 200)
-        {
-          console.log('yupiyei')
-        }
+      {
+          console.log('entro al status 200')
+      }
 
       if (!response.ok) {
         // Maneja errores HTTP
@@ -39,7 +40,7 @@ export default function ChangePasswordModal({ open, setOpen }) {
     }
     catch (error) {
       console.error('Error al reset password (catch):', error);
-      alert('Error al mandar correo de reset (catch) '+ error.message);
+      //alert('Error al mandar correo de reset (catch) '+ error.message);
     }
   };
 
