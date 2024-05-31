@@ -26,6 +26,7 @@ const ForgotPasswordModal = ({ showModal, closeModal }) => {
 
     if(response.status === 200)
     {
+      setEmail('')
       alert('Correo de restablecimiento de contraseña enviado correctamente');
       console.log('se mando')
     }
