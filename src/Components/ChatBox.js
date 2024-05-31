@@ -123,7 +123,7 @@ export const Chatbox = ({ onMessageSent, docId, currentConversation }) => {
   };
 
   return (
-    <div className="container bg-gray-100 rounded-[12px] shadow-lg flex flex-col w-3/4 p-2">
+    <div className="container bg-gray-100 rounded-[12px] shadow-lg flex flex-col w-3/4 p-2" style={{marginRight: "10%"}}>
       <div className="text-black font-bold text-xl mb-2">Asistente con IA</div>
       <div className="overflow-auto border border-gray-300 rounded-md w-full p-2" style={{ height: "53dvh" }}>
         {initialLoading ? (
