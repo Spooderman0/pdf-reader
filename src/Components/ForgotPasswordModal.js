@@ -23,9 +23,10 @@ const ForgotPasswordModal = ({ showModal, closeModal }) => {
       credentials: 'include',
       body: JSON.stringify({email}),
     });
+
     if(response.status === 200)
     {
-      alert('Correo de restablecimiento de contraseña enviado correctamente (try)');
+      alert('Correo de restablecimiento de contraseña enviado correctamente');
       console.log('se mando')
     }
     
@@ -36,8 +37,8 @@ const ForgotPasswordModal = ({ showModal, closeModal }) => {
 
     }
     catch {
-      console.error('Error al reset password (catch):', error);
-      alert('Error al mandar correo de reset (catch) '+ error.message);
+      console.error('Error al reset password', error);
+      alert('Error al mandar correo de reset '+ error.message);
     }
 
     closeModal()
