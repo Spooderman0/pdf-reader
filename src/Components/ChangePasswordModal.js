@@ -18,21 +18,28 @@ export default function ChangePasswordModal({ open, setOpen }) {
         body: JSON.stringify({email}),
       });
 
+      console.log('Estado de la respuesta (try):', response.status);
+
+      if(response.status === 200)
+        {
+          console.log('yupiyei')
+        }
+
       if (!response.ok) {
         // Maneja errores HTTP
         const errorResponse = await response.json();
-        console.log('Error en la respuesta:', errorResponse);
+        console.log('Error en la respuesta (sigue en el try):', errorResponse);
         throw new Error(errorResponse.error || 'Error al enviar el correo de restablecimiento de contraseña');
       }
   
       const result = await response.json();
-      console.log('result', result);
-      alert('Correo de restablecimiento de contraseña enviado correctamente');
+      console.log('result (dentro del try)', result);
+      alert('Correo de restablecimiento de contraseña enviado correctamente (try)');
 
     }
     catch (error) {
-      console.error('Error al reset password:', error);
-      alert('Error al mandar correo de reset'+ error.message);
+      console.error('Error al reset password (catch):', error);
+      alert('Error al mandar correo de reset (catch) '+ error.message);
     }
   };
 
