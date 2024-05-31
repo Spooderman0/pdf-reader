@@ -26,6 +26,7 @@ const ForgotPasswordModal = ({ showModal, closeModal }) => {
     if(response.status === 200)
     {
       alert('Correo de restablecimiento de contraseña enviado correctamente (try)');
+      console.log('se mando')
     }
     
     // Simulate API call response
