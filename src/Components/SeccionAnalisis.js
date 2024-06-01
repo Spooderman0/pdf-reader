@@ -4,9 +4,10 @@ import portadaLibro from '../Images/PortadaLibro.png';
 import { useNavigate } from "react-router-dom";
 import { FaClipboard } from "react-icons/fa";
 
-export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, portada }) => {
+export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, portada, title, author, creationDate }) => {
   const [vistaPreTab, setVistaPreTab] = useState('file');
   const [selectedTab, setSelectedTab] = useState('Resumen');
+  let referencia
   const navigate = useNavigate();
 
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: { docURL } });
@@ -27,6 +28,38 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, po
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
+
+  //ARMAR REFERENCIA DESDE EL FRONT
+  if (!creationDate) {
+    if (author) {
+        referencia = (
+          <>
+              {author}. <i>{title}</i>.
+          </>
+        );
+    } else {
+        referencia = (
+          <>
+              <i>{title}</i>.
+          </>
+        );
+    }
+  } else {
+    if (author) {
+        referencia = (
+          <>
+              {author}. ({creationDate}). <i>{title}</i>.
+          </>
+        );
+    } else {
+        referencia = `<em>${title}</em>.(${creationDate}).`;
+        referencia = (
+          <>
+              <i>{title}</i>. ({creationDate})
+          </>
+        );
+    }
+  }
 
   return (
     <div className='flex flex-row'>
@@ -127,7 +160,8 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, po
         <div className="card bg-gray-100 p-3 border-0 shadow-md flex justify-between items-center" style={{ height: "30dvh" }}>
           <div>
             <h5 className="mb-4 text-2xl font-bold ">Referencia</h5>
-            <p>González, D. (2018, 24 enero). Metodología Proceso unificado (UP) - blog Yunbit Software.</p>
+            {/*<p>González, D. (2018, 24 enero). <i>Metodología Proceso unificado (UP) </i> - blog Yunbit Software.</p>*/}
+            <p>{referencia}</p>
           </div>
           <button
             onClick={handleCopyReference}
