@@ -73,13 +73,13 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, po
             />
             <button
               onClick={() => handleVistaPreliminar_Tab('file')}
-              className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${vistaPreTab === 'file' ? 'text-black' : 'text-white'}`}
+              className={`relative w-1/2 px-4 py-1 rounded-full z-10 ${vistaPreTab === 'file' ? 'text-black' : 'text-white'}`}
             >
               Archivo
             </button>
             <button
               onClick={() => handleVistaPreliminar_Tab('text')}
-              className={`relative w-1/2 px-2 py-1 rounded-full z-10 ${vistaPreTab === 'text' ? 'text-black' : 'text-white'}`}
+              className={`relative w-1/2 px-4 py-1 rounded-full z-10 ${vistaPreTab === 'text' ? 'text-black' : 'text-white'}`}
             >
               Texto
             </button>

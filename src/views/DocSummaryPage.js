@@ -73,10 +73,11 @@ const DocSummaryPage = () => {
         <h2 className="text-xl font-semibold mb-5 text-center">Historial</h2>
         <ul>
           {docs.map((doc, index) => (
-            <li key={index} className="flex justify-between p-2 hover:bg-gray-200 cursor-pointer group">
-              <span onClick={() => handleSelectDoc(index)}>
-                {doc.Title || 'Documento sin título'}
-              </span>
+            <li key={index} onClick={() => handleSelectDoc(index)} className="flex justify-between p-2 hover:bg-gray-200 cursor-pointer group">
+              <div className="flex flex-col">
+                <span className="font-bold text-base">{doc.Title || 'Documento sin título'}</span>
+                <span className="text-gray-500 text-xs mt-1">{new Date(doc.UploadedDate).toLocaleDateString()}</span>
+              </div>
               <button 
                 onClick={() => handleDeleteDoc(doc.id)} 
                 className="text-gray-600 hover:text-gray-800 hidden group-hover:block"
@@ -90,12 +91,17 @@ const DocSummaryPage = () => {
       <div className="w-3/4 p-5">
         {selectedDocData ? (
           <>
-            <button
-              onClick={() => handleVerAnalisis(selectedDocData.id)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 my-2 px-4 rounded"
-            >
-              Ver análisis
-            </button>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <button
+                  onClick={() => handleVerAnalisis(selectedDocData.id)}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 my-2 px-4 rounded"
+                >
+                  Ver análisis
+                </button>
+                <span className="text-gray-500 ml-4">{new Date(selectedDocData.UploadedDate).toLocaleDateString()}</span>
+              </div>
+            </div>
             <iframe
               src={selectedDocData["Storage_URL"]}
               title="Document Preview"
