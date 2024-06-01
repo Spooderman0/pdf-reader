@@ -4,44 +4,40 @@ import { BACKEND_LINK } from '../utils/constants';
 
 export default function ChangePasswordModal({ open, setOpen }) {
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
   const cancelButtonRef = useRef(null);
 
-  const handleChangePassword = async() => {
+  const handleSubmit2 = async (event) => {
     try {
-      console.log('el email que se va a mandar es:', email)
-      const response = await fetch(`${BACKEND_LINK}/sendpasswordresetemail`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({email}),
-      });
-      alert(' 1 Correo de restablecimiento de contraseña enviado correctamente (try)');
+      event.preventDefault();
+    if (!email) {
+      setError('Please include a valid email address.');
+      return;
+    }
+    setError(''); // Clear any existing errors
 
-      console.log('Estado de la respuesta (try):', response.status);
+    const response = await fetch(`${BACKEND_LINK}/sendpasswordresetemail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({email}),
+    });
 
-      if(response.status === 200)
-      {
-          console.log('entro al status 200')
-      }
-
-      if (!response.ok) {
-        // Maneja errores HTTP
-        const errorResponse = await response.json();
-        console.log('Error en la respuesta (sigue en el try):', errorResponse);
-        throw new Error(errorResponse.error || 'Error al enviar el correo de restablecimiento de contraseña');
-      }
-  
-      const result = await response.json();
-      console.log('result (dentro del try)', result);
-      alert('Correo de restablecimiento de contraseña enviado correctamente (try)');
+    if(response.status === 200)
+    {
+      setEmail('')
+      alert('Correo de restablecimiento de contraseña enviado correctamente');
+    }
 
     }
-    catch (error) {
-      console.error('Error al reset password (catch):', error);
-      //alert('Error al mandar correo de reset (catch) '+ error.message);
+    catch {
+      alert('Error al mandar correo de reset '+ error.message);
     }
+    setOpen(false)
+    
   };
 
   return (
@@ -81,7 +77,7 @@ export default function ChangePasswordModal({ open, setOpen }) {
                   <input id="email"name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-input block w-full border border-gray-300 rounded-md shadow-sm" required />
                 </div>
                 <div className="flex justify-end">
-                  <button onClick={handleChangePassword} type="submit" className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300">Send Reset Link</button>
+                  <button onClick={handleSubmit2} type="submit" className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300">Send Reset Link</button>
                 </div>
               </form>
             </div>
