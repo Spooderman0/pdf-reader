@@ -73,8 +73,8 @@ const DocSummaryPage = () => {
         <h2 className="text-xl font-semibold mb-5 text-center">Historial</h2>
         <ul>
           {docs.map((doc, index) => (
-            <li key={index} className="flex justify-between p-2 hover:bg-gray-200 cursor-pointer group">
-              <div onClick={() => handleSelectDoc(index)} className="flex flex-col">
+            <li key={index} onClick={() => handleSelectDoc(index)} className="flex justify-between p-2 hover:bg-gray-200 cursor-pointer group">
+              <div className="flex flex-col">
                 <span className="font-bold text-base">{doc.Title || 'Documento sin título'}</span>
                 <span className="text-gray-500 text-xs mt-1">{new Date(doc.UploadedDate).toLocaleDateString()}</span>
               </div>
