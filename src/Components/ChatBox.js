@@ -33,29 +33,32 @@ export const Chatbox = ({ docId, currentConversation }) => {
     event.preventDefault(); // Prevenir el comportamiento de envío de formulario predeterminado
 
     // Add the user's message to the conversation immediately
-    const newMessage = { owner: "Usuario", message };
-    setConversation(prevConversation => [...prevConversation, newMessage]);
-    setMessage('');
-    setMessageIsLoading(true);
-
-    try {
-      const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/${docId}/${currentConversation["id"]}/${message}`, {
-        method: 'GET',
-        headers: {
-          "Access-Control-Allow-Origin": "*"
-        },
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        throw new Error('La respuesta de la red no fue correcta');
+    if(message) {
+      const newMessage = { owner: "Usuario", message };
+      setConversation(prevConversation => [...prevConversation, newMessage]);
+      setMessage('');
+      setMessageIsLoading(true);
+  
+      try {
+        const response = await fetch(`${BACKEND_LINK}/user_id/chatbot/${docId}/${currentConversation["id"]}/${message}`, {
+          method: 'GET',
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          },
+          credentials: 'include',
+        });
+  
+        if (!response.ok) {
+          throw new Error('La respuesta de la red no fue correcta');
+        }
+  
+        await getConversation();
+        setMessageIsLoading(false);
+      } catch (error) {
+        setMessageIsLoading(false);
+        console.error('Error al obtener los datos:', error);
       }
 
-      await getConversation();
-      setMessageIsLoading(false);
-    } catch (error) {
-      setMessageIsLoading(false);
-      console.error('Error al obtener los datos:', error);
     }
   };
 
