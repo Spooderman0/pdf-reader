@@ -74,10 +74,10 @@ const DocSummaryPage = () => {
         <ul>
           {docs.map((doc, index) => (
             <li key={index} className="flex justify-between p-2 hover:bg-gray-200 cursor-pointer group">
-              <span onClick={() => handleSelectDoc(index)}>
-                <b>{doc.Title || 'Documento sin título'}</b>
-              </span>
-              <span className="text-gray-500 ml-4">{new Date(doc.UploadedDate).toLocaleDateString()}</span>
+              <div onClick={() => handleSelectDoc(index)} className="flex flex-col">
+                <span className="font-bold text-base">{doc.Title || 'Documento sin título'}</span>
+                <span className="text-gray-500 text-xs mt-1">{new Date(doc.UploadedDate).toLocaleDateString()}</span>
+              </div>
               <button 
                 onClick={() => handleDeleteDoc(doc.id)} 
                 className="text-gray-600 hover:text-gray-800 hidden group-hover:block"
