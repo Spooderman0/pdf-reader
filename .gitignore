@@ -6,7 +6,6 @@
 .pnp.js
 package-lock.json
 
-src\utils\constants.js
 
 # testing
 /coverage
@@ -25,3 +24,6 @@ src\utils\constants.js
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+/src/utils/constants.js
