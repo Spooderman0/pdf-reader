@@ -26,4 +26,4 @@ yarn-debug.log*
 yarn-error.log*
 
 
-src/utils/constants.js
+/src/utils/constants.js
