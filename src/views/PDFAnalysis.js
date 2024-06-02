@@ -97,8 +97,6 @@ export const PDFAnalysis = () => {
               <SeccionFiguras figuras={figuras}/> 
             </div>
           )}
-
-
         </div>
 
     </div>
