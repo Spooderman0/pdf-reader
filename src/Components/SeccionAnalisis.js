@@ -3,12 +3,20 @@ import 'tailwindcss/tailwind.css';
 import portadaLibro from '../Images/PortadaLibro.png';
 import { useNavigate } from "react-router-dom";
 import { FaClipboard } from "react-icons/fa";
+import { BACKEND_LINK } from '../utils/constants';
 
-export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, portada, title, author, creationDate }) => {
+
+export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSummariesDB, portada, title, author, creationDate }) => {
   const [vistaPreTab, setVistaPreTab] = useState('file');
   const [selectedTab, setSelectedTab] = useState('Resumen');
+  const [sectionSummaries, setSectionSummaries] = useState();
+
   let referencia
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setSectionSummaries(sectionSummariesDB);
+  }, [sectionSummariesDB])
 
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: { docURL } });
 
@@ -27,6 +35,33 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, po
 
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
+  };
+
+  const handleSectionClick = async (sectionIndex) => {
+    try {
+      if(!sectionSummaries[sectionIndex]["summary"]){
+        const response = await fetch(`${BACKEND_LINK}/chatbot/${docId}/sectionSummary/${sectionIndex}`, {
+          method: 'GET',
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          },
+          credentials: 'include',
+        });
+        
+        if (!response.ok) {
+          throw new Error(`La respuesta de la red no fue correcta al obtener los datos de sección: ${sectionIndex}`);
+        }
+        
+        const data = await response.json();
+        const sectionSummary = data["sectionSummary"];
+        
+        let newSectionSummaries = [...sectionSummaries];
+        newSectionSummaries[sectionIndex]["summary"] = sectionSummary;
+        setSectionSummaries(newSectionSummaries);
+      }
+    } catch (error) {
+      console.error( `Error al obtener los datos de sección: ${sectionIndex}`, error);
+    }
   };
 
   //ARMAR REFERENCIA DESDE EL FRONT
@@ -148,9 +183,25 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, po
             )
           ) : (
             <div>
-              {sectionsSummary.map((section, index) => (
+              {sectionSummaries.map((section, index) => (
                 <div key={index} className="mb-4">
-                  <h6 className="text-xl font-semibold">{section.title}</h6>
+                  {/* Make the title clickable */}
+                  {sectionSummaries[index]["summary"] ? (
+                    <p
+                    className="text-xl font-semibold text-black hover:underline focus:outline-none"
+                    onClick={() => handleSectionClick(index)}
+                    >
+                    {section.title}
+                  </p>
+                ) : (
+                    <button
+                    className="text-xl font-semibold text-blue-500 hover:underline focus:outline-none"
+                    onClick={() => handleSectionClick(index)}
+                    >
+                    {section.title}
+                  </button>
+                )
+                  }
                   <p>{section.summary}</p>
                 </div>
               ))}
