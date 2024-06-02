@@ -10,6 +10,8 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
   const [vistaPreTab, setVistaPreTab] = useState('file');
   const [selectedTab, setSelectedTab] = useState('Resumen');
   const [sectionSummaries, setSectionSummaries] = useState();
+  let authors=[]
+  let authorsList
 
   let referencia
   const navigate = useNavigate();
@@ -63,13 +65,31 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
       console.error( `Error al obtener los datos de sección: ${sectionIndex}`, error);
     }
   };
+  
+  if(author){
+    let authRef
+    //let authors=[]
+    for (const auth of author){
+      authRef = auth.split(' ')
+      const lastname = authRef[1]
+      const initial = authRef[0].charAt(0);
+      authors.push(lastname+', '+initial+'.')
+    }
+    if(authors.length > 1){
+      authorsList = authors.join(', ') ;
+    }
+    else {
+      authorsList = authors[0]
+      
+    }
+  }
 
   //ARMAR REFERENCIA DESDE EL FRONT
   if (!creationDate) {
-    if (author) {
+    if (authorsList) {
         referencia = (
           <>
-              {author}. <i>{title}</i>.
+              {authorsList}. <i>{title}</i>.
           </>
         );
     } else {
@@ -80,10 +100,10 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
         );
     }
   } else {
-    if (author) {
+    if (authorsList) {
         referencia = (
           <>
-              {author}. ({creationDate}). <i>{title}</i>.
+              {authorsList}. ({creationDate}). <i>{title}</i>.
           </>
         );
     } else {
