@@ -24,7 +24,6 @@ export const PDFAnalysis = () => {
   useEffect(() => {
     if (docId) {
       getAllNew(docId);
-      console.log(allData);
     }
     // console.log(currentConversation);
   
