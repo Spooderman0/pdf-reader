@@ -7,6 +7,9 @@ import { FaClipboard } from "react-icons/fa";
 export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, portada, title, author, creationDate }) => {
   const [vistaPreTab, setVistaPreTab] = useState('file');
   const [selectedTab, setSelectedTab] = useState('Resumen');
+  let authors=[]
+  let authorsList
+
   let referencia
   const navigate = useNavigate();
 
@@ -29,12 +32,30 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, po
     setSelectedTab(tab);
   };
 
+  if(author){
+    let authRef
+    //let authors=[]
+    for (const auth of author){
+      authRef = auth.split(' ')
+      const lastname = authRef[1]
+      const initial = authRef[0].charAt(0);
+      authors.push(lastname+', '+initial+'.')
+    }
+    if(authors.length > 1){
+      authorsList = authors.join(', ') ;
+    }
+    else {
+      authorsList = authors[0]
+      
+    }
+  }
+
   //ARMAR REFERENCIA DESDE EL FRONT
   if (!creationDate) {
-    if (author) {
+    if (authorsList) {
         referencia = (
           <>
-              {author}. <i>{title}</i>.
+              {authorsList}. <i>{title}</i>.
           </>
         );
     } else {
@@ -45,10 +66,10 @@ export const SeccionAnalisis = ({ docURL, summary, raw_text, sectionsSummary, po
         );
     }
   } else {
-    if (author) {
+    if (authorsList) {
         referencia = (
           <>
-              {author}. ({creationDate}). <i>{title}</i>.
+              {authorsList}. ({creationDate}). <i>{title}</i>.
           </>
         );
     } else {
