@@ -4,6 +4,7 @@ import portadaLibro from '../Images/PortadaLibro.png';
 import { useNavigate } from "react-router-dom";
 import { FaClipboard } from "react-icons/fa";
 import { BACKEND_LINK } from '../utils/constants';
+import Swal from 'sweetalert2';
 
 
 export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSummariesDB, portada, title, author, creationDate }) => {
@@ -25,7 +26,13 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
   const handleCopyReference = () => {
     const referenceText = "González, D. (2018, 24 enero). Metodología Proceso unificado (UP) - blog Yunbit Software.";
     navigator.clipboard.writeText(referenceText).then(() => {
-      alert('Referencia copiada al portapapeles');
+      //alert('Referencia copiada al portapapeles');
+      //icon='success';
+      //msj_alert = 'Referencia copiada al portapapeles';
+      Swal.fire ({
+        icon: 'success',
+        text: 'Referencia copiada al portapapeles',
+      })
     }).catch(err => {
       console.error('Error al copiar la referencia', err);
     });
