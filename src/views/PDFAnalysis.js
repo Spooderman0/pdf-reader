@@ -25,7 +25,6 @@ export const PDFAnalysis = () => {
     if (docId) {
       getAllNew(docId);
     }
-    // console.log(currentConversation);
   
   }, [currentSection, docId, currentConversation]);
 
