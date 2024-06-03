@@ -1,38 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
-import portadaLibro from '../Images/PortadaLibro.png';
 import { useNavigate } from "react-router-dom";
 import { FaClipboard } from "react-icons/fa";
 import { BACKEND_LINK } from '../utils/constants';
 import Swal from 'sweetalert2';
 
-
 export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSummariesDB, portada, title, author, creationDate }) => {
   const [vistaPreTab, setVistaPreTab] = useState('file');
   const [selectedTab, setSelectedTab] = useState('Resumen');
   const [sectionSummaries, setSectionSummaries] = useState();
-  let authors=[]
-  let authorsList
+  let authors = [];
+  let authorsList;
 
-  let referencia
+  let referencia;
   const navigate = useNavigate();
 
   useEffect(() => {
     setSectionSummaries(sectionSummariesDB);
-  }, [sectionSummariesDB])
+  }, [sectionSummariesDB]);
 
   const handleOpenPopup = () => navigate('/vistapreliminar', { state: { docURL } });
 
   const handleCopyReference = () => {
     const referenceText = "González, D. (2018, 24 enero). Metodología Proceso unificado (UP) - blog Yunbit Software.";
     navigator.clipboard.writeText(referenceText).then(() => {
-      //alert('Referencia copiada al portapapeles');
-      //icon='success';
-      //msj_alert = 'Referencia copiada al portapapeles';
-      Swal.fire ({
+      Swal.fire({
         icon: 'success',
         text: 'Referencia copiada al portapapeles',
-      })
+      });
     }).catch(err => {
       console.error('Error al copiar la referencia', err);
     });
@@ -48,7 +43,7 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
 
   const handleSectionClick = async (sectionIndex) => {
     try {
-      if(!sectionSummaries[sectionIndex]["summary"]){
+      if (!sectionSummaries[sectionIndex]["summary"]) {
         const response = await fetch(`${BACKEND_LINK}/chatbot/${docId}/sectionSummary/${sectionIndex}`, {
           method: 'GET',
           headers: {
@@ -56,71 +51,54 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
           },
           credentials: 'include',
         });
-        
+
         if (!response.ok) {
           throw new Error(`La respuesta de la red no fue correcta al obtener los datos de sección: ${sectionIndex}`);
         }
-        
+
         const data = await response.json();
         const sectionSummary = data["sectionSummary"];
-        
+
         let newSectionSummaries = [...sectionSummaries];
         newSectionSummaries[sectionIndex]["summary"] = sectionSummary;
         setSectionSummaries(newSectionSummaries);
       }
     } catch (error) {
-      console.error( `Error al obtener los datos de sección: ${sectionIndex}`, error);
+      console.error(`Error al obtener los datos de sección: ${sectionIndex}`, error);
     }
   };
-  
-  if(author){
-    let authRef
-    //let authors=[]
-    for (const auth of author){
-      authRef = auth.split(' ')
-      const lastname = authRef[1]
+
+  if (author) {
+    let authRef;
+    for (const auth of author) {
+      authRef = auth.split(' ');
+      const lastname = authRef[1];
       const initial = authRef[0].charAt(0);
-      authors.push(lastname+', '+initial+'.')
+      authors.push(lastname + ', ' + initial + '.');
     }
-    if(authors.length > 1){
-      authorsList = authors.join(', ') ;
-    }
-    else {
-      authorsList = authors[0]
-      
-    }
+    authorsList = authors.length > 1 ? authors.join(', ') : authors[0];
   }
 
-  //ARMAR REFERENCIA DESDE EL FRONT
   if (!creationDate) {
-    if (authorsList) {
-        referencia = (
-          <>
-              {authorsList}. <i>{title}</i>.
-          </>
-        );
-    } else {
-        referencia = (
-          <>
-              <i>{title}</i>.
-          </>
-        );
-    }
+    referencia = authorsList ? (
+      <>
+        {authorsList}. <i>{title}</i>.
+      </>
+    ) : (
+      <>
+        <i>{title}</i>.
+      </>
+    );
   } else {
-    if (authorsList) {
-        referencia = (
-          <>
-              {authorsList}. ({creationDate}). <i>{title}</i>.
-          </>
-        );
-    } else {
-        referencia = `<em>${title}</em>.(${creationDate}).`;
-        referencia = (
-          <>
-              <i>{title}</i>. ({creationDate})
-          </>
-        );
-    }
+    referencia = authorsList ? (
+      <>
+        {authorsList}. ({creationDate}). <i>{title}</i>.
+      </>
+    ) : (
+      <>
+        <i>{title}</i>. ({creationDate})
+      </>
+    );
   }
 
   return (
@@ -128,7 +106,6 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
       <div className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh", marginLeft: '10%', overflowY: 'auto' }}>
         <div className='flex flex-row justify-between items-center'>
           <h5 className="mb-4 text-2xl font-bold">Vista preliminar</h5>
-          {/* Tabs START */}
           <div className="relative flex bg-gray-600 rounded-full p-0.5">
             <div
               className={`absolute top-0 left-0 w-1/2 h-full bg-white rounded-full transform transition-transform duration-300 ${vistaPreTab === 'text' ? 'translate-x-full' : ''}`}
@@ -146,7 +123,6 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
               Texto
             </button>
           </div>
-          {/* Tabs END */}
         </div>
         <div className="p-4 flex justify-center">
           {vistaPreTab === 'text' ? (
@@ -157,15 +133,13 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
             <img
               onClick={handleOpenPopup}
               className="cursor-pointer"
-              style={{ height: '55vh', borderRadius:'10px'}}
+              style={{ height: '55vh', borderRadius: '10px' }}
               src={portada}
               alt="Portada"
               onMouseOver={(e) => {
-                //e.currentTarget.style.transform = 'scale(1)';
                 e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
               }}
               onMouseOut={(e) => {
-                //e.currentTarget.style.transform = 'scale(1)';
                 e.currentTarget.style.boxShadow = 'none';
               }}
             />
@@ -176,7 +150,6 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
         <div className="card bg-gray-100 p-3 border-0 shadow-md overflow-auto" style={{ width: "100%", height: "40dvh" }}>
           <div className='flex flex-row justify-between items-center'>
             <h5 className="mb-4 text-2xl font-bold">{selectedTab === 'Resumen' ? 'Resumen' : 'Capítulos'}</h5>
-            {/* Tabs START */}
             <div className="relative flex bg-gray-600 rounded-full p-0.5">
               <div
                 className={`absolute top-0 left-0 w-1/2 h-full bg-white rounded-full transform transition-transform duration-300 ${selectedTab === 'Capítulos' ? 'translate-x-full' : ''}`}
@@ -194,7 +167,6 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
                 Capítulos
               </button>
             </div>
-            {/* Tabs END */}
           </div>
           {selectedTab === 'Resumen' ? (
             !summary ? (
@@ -212,41 +184,40 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
             <div>
               {sectionSummaries.map((section, index) => (
                 <div key={index} className="mb-4">
-                  {/* Make the title clickable */}
                   {sectionSummaries[index]["summary"] ? (
                     <p
-                    className="text-xl font-semibold text-black hover:underline focus:outline-none"
-                    onClick={() => handleSectionClick(index)}
+                      className="text-xl font-semibold text-black hover:underline focus:outline-none"
+                      onClick={() => handleSectionClick(index)}
                     >
-                    {section.title}
-                  </p>
-                ) : (
+                      {section.title}
+                    </p>
+                  ) : (
                     <button
-                    className="text-xl font-semibold text-blue-500 hover:underline focus:outline-none"
-                    onClick={() => handleSectionClick(index)}
+                      className="text-xl font-semibold text-blue-500 hover:underline focus:outline-none"
+                      onClick={() => handleSectionClick(index)}
                     >
-                    {section.title}
-                  </button>
-                )
-                  }
+                      {section.title}
+                    </button>
+                  )}
                   <p>{section.summary}</p>
                 </div>
               ))}
             </div>
           )}
         </div>
-        <div className="card bg-gray-100 p-3 border-0 shadow-md flex justify-between items-center" style={{ height: "30dvh" }}>
-          <div>
-            <h5 className="mb-4 text-2xl font-bold ">Referencia</h5>
-            {/*<p>González, D. (2018, 24 enero). <i>Metodología Proceso unificado (UP) </i> - blog Yunbit Software.</p>*/}
-            <p>{referencia}</p>
+        <div className="card bg-gray-100 p-3 border-0 shadow-md" style={{ height: "30dvh" }}>
+          <h5 className="mb-4 text-2xl font-bold">Referencia</h5>
+          <div className="flex justify-between items-center">
+            <div>
+              <p>{referencia}</p>
+            </div>
+            <button
+              onClick={handleCopyReference}
+              className="text-gray-700 hover:text-black"
+            >
+              <FaClipboard className="text-2xl" />
+            </button>
           </div>
-          <button
-            onClick={handleCopyReference}
-            className="text-gray-700 hover:text-black"
-          >
-            <FaClipboard className="text-2xl" />
-          </button>
         </div>
       </div>
     </div>
