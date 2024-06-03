@@ -1,10 +1,13 @@
 import { Fragment, useRef, useState} from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { BACKEND_LINK } from '../utils/constants';
+import Swal from 'sweetalert2';
 
 export default function ChangePasswordModal({ open, setOpen }) {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
+  let msj_alert;
+  let icon;
 
   const cancelButtonRef = useRef(null);
 
@@ -28,15 +31,21 @@ export default function ChangePasswordModal({ open, setOpen }) {
 
     if(response.status === 200)
     {
-      setEmail('')
-      alert('Correo de restablecimiento de contraseña enviado correctamente');
+      msj_alert = 'Correo de restablecimiento de contraseña enviado correctamente';
+      icon = 'success'
     }
 
     }
     catch {
-      alert('Error al mandar correo de reset '+ error.message);
+      msj_alert='Error al mandar correo de restablecimiento';
+      icon='error';
     }
     setOpen(false)
+    setEmail('')
+    Swal.fire ({
+      icon: icon,
+      text: msj_alert,
+    })
     
   };
 

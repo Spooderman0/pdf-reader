@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { BACKEND_LINK } from '../utils/constants';
+import Swal from 'sweetalert2';
 
 const ForgotPasswordModal = ({ showModal, closeModal }) => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
+  let msj_alert;
+  let icon;
 
   const handleSubmit = async (event) => {
     try {
@@ -13,8 +16,6 @@ const ForgotPasswordModal = ({ showModal, closeModal }) => {
       return;
     }
     setError(''); // Clear any existing errors
-    // Here you would add your API call for password reset
-    console.log('Submitting email for password reset:', email);
     const response = await fetch(`${BACKEND_LINK}/sendpasswordresetemail`, {
       method: 'POST',
       headers: {
@@ -26,9 +27,8 @@ const ForgotPasswordModal = ({ showModal, closeModal }) => {
 
     if(response.status === 200)
     {
-      setEmail('')
-      alert('Correo de restablecimiento de contraseña enviado correctamente');
-      console.log('se mando')
+      msj_alert = 'Correo de restablecimiento de contraseña enviado correctamente';
+      icon='success';
     }
     
     // Simulate API call response
@@ -38,10 +38,15 @@ const ForgotPasswordModal = ({ showModal, closeModal }) => {
 
     }
     catch {
-      console.error('Error al reset password', error);
-      alert('Error al mandar correo de reset '+ error.message);
+      msj_alert='Error al mandar correo de restablecimiento';
+      icon='error';
     }
-
+    
+    Swal.fire ({
+      icon: icon,
+      text: msj_alert,
+    })
+    setEmail('')
     closeModal()
     
   };
