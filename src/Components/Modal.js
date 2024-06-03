@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BACKEND_LINK } from '../utils/constants';
 import { FaRegFilePdf } from 'react-icons/fa';  // Importar el icono
+import Swal from 'sweetalert2';
 
 const Modal = ({ isOpen, close }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -42,6 +43,18 @@ const Modal = ({ isOpen, close }) => {
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);
+      //alert('Error el documento no tiene contenido para analizar');
+      /*Swal.fire ({
+        icon: 'error',
+        text: 'El documento no tiene contenido para analizar',
+      })*/
+      if (error.message.includes('Failed to fetch')) {
+        alert('Error de red: No se pudo conectar con el servidor.');
+      } else if (error.message.includes('INTERNAL SERVER ERROR')) {
+        alert('Error del servidor: Hubo un problema en el servidor.');
+      } else {
+        alert(`Error desconocido: ${error.message}`);
+      }
     } finally {
       setIsLoading(false);
       close();  // Asegurar que el modal se cierra después de la operación
