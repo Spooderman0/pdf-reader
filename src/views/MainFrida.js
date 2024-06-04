@@ -7,7 +7,7 @@ function MainFrida() {
 
 
   return (
-    <div> {/* Aquí establecemos overflowY: hidden para ocultar el scroll vertical */}
+    <div style={{height: "90dvh"}}> {/* Aquí establecemos overflowY: hidden para ocultar el scroll vertical */}
       <ChatBox onMessageSent={(message) => console.log(message)} /> 
       <ConversationHistory />
     </div>

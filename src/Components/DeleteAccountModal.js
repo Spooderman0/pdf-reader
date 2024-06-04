@@ -2,9 +2,35 @@
 import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { BACKEND_LINK } from '../utils/constants';
+import { useNavigate } from "react-router-dom";
 
 export default function DeleteAccountModal({ open, setOpen }) {
   const cancelButtonRef = useRef(null);
+  const navigate = useNavigate();
+
+
+  const handleDeleteUser = async () => {
+    try {
+      const response = await fetch(`${BACKEND_LINK}/delete/user_id`, {
+        method: 'DELETE',
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
+        credentials: 'include',
+      });
+
+      if (response.status === 200) {
+        console.log('Usuario borrado con éxito');
+        navigate(`/`);
+      } else {
+        console.log('Error al borrar el usuario');
+      }
+    } catch (error) {
+      console.error('Error al borrar el documento:', error);
+      alert('Error al borrar el documento');
+    }
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -51,7 +77,7 @@ export default function DeleteAccountModal({ open, setOpen }) {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => setOpen(false)}
+                  onClick={handleDeleteUser}
                 >
                   Desactivar
                 </button>

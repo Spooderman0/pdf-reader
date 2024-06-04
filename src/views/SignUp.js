@@ -3,6 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'; // Importa Link de react-r
 import pdfAnalyzerLogo from '../Images/pdf_analyzer_logo.png';
 import { BACKEND_LINK } from '../utils/constants';
 
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
+
+
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -45,9 +50,9 @@ const SignUp = () => {
   return (
     <div>
       {/* Agrega el componente Navbar */}
-      <div className="flex min-h-full flex-1 flex-col justify-center" style={{height: "70dvh"}}>
+      <div className="flex items-center justify-center min-h-screen bg-white">
       {/* Contenido de la vista SignUp */}
-        <div class="container mx-auto bg-gray-100  rounded-[12px] shadow-lg px-5 lg:w-[600px] lg:h-[700px] overflow-auto" style={{ boxSizing: 'border-box', height: "85dvh", width: "50dvw" }}>
+        <div class="container mx-auto bg-gray-100  rounded-[12px] shadow-lg px-5 lg:w-[700px] lg:h-[600px] overflow-auto" style={{ boxSizing: 'border-box', height: "80dvh", width: "40dvw" }}>
           
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
@@ -64,9 +69,10 @@ const SignUp = () => {
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
               <form className="space-y-6" onSubmit={handleSignUp}>
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                    Nombre de usuario
-                  </label>
+                <label className=" flex flex-row items-center block text-sm font-medium leading-6 text-gray-900">
+                  <FaUser className='mr-2'/>
+                  Nombre de usuario
+                </label>
                   <div className="mt-2">
                     <input
                       id="username"
@@ -83,9 +89,10 @@ const SignUp = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                    E-mail
-                  </label>
+                <label htmlFor="email" className=" flex flex-row items-center block text-sm font-medium leading-6 text-gray-900">
+                  <MdEmail className='mr-3'/>
+                  E-mail
+                </label>
                   <div className="mt-2">
                     <input
                       id="email"
@@ -103,9 +110,10 @@ const SignUp = () => {
 
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                    Contraseña
-                  </label>
+                <label htmlFor="email" className=" flex flex-row items-center block text-sm font-medium leading-6 text-gray-900">
+                  <RiLockPasswordFill className='mr-2'/>
+                  Contraseña
+                </label>
                 </div>
                 <div className="mt-2">
                   <input

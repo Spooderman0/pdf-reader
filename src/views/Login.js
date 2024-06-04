@@ -1,9 +1,13 @@
 // LogIn.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import pdfAnalyzerLogo from '../Images/pdf_analyzer_logo.png'
 import ForgotPasswordModal from "../Components/ForgotPasswordModal"
 import { BACKEND_LINK } from '../utils/constants';
+
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +16,8 @@ const LogIn = () => {
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+
 
   const handleLogIn = async (e) => {
     try {
@@ -59,8 +65,8 @@ const LogIn = () => {
 
   return (
     <div>
-      <div className="flex flex-1 flex-col justify-center" style={{height: "70dvh"}}>
-        <div className="container mx-auto px-5 bg-gray-100 rounded-[12px] shadow-lg " style={{ boxSizing: 'border-box', height: "85dvh", width: "50dvw" }}>
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <div className="container mx-auto px-5 bg-gray-100 rounded-[12px] shadow-lg py-3 " style={{ width: "40dvw" }}>
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               className="mx-auto h-28 w-auto"
@@ -74,7 +80,8 @@ const LogIn = () => {
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" onSubmit={handleLogIn}>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="email" className=" flex flex-row items-center block text-sm font-medium leading-6 text-gray-900">
+                <MdEmail className='mr-3'/>
                   E-mail
                 </label>
                 <div className="mt-2">
@@ -92,7 +99,8 @@ const LogIn = () => {
                 </div>
               </div>
               <div>
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="email" className=" flex flex-row items-center block text-sm font-medium leading-6 text-gray-900">
+              <RiLockPasswordFill className='mr-2'/>
                   Contraseña
                 </label>
                 <div className="mt-2">
