@@ -6,6 +6,8 @@ import { FaExpand, FaCompress } from 'react-icons/fa';
 import styled from 'styled-components'; // Importa styled-components
 import MindMap from './MindMap'; // Importa el componente MindMap
 import { Scrollbars } from 'react-custom-scrollbars'; // Importa Scrollbars
+import mindMapData from '../data/mindMapData.json'; // Importa el archivo JSON
+
 
 const IconWrapperExpand = styled(FaExpand)`
   color: #a0a0a0;
@@ -31,13 +33,15 @@ const Card = styled.div`
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+  position: relative; /* Agregado */
   ${(props) => props.expanded && `
+    top: 55px; /* Movido aquí */
     position: fixed;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: ${props.cardType === 'nubePalabras' ? '55vw' : '55vw'};
-    height: ${props.cardType === 'nubePalabras' ? '70vh' : '55vh'};
+    width: ${props => (props.expanded ? '90vw' : '50vw')};
+    height: ${props => (props.expanded ? '90vh' : '50vh')};
     z-index: 1000;
     overflow: hidden;
   `}
@@ -61,25 +65,6 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
     setExpandedCard(expandedCard === card ? null : card);
   };
 
-  const mindMapData = {
-    nodes: [
-      { id: 'react', text: 'React' },
-      { id: 'tailwind', text: 'Tailwind CSS' },
-    ],
-    connections: [
-      { source: 'react', target: 'hooks' },
-      { source: 'react', target: 'jsx' },
-    ]
-  };
-
-  const terms = [
-    { id: 'react', text: 'React' },
-    { id: 'tailwind', text: 'Tailwind CSS' },
-    { id: 'hooks', text: 'Hooks', target: 'react' },
-    { id: 'jsx', text: 'JSX', target: 'react' },
-    { id: 'components', text: 'Components', target: 'react' },
-  ];
-
   return (
     <div className='flex flex-row'>
       <div className='flex flex-col justify-between basis-2/5 px-3 mx-3' style={{ height: "73dvh", marginLeft: '10%' }}>
@@ -93,10 +78,10 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
             )}
           </div>
           <div className="flex mt-1 justify-center">
-            <MindMap terms={mindMapData.nodes} connections={mindMapData.connections} />
+            <MindMap data={mindMapData} />
           </div>
         </Card>
-        <Card expanded={expandedCard === 'nubePalabras'} className="card" cardType='nubePalabras' style={{ height: expandedCard === 'nubePalabras' ? 'auto' : "35dvh" }}>
+        <Card expanded={expandedCard === 'nubePalabras'} className="card" style={{ height: expandedCard === 'nubePalabras' ? 'auto' : "35dvh" }}>
           <div className="flex justify-between items-center">
             <h6 className='font-medium'>Nube de palabras</h6>
             {expandedCard === 'nubePalabras' ? (

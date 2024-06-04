@@ -1,69 +1,57 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-const MindMap = ({ terms = [], connections = [] }) => {
-  const svgRef = useRef(null);
-  const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
+const MindMap = ({ data }) => {
+  const ref = useRef();
 
   useEffect(() => {
-    if (terms.length && svgRef.current) {
-      const svg = d3.select(svgRef.current);
-      svg.selectAll('*').remove(); // Limpiar el SVG antes de dibujar
+    const svg = d3.select(ref.current);
+    svg.selectAll('*').remove(); // Clear previous rendering
 
-      const width = svgRef.current.clientWidth;
-      const height = svgRef.current.clientHeight;
+    const width = 500;
+    const height = 500;
 
-      const simulation = d3.forceSimulation(terms)
-        .force('charge', d3.forceManyBody().strength(-200))
-        .force('center', d3.forceCenter(width / 2, height / 2))
-        .force('collision', d3.forceCollide().radius(50))
-        .on('tick', () => {
-          svg.selectAll('circle')
-            .attr('cx', d => d.x)
-            .attr('cy', d => d.y);
+    const root = d3.hierarchy(data);
+    const treeLayout = d3.tree().size([width, height]);
 
-          svg.selectAll('text')
-            .attr('x', d => d.x)
-            .attr('y', d => d.y);
+    treeLayout(root);
 
-          svg.selectAll('line')
-            .attr('x1', d => d.source.x)
-            .attr('y1', d => d.source.y)
-            .attr('x2', d => d.target.x)
-            .attr('y2', d => d.target.y);
+    const linkGenerator = d3.linkHorizontal()
+      .x(d => d.y)
+      .y(d => d.x);
 
-          const bbox = svg.node().getBBox();
-          setSvgSize({ width: bbox.width, height: bbox.height });
-        });
+    svg.append('g')
+      .selectAll('path')
+      .data(root.links())
+      .enter()
+      .append('path')
+      .attr('d', linkGenerator)
+      .attr('fill', 'none')
+      .attr('stroke', '#555');
 
-      const links = svg.selectAll('line')
-        .data(connections)
-        .enter()
-        .append('line')
-        .attr('stroke', '#ccc');
+    svg.append('g')
+      .selectAll('circle')
+      .data(root.descendants())
+      .enter()
+      .append('circle')
+      .attr('cx', d => d.y)
+      .attr('cy', d => d.x)
+      .attr('r', 5)
+      .attr('fill', '#999');
 
-      const nodes = svg.selectAll('rectangule')
-        .data(terms)
-        .enter()
-        .append('circle')
-        .attr('r', 20)
-        .attr('fill', '#69b3a2');
+    svg.append('g')
+      .selectAll('text')
+      .data(root.descendants())
+      .enter()
+      .append('text')
+      .attr('x', d => d.y + 10)
+      .attr('y', d => d.x + 5)
+      .text(d => d.data.name)
+      .attr('font-size', '12px')
+      .attr('fill', '#333');
+  }, [data]);
 
-      const labels = svg.selectAll('text')
-        .data(terms)
-        .enter()
-        .append('text')
-        .text(d => d.text)
-        .attr('text-anchor', 'middle')
-        .attr('dy', '.35em');
-
-      return () => {
-        simulation.stop();
-      };
-    }
-  }, [terms, connections]);
-
-  return <svg ref={svgRef} width={svgSize.width} height={svgSize.height} />;
+  return <svg ref={ref} width="500" height="500"></svg>;
 };
 
 export default MindMap;

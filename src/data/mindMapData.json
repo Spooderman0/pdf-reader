@@ -1,0 +1,137 @@
+{
+    "name": "INTRODUCCIÓN",
+    "children": [
+      {
+        "name": "Prototipo",
+        "link": "Figma link"
+      },
+      {
+        "name": "Roadmap",
+        "link": "Miro link"
+      },
+      {
+        "name": "Necesidad del Negocio"
+      },
+      {
+        "name": "Propósito del Producto"
+      },
+      {
+        "name": "Alcance del Producto"
+      },
+      {
+        "name": "Impacto",
+        "children": [
+          {
+            "name": "DESCRIPCIÓN GENERAL",
+            "children": [
+              {
+                "name": "Características de los Usuarios"
+              },
+              {
+                "name": "Dependencias"
+              },
+              {
+                "name": "Principales características"
+              },
+              {
+                "name": "Requerimientos críticos"
+              }
+            ]
+          },
+          {
+            "name": "REQUERIMIENTOS FUNCIONALES",
+            "children": [
+              {
+                "name": "Uso de simulador AR"
+              },
+              {
+                "name": "Sugerir número de puertas de refrigeradores"
+              },
+              {
+                "name": "Lector de QR"
+              },
+              {
+                "name": "Generar solicitud de instalación"
+              },
+              {
+                "name": "Revisar lista de solicitudes por despachar"
+              },
+              {
+                "name": "Otros requerimientos funcionales"
+              }
+            ]
+          },
+          {
+            "name": "REQUERIMIENTOS NO FUNCIONALES",
+            "children": [
+              {
+                "name": "Garantizar acceso a todos los trabajadores"
+              },
+              {
+                "name": "Actualizar base de datos"
+              },
+              {
+                "name": "Modelos 3D ligeros"
+              },
+              {
+                "name": "Facilidad e intuitividad de la interfaz"
+              },
+              {
+                "name": "Rapidez y eficiencia"
+              },
+              {
+                "name": "Otros requerimientos no funcionales"
+              }
+            ]
+          },
+          {
+            "name": "HISTORIAS DE USUARIO",
+            "children": [
+              {
+                "name": "Inicio de sesión"
+              },
+              {
+                "name": "Usar el módulo de realidad virtual"
+              },
+              {
+                "name": "Revisar calendario de visitas por realizar y realizadas"
+              },
+              {
+                "name": "Registrar visita al cliente"
+              },
+              {
+                "name": "Escanear código del cliente"
+              },
+              {
+                "name": "Registrar código de refrigerador"
+              },
+              {
+                "name": "Otras historias de usuario"
+              }
+            ]
+          },
+          {
+            "name": "EQUIPO DE TRABAJO",
+            "children": [
+              {
+                "name": "Quality Manager: Claudia"
+              },
+              {
+                "name": "Product Owner: Emiliano"
+              },
+              {
+                "name": "Tech Lead: Maruca"
+              },
+              {
+                "name": "Delivery Manager: Michelle"
+              },
+              {
+                "name": "PM / Scrum Master: David"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
