@@ -11,6 +11,9 @@ const QuickAnalysis = () => {
   const [analysisData, setAnalysisData] = useState(location.state?.analysisData || {});
   const [selectedFile, setSelectedFile] = useState(location.state?.file || null);
   const [isLoading, setIsLoading] = useState(false);
+  let authors = [];
+  let authorsList;
+  let referencia;
 
   useEffect(() => {
     const fetchAnalysisData = async () => {
@@ -38,7 +41,6 @@ const QuickAnalysis = () => {
   }, [location.state, analysisData.Title]);
 
   const title = analysisData.Title || 'Cargando...';
-  const cleanTitle = title.split('.').slice(0, -1).join('.');
 
   const handleCopyReference = () => {
     const referenceText = "González, D. (2018, 24 enero). Metodología Proceso unificado (UP) - blog Yunbit Software.";
@@ -81,6 +83,39 @@ const QuickAnalysis = () => {
     }
   };
 
+
+  if (analysisData.Authors) {
+    let authRef;
+    for (const auth of analysisData.Authors) {
+      authRef = auth.split(' ');
+      const lastname = authRef[1];
+      const initial = authRef[0].charAt(0);
+      authors.push(lastname + ', ' + initial + '.');
+    }
+    authorsList = authors.length > 1 ? authors.join(', ') : authors[0];
+  }
+
+  if (!analysisData.CreationDate) {
+    referencia = authorsList ? (
+      <>
+        {authorsList}. <i>{analysisData.Title}</i>.
+      </>
+    ) : (
+      <>
+        <i>{analysisData.Title}</i>.
+      </>
+    );
+  } else {
+    referencia = authorsList ? (
+      <>
+        {authorsList}. ({analysisData.CreationDate}). <i>{analysisData.Title}</i>.
+      </>
+    ) : (
+      <>
+        <i>{analysisData.Title}</i>. ({analysisData.CreationDate})
+      </>
+    );
+  }
   return (
     <div className="bg-white w-full flex flex-col" style={{ height: '90vh' }}>
       <div className='flex flex-row justify-between px-3' style={{ height: '15dvh', marginLeft: '10%', marginRight: '10%' }}>
@@ -123,10 +158,11 @@ const QuickAnalysis = () => {
             )}
             <p> {analysisData.Summary} </p>
           </div>
-          <div className="card bg-gray-100 p-3 border-0 shadow-md flex justify-between items-center" style={{ height: "30dvh" }}>
+          <div className="card bg-gray-100 p-3 border-0 shadow-md" style={{ height: "30dvh" }}>
+          <h5 className="mb-4 text-2xl font-bold">Referencia</h5>
+          <div className="flex justify-between items-center">
             <div>
-              <h5 className="mb-4 text-2xl font-bold ">Referencia</h5>
-              <p>González, D. (2018, 24 enero). Metodología Proceso unificado (UP) - blog Yunbit Software.</p>
+              <p>{referencia}</p>
             </div>
             <button
               onClick={handleCopyReference}
@@ -135,6 +171,7 @@ const QuickAnalysis = () => {
               <FaClipboard className="text-2xl" />
             </button>
           </div>
+        </div>
         </div>
       </div>
     </div>
