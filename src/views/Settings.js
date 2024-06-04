@@ -50,12 +50,12 @@ export const Settings = () => {
 
         <div className="flex items-center justify-center flex-col">
           <img src={SettingsImage} alt="Settings" />
-          <div>
+          {/*<div>
             <VocabularyLevel 
               level={vocabularyLevel} 
               setLevel={setVocabularyLevel}
             />
-          </div>
+  </div>*/}
         </div>
       </div>
 
