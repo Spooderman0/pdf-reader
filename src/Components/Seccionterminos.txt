@@ -1,0 +1,114 @@
+import React, { useState, useEffect } from 'react';
+import WordCloud from './WordCloud';
+import { BACKEND_LINK } from '../utils/constants';
+import TrendChart from './TrendChart';
+import { FaExpand, FaCompress } from 'react-icons/fa';
+import styled from 'styled-components'; // Importa styled-components
+import MindMap from './MindMap'; // Importa el componente MindMap
+import { Scrollbars } from 'react-custom-scrollbars'; // Importa Scrollbars
+import mindMapData from '../data/mindMapData.json'; // Importa el archivo JSON
+
+
+const IconWrapperExpand = styled(FaExpand)`
+  color: #a0a0a0;
+  transition: color 0.3s ease;
+  &:hover {
+    color: #000000;
+  }
+`;
+
+const IconWrapperCompress = styled(FaCompress)`
+  color: #a0a0a0;
+  transition: color 0.3s ease;
+  &:hover {
+    color: #000000;
+  }
+`;
+
+const Card = styled.div`
+  background: #f7fafc;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  ${(props) => props.expanded && `
+    top: 55px;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    height: 90vh;
+    z-index: 1000;
+    overflow: hidden;
+  `}
+`;
+
+export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
+  const [expandedCard, setExpandedCard] = useState(null);
+
+  const handleExpandClick = (card) => {
+    setExpandedCard(expandedCard === card ? null : card);
+  };
+
+  return (
+    <div className='flex flex-row'>
+      <div className='flex flex-col justify-between basis-2/5 px-3 mx-3' style={{ height: "73dvh", marginLeft: '10%' }}>
+        <Card expanded={expandedCard === 'termRelacionados'} className="card" style={{ height: expandedCard === 'termRelacionados' ? 'auto' : "83dvh" }}>
+          <div className="flex justify-between items-center">
+            <h6 className='font-medium'>Términos relacionados</h6>
+            {expandedCard === 'termRelacionados' ? (
+              <IconWrapperCompress onClick={() => handleExpandClick('termRelacionados')} />
+            ) : (
+              <IconWrapperExpand onClick={() => handleExpandClick('termRelacionados')} />
+            )}
+          </div>
+          <div className="flex mt-1 justify-center">
+            <MindMap data={mindMapData} />
+          </div>
+        </Card>
+      </div>
+
+      <div className="flex flex-col basis-3/5 mx-3" style={{ height: "73dvh", marginRight: '10%' }}>
+        <div className="flex flex-col mb-3" style={{ height: "60%" }}>
+          <Card expanded={expandedCard === 'card1'} className="card mb-3" style={{ height: expandedCard === 'card1' ? 'auto' : "100%" }}>
+            <div className="flex justify-between items-center">
+              <h6 className='font-medium'>Card 1</h6>
+              {expandedCard === 'card1' ? (
+                <IconWrapperCompress onClick={() => handleExpandClick('card1')} />
+              ) : (
+                <IconWrapperExpand onClick={() => handleExpandClick('card1')} />
+              )}
+            </div>
+          </Card>
+          <Card expanded={expandedCard === 'card2'} className="card" style={{ height: expandedCard === 'card2' ? 'auto' : "100%" }}>
+            <div className="flex justify-between items-center">
+              <h6 className='font-medium'>Card 2</h6>
+              {expandedCard === 'card2' ? (
+                <IconWrapperCompress onClick={() => handleExpandClick('card2')} />
+              ) : (
+                <IconWrapperExpand onClick={() => handleExpandClick('card2')} />
+              )}
+            </div>
+          </Card>
+        </div>
+        <div className="flex flex-col" style={{ height: "40%" }}>
+          <Card expanded={expandedCard === 'card3'} className="card mb-3" style={{ height: expandedCard === 'card3' ? 'auto' : "100%" }}>
+            <div className="flex justify-between items-center">
+              <h6 className='font-medium'>Card 3</h6>
+              {expandedCard === 'card3' ? (
+                <IconWrapperCompress onClick={() => handleExpandClick('card3')} />
+              ) : (
+                <IconWrapperExpand onClick={() => handleExpandClick('card3')} />
+              )}
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SeccionTerminos;
