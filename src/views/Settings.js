@@ -15,13 +15,13 @@ export const Settings = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <div className="flex justify-around">
+      <div className="flex justify-around" >
         <div className="flex flex-col max-h-180" style={{ paddingTop: "90px" }}>
-          <h1 className="text-3xl font-bold text-gray-700 sticky left-10">
+          <h1 className="text-5xl font-bold text-gray-700 sticky left-10">
             Ajustes
           </h1>
 
-          <div className="space-x-6 mb-4" style={{ paddingTop: "60px" }}>
+          <div className="space-x-6 mb-4" style={{ paddingTop: "100px"}}>
             <button
               onClick={openChangePasswordModal}
               className="bg-gray-600 text-white px-16 py-10 rounded-md shadow-lg min-w-96 hover:bg-gray-700 transition duration-300"
@@ -30,13 +30,13 @@ export const Settings = () => {
             </button>
           </div>
           
-          <div className="mb-4">
+          {/*<div className="mb-4">
             <button
               className="bg-gray-600 text-white px-20 py-10 rounded-md shadow-lg min-w-96 hover:bg-gray-700 transition duration-300"
             >
               Claro
             </button>
-          </div>
+          </div>*/}
 
           <div>
             <button
@@ -48,14 +48,14 @@ export const Settings = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-center flex-col">
-          <img src={SettingsImage} alt="Settings" />
-          <div>
+        <div className="flex items-center justify-center flex-col" style={{paddingTop: "160px"}}>
+          <img src={SettingsImage} alt="Settings" width={500} height={500}/>
+          {/*<div>
             <VocabularyLevel 
               level={vocabularyLevel} 
               setLevel={setVocabularyLevel}
             />
-          </div>
+          </div>*/}
         </div>
       </div>
 
