@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import WordCloud from './WordCloud';
 import { BACKEND_LINK } from '../utils/constants';
 import TrendChart from './TrendChart';
@@ -50,7 +50,7 @@ const Card = styled.div`
   flex-direction: column;
   ${(props) => props.expanded && `
     position: fixed;
-    top: 62%;
+    top: 68%;
     left: 26%;
     transform: translate(-20%, -50%);
     width: 79%;
@@ -63,9 +63,16 @@ const Card = styled.div`
 export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
   const [expandedCard, setExpandedCard] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [mindMapDimensions, setMindMapDimensions] = useState({ width: 500, height: 650 });
 
   const handleExpandClick = (card) => {
-    setExpandedCard(expandedCard === card ? null : card);
+    if (expandedCard === card) {
+      setExpandedCard(null);
+      setMindMapDimensions({ width: 500, height: 650 }); // Tamaño normal
+    } else {
+      setExpandedCard(card);
+      setMindMapDimensions({ width: 800, height: 800 }); // Tamaño expandido
+    }
   };
 
   const handleZoomIn = () => {
@@ -93,7 +100,7 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
             </div>
           </div>
           <div className="flex mt-1 justify-center" style={{ height: '100%' }}>
-            <MindMap data={mindMapData} zoomLevel={zoomLevel} />
+            <MindMap data={mindMapData} zoomLevel={zoomLevel} width={mindMapDimensions.width} height={mindMapDimensions.height} />
           </div>
         </Card>
       </div>
