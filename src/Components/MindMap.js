@@ -1,15 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-const MindMap = ({ data, zoomLevel }) => {
+const MindMap = ({ data, zoomLevel, width, height }) => {
   const ref = useRef();
 
   useEffect(() => {
     const svg = d3.select(ref.current);
     svg.selectAll('*').remove(); // Clear previous rendering
-
-    const width = 500;
-    const height = 500;
 
     const root = d3.hierarchy(data);
     const treeLayout = d3.tree().size([height, width]);
@@ -59,9 +56,9 @@ const MindMap = ({ data, zoomLevel }) => {
     });
 
     svg.call(zoom).transition().duration(300).call(zoom.scaleTo, zoomLevel);
-  }, [data, zoomLevel]);
+  }, [data, zoomLevel, width, height]);
 
-  return <svg ref={ref} width="500" height="650"></svg>;
+  return <svg ref={ref} width={width} height={height}></svg>;
 };
 
 export default MindMap;

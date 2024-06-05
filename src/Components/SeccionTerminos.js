@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import WordCloud from './WordCloud';
 import { BACKEND_LINK } from '../utils/constants';
 import TrendChart from './TrendChart';
@@ -49,13 +49,12 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   ${(props) => props.expanded && `
-    top: 55px;
     position: fixed;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90vw;
-    height: 90vh;
+    top: 68%;
+    left: 26%;
+    transform: translate(-20%, -50%);
+    width: 79%;
+    height: 55%;
     z-index: 1000;
     overflow: hidden;
   `}
@@ -64,9 +63,16 @@ const Card = styled.div`
 export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
   const [expandedCard, setExpandedCard] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [mindMapDimensions, setMindMapDimensions] = useState({ width: 500, height: 650 });
 
   const handleExpandClick = (card) => {
-    setExpandedCard(expandedCard === card ? null : card);
+    if (expandedCard === card) {
+      setExpandedCard(null);
+      setMindMapDimensions({ width: 500, height: 650 }); // Tamaño normal
+    } else {
+      setExpandedCard(card);
+      setMindMapDimensions({ width: 800, height: 800 }); // Tamaño expandido
+    }
   };
 
   const handleZoomIn = () => {
@@ -94,13 +100,13 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
             </div>
           </div>
           <div className="flex mt-1 justify-center" style={{ height: '100%' }}>
-            <MindMap data={mindMapData} zoomLevel={zoomLevel} />
+            <MindMap data={mindMapData} zoomLevel={zoomLevel} width={mindMapDimensions.width} height={mindMapDimensions.height} />
           </div>
         </Card>
       </div>
 
-      <div className="flex flex-col basis-3/5 mx-3" style={{ height: "73dvh" }}>
-        <div className="flex justify-between mb-14" style={{ height: "50%", marginRight: '20%' }}>
+      <div className="flex flex-col basis-2/5 mx-3" style={{ height: "73dvh" }}>
+        <div className="flex justify-between mb-8" style={{ height: "50%", marginRight: '7%' }}>
           <Card expanded={expandedCard === 'hechosDefiniciones'} className="card" style={{ height: expandedCard === 'hechosDefiniciones' ? 'auto' : "35dvh", overflow: 'hidden', width: '100%' }}>
             <div className="flex justify-between items-center">
               <h6 className='font-medium'>Hechos y definiciones</h6>
@@ -123,23 +129,23 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
           </Card>
         </div>
         <div className="flex justify-between" style={{ height: "50%" }}>
-          <Card expanded={expandedCard === 'card3'} className="card" style={{ height: expandedCard === 'card3' ? 'auto' : "100%" }}>
+          <Card expanded={expandedCard === 'frecuenciaTerminos'} className="card" style={{ height: expandedCard === 'frecuenciaTerminos' ? 'auto' : "100%", marginRight: '5%', width: '45%' }}>
             <div className="flex justify-between items-center">
-              <h6 className='font-medium'>Card 3</h6>
-              {expandedCard === 'card3' ? (
-                <IconWrapperCompress onClick={() => handleExpandClick('card3')} />
+              <h6 className='font-medium'>Frecuencia de términos</h6>
+              {expandedCard === 'frecuenciaTerminos' ? (
+                <IconWrapperCompress onClick={() => handleExpandClick('frecuenciaTerminos')} />
               ) : (
-                <IconWrapperExpand onClick={() => handleExpandClick('card3')} />
+                <IconWrapperExpand onClick={() => handleExpandClick('frecuenciaTerminos')} />
               )}
             </div>
           </Card>
-          <Card expanded={expandedCard === 'card4'} className="card" style={{ height: expandedCard === 'card4' ? 'auto' : "100%" }}>
+          <Card expanded={expandedCard === 'nubePalabras'} className="card" style={{ height: expandedCard === 'nubePalabras' ? 'auto' : "100%", marginRight: '7%', width: '45%' }}>
             <div className="flex justify-between items-center">
-              <h6 className='font-medium'>Card 4</h6>
+              <h6 className='font-medium'>Nube de palabras</h6>
               {expandedCard === 'card4' ? (
-                <IconWrapperCompress onClick={() => handleExpandClick('card4')} />
+                <IconWrapperCompress onClick={() => handleExpandClick('nubePalabras')} />
               ) : (
-                <IconWrapperExpand onClick={() => handleExpandClick('card4')} />
+                <IconWrapperExpand onClick={() => handleExpandClick('nubePalabras')} />
               )}
             </div>
           </Card>
