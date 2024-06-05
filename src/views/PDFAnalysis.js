@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import AnalysisButtons from '../Components/AnalysisButtons';
 import { SeccionAnalisis } from '../Components/SeccionAnalisis';
 import { SeccionTerminos } from '../Components/SeccionTerminos';
+import { SeccionTerminos2 } from '../Components/SeccionTerminos2';
 import SeccionFiguras from '../Components/SeccionFiguras';
 import ChatBox from '../Components/ChatBox';
 import ConversationHistory from '../Components/ConversationHistory';

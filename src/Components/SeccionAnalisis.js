@@ -208,7 +208,7 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
         <div className="card bg-gray-100 p-3 border-0 shadow-md" style={{ height: "30dvh" }}>
           <h5 className="mb-4 text-2xl font-bold">Referencia</h5>
           <div className="flex justify-between items-center">
-            <div>
+            <div style={{overflowY:'auto'}}>
               <p>{referencia}</p>
             </div>
             <button
