@@ -30,13 +30,13 @@ export const Settings = () => {
             </button>
           </div>
           
-          <div className="mb-4">
+          {/*<div className="mb-4">
             <button
               className="bg-gray-600 text-white px-20 py-10 rounded-md shadow-lg min-w-96 hover:bg-gray-700 transition duration-300"
             >
               Claro
             </button>
-          </div>
+          </div>*/}
 
           <div>
             <button
@@ -50,12 +50,12 @@ export const Settings = () => {
 
         <div className="flex items-center justify-center flex-col">
           <img src={SettingsImage} alt="Settings" />
-          <div>
+          {/*<div>
             <VocabularyLevel 
               level={vocabularyLevel} 
               setLevel={setVocabularyLevel}
             />
-          </div>
+          </div>*/}
         </div>
       </div>
 
