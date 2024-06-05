@@ -49,13 +49,12 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   ${(props) => props.expanded && `
-    top: 55px;
     position: fixed;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90vw;
-    height: 90vh;
+    top: 62%;
+    left: 28%;
+    transform: translate(-20%, -50%);
+    width: 70%;
+    height: 55%;
     z-index: 1000;
     overflow: hidden;
   `}
@@ -100,7 +99,7 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
       </div>
 
       <div className="flex flex-col basis-3/5 mx-3" style={{ height: "73dvh" }}>
-        <div className="flex justify-between mb-14" style={{ height: "50%", marginRight: '20%' }}>
+        <div className="flex justify-between mb-8" style={{ height: "50%", marginRight: '20%' }}>
           <Card expanded={expandedCard === 'hechosDefiniciones'} className="card" style={{ height: expandedCard === 'hechosDefiniciones' ? 'auto' : "35dvh", overflow: 'hidden', width: '100%' }}>
             <div className="flex justify-between items-center">
               <h6 className='font-medium'>Hechos y definiciones</h6>
@@ -123,7 +122,7 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
           </Card>
         </div>
         <div className="flex justify-between" style={{ height: "50%" }}>
-          <Card expanded={expandedCard === 'card3'} className="card" style={{ height: expandedCard === 'card3' ? 'auto' : "100%" }}>
+          <Card expanded={expandedCard === 'card3'} className="card" style={{ height: expandedCard === 'card3' ? 'auto' : "100%", marginRight: '5%', width: '40%' }}>
             <div className="flex justify-between items-center">
               <h6 className='font-medium'>Card 3</h6>
               {expandedCard === 'card3' ? (
@@ -133,7 +132,7 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
               )}
             </div>
           </Card>
-          <Card expanded={expandedCard === 'card4'} className="card" style={{ height: expandedCard === 'card4' ? 'auto' : "100%" }}>
+          <Card expanded={expandedCard === 'card4'} className="card" style={{ height: expandedCard === 'card4' ? 'auto' : "100%", marginRight: '20%', width: '40%' }}>
             <div className="flex justify-between items-center">
               <h6 className='font-medium'>Card 4</h6>
               {expandedCard === 'card4' ? (
