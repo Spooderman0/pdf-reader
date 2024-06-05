@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-const MindMap = ({ data }) => {
+const MindMap = ({ data, zoomLevel }) => {
   const ref = useRef();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const MindMap = ({ data }) => {
     const height = 500;
 
     const root = d3.hierarchy(data);
-    const treeLayout = d3.tree().size([width, height]);
+    const treeLayout = d3.tree().size([height, width]);
 
     treeLayout(root);
 
@@ -20,7 +20,10 @@ const MindMap = ({ data }) => {
       .x(d => d.y)
       .y(d => d.x);
 
-    svg.append('g')
+    const g = svg.append('g')
+      .attr('transform', `scale(${zoomLevel})`);
+
+    g.append('g')
       .selectAll('path')
       .data(root.links())
       .enter()
@@ -29,7 +32,7 @@ const MindMap = ({ data }) => {
       .attr('fill', 'none')
       .attr('stroke', '#555');
 
-    svg.append('g')
+    g.append('g')
       .selectAll('circle')
       .data(root.descendants())
       .enter()
@@ -39,7 +42,7 @@ const MindMap = ({ data }) => {
       .attr('r', 5)
       .attr('fill', '#999');
 
-    svg.append('g')
+    g.append('g')
       .selectAll('text')
       .data(root.descendants())
       .enter()
@@ -49,9 +52,16 @@ const MindMap = ({ data }) => {
       .text(d => d.data.name)
       .attr('font-size', '12px')
       .attr('fill', '#333');
-  }, [data]);
 
-  return <svg ref={ref} width="500" height="500"></svg>;
+    // Apply zoom behavior to the SVG element
+    const zoom = d3.zoom().on('zoom', (event) => {
+      g.attr('transform', event.transform);
+    });
+
+    svg.call(zoom).transition().duration(300).call(zoom.scaleTo, zoomLevel);
+  }, [data, zoomLevel]);
+
+  return <svg ref={ref} width="500" height="650"></svg>;
 };
 
 export default MindMap;
