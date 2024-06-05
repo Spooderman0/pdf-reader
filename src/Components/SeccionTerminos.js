@@ -51,9 +51,9 @@ const Card = styled.div`
   ${(props) => props.expanded && `
     position: fixed;
     top: 62%;
-    left: %;
+    left: 26%;
     transform: translate(-20%, -50%);
-    width: 70%;
+    width: 79%;
     height: 55%;
     z-index: 1000;
     overflow: hidden;
@@ -122,23 +122,23 @@ export const SeccionTerminos = ({ wordCloudData, terms_defs }) => {
           </Card>
         </div>
         <div className="flex justify-between" style={{ height: "50%" }}>
-          <Card expanded={expandedCard === 'card3'} className="card" style={{ height: expandedCard === 'card3' ? 'auto' : "100%", marginRight: '5%', width: '45%' }}>
+          <Card expanded={expandedCard === 'frecuenciaTerminos'} className="card" style={{ height: expandedCard === 'frecuenciaTerminos' ? 'auto' : "100%", marginRight: '5%', width: '45%' }}>
             <div className="flex justify-between items-center">
-              <h6 className='font-medium'>Card 3</h6>
-              {expandedCard === 'card3' ? (
-                <IconWrapperCompress onClick={() => handleExpandClick('card3')} />
+              <h6 className='font-medium'>Frecuencia de términos</h6>
+              {expandedCard === 'frecuenciaTerminos' ? (
+                <IconWrapperCompress onClick={() => handleExpandClick('frecuenciaTerminos')} />
               ) : (
-                <IconWrapperExpand onClick={() => handleExpandClick('card3')} />
+                <IconWrapperExpand onClick={() => handleExpandClick('frecuenciaTerminos')} />
               )}
             </div>
           </Card>
-          <Card expanded={expandedCard === 'card4'} className="card" style={{ height: expandedCard === 'card4' ? 'auto' : "100%", marginRight: '7%', width: '45%' }}>
+          <Card expanded={expandedCard === 'nubePalabras'} className="card" style={{ height: expandedCard === 'nubePalabras' ? 'auto' : "100%", marginRight: '7%', width: '45%' }}>
             <div className="flex justify-between items-center">
-              <h6 className='font-medium'>Card 4</h6>
+              <h6 className='font-medium'>Nube de palabras</h6>
               {expandedCard === 'card4' ? (
-                <IconWrapperCompress onClick={() => handleExpandClick('card4')} />
+                <IconWrapperCompress onClick={() => handleExpandClick('nubePalabras')} />
               ) : (
-                <IconWrapperExpand onClick={() => handleExpandClick('card4')} />
+                <IconWrapperExpand onClick={() => handleExpandClick('nubePalabras')} />
               )}
             </div>
           </Card>
