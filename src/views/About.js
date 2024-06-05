@@ -51,9 +51,9 @@ const AboutPage = () => {
   };
 
   return (
-    <div className="mx-auto mt-5">
-      <div className="flex justify-center">
-        <div className="w-1/2 px-4">
+    <div className="mx-auto mt-5" >
+      <div className="flex justify-center" >
+        <div className="w-1/2 px-4 " style={{ marginTop: '60px' }}>
           {questions.slice(0, 5).map((question, index) => (
             <div key={index} className="border border-gray-300 rounded-lg mb-4">
               <h2
@@ -81,7 +81,7 @@ const AboutPage = () => {
             </div>
           ))}
         </div>
-        <div className="w-1/2 px-4">
+        <div className="w-1/2 px-4" style={{ marginTop: '60px' }}>
           {questions.slice(5, 10).map((question, index) => (
             <div key={index} className="border border-gray-300 rounded-lg mb-4">
               <h2
