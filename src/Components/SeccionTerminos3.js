@@ -90,7 +90,7 @@ export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
   const handleExpandClick = (card) => {
     setExpandedCard(expandedCard === card ? null : card);
     //cambios emi 2
-    setMindMapDimensions(expandedCard === card ? { width: 500, height: 73 } : { width: 800, height: 800 })
+    setMindMapDimensions(expandedCard === card ? { width: 500, height: 500 } : { width: 800, height: 800 })
   };
 
 
