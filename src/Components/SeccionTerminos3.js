@@ -73,10 +73,7 @@ const WordCloudContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${(props) => props.expanded && `
-    height: 100%;
-    width: 100%;
-  `}
+
 `;
 
 
@@ -151,9 +148,18 @@ export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
                 <IconWrapperExpand onClick={() => handleExpandClick('nubePalabras')} />
               )}
             </div>
-            <WordCloudContainer expanded={expandedCard === 'nubePalabras'}>
+            {/*<div className='flex justify-items-end'>
+              <WordCloud words={wordCloudData} />
+            </div>*/}
+            {expandedCard === 'nubePalabras' ? (
+              <div className="flex justify-center items-center w-full h-full" style={{marginTop: '20%', marginLeft:'5%', marginRight:'5%'}}>
               <WordCloud words={wordCloudData} className="w-full h-full"/>
-            </WordCloudContainer>
+            </div>  
+            ) : (
+                <div style={{marginLeft:'5%', marginRight:'5%'}}>
+                    <WordCloud words={wordCloudData} />
+                </div>
+            )}
           </Card>
 
 
