@@ -37,7 +37,7 @@ const LogIn = () => {
 
       //console.log(response)
       const r = await response.json();
-      console.log(r)
+      // console.log(r)
 
       if (response.status === 200) {
         navigate('/main');

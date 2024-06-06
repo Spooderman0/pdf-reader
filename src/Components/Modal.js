@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { BACKEND_LINK } from '../utils/constants';
 import { FaRegFilePdf } from 'react-icons/fa';  // Importar el icono
 import Swal from 'sweetalert2';
+import { generateUUID } from '../utils/generateUUID';
+
 
 const Modal = ({ isOpen, close }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileText, setFileText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+  const intervalIdRef = useRef(null);
+
   let msjerror;
   const navigate = useNavigate();
 
@@ -19,13 +23,15 @@ const Modal = ({ isOpen, close }) => {
 
   const handleFileUpload = async () => {
     if (!selectedFile) return;
+    const docId = generateUUID("D");
 
     const formData = new FormData();
     formData.append('file', selectedFile);
 
     try {
+      console.log(`generatedDocId: ${docId}`);
       setIsLoading(true);
-      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/upload_file2`, {
+      const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/upload_file2/${docId}`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -38,31 +44,66 @@ const Modal = ({ isOpen, close }) => {
         throw new Error(uploadResponse.statusText || 'Failed to upload file');
       }
       const uploadData = await uploadResponse.json();
-      console.log(uploadData.doc_id);
+      // console.log(docId);
 
-      navigate(`../main/pdf-analysis/${uploadData.doc_id}`);
+      // Start the interval to execute a function every 5 seconds
+      intervalIdRef.current = setInterval(() => {
+        checkFileUploaded(docId);
+        // console.log(`intervalId = ${intervalIdRef.current}`);
+        
+      }, 5000);
+      // console.log(`id = ${intervalIdRef.current}`);
+
+      // navigate(`../main/pdf-analysis/${uploadData.doc_id}`);
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);
 
       if (error.message.includes('Failed to fetch')) {
-        //alert('Error de red: No se pudo conectar con el servidor.');
-        msjerror='Error: Sobrecarga de RAM?? (cuando son muy largos me funciona en localhost pero no en heroku)'
+        msjerror = 'Error: Sobrecarga de RAM?? (cuando son muy largos me funciona en localhost pero no en heroku)';
       } else if (error.message.includes('INTERNAL SERVER ERROR')) {
-        //alert('Error del servidor: Hubo un problema en el servidor.');
-        msjerror='Error: No hay contenido para analizar'
+        msjerror = 'Error: No hay contenido para analizar';
       } else {
-        //alert(`Error desconocido: ${error.message}`);
-        msjerror='Error: desconocido'
+        msjerror = 'Error: desconocido';
       }
-      Swal.fire ({
+      Swal.fire({
         icon: 'error',
         text: msjerror,
-      })
+      });
     } finally {
-      setIsLoading(false);
-      close();  // Asegurar que el modal se cierra después de la operación
       setSelectedFile(null);  // Reiniciar el estado del archivo seleccionado
+    }
+  };
+
+  const checkFileUploaded = async (docId) => {
+    try {
+      const response = await fetch(`${BACKEND_LINK}/documentUploaded/${docId}`, {
+        method: 'GET',
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error(`La respuesta de la red no fue correcta al obtener los datos de sección:`);
+      }
+
+      const data = await response.json();
+      // console.log(data["documentUploaded"]);
+      const documentUploaded = data["documentUploaded"];
+      if (documentUploaded) {
+        console.log("Doc is ready");
+        // console.log(`clearInterval(${intervalIdRef.current})`);
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+        setIsLoading(false);
+        close();
+        navigate(`../main/pdf-analysis/${docId}`);
+      }
+
+    } catch (error) {
+      console.error(`Error al obtener los datos de sección:`, error);
     }
   };
 
@@ -87,6 +128,10 @@ const Modal = ({ isOpen, close }) => {
   };
 
   const handleClose = () => {
+    if (intervalIdRef.current) {
+      clearInterval(intervalIdRef.current);
+      intervalIdRef.current = null;
+    }
     close();
     setSelectedFile(null);  // Reiniciar el estado del archivo seleccionado
   };

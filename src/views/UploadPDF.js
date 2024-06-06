@@ -4,6 +4,8 @@ import Modal from '../Components/Modal';
 import QuickUploadModal from '../Components/QuickUploadModal';
 import leftImage from '../Images/undraw_Online_articles_re_yrkj.png'; 
 
+
+
 export const UploadPDF = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isQuickUpload, setIsQuickUpload] = useState(false);
@@ -12,6 +14,7 @@ export const UploadPDF = () => {
     setIsQuickUpload(isQuick);
     setIsModalOpen(true);
   };
+
   const closeModal = () => setIsModalOpen(false);
 
   return (
