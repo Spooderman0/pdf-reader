@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import AnalysisButtons from '../Components/AnalysisButtons';
 import { SeccionAnalisis } from '../Components/SeccionAnalisis';
 import { SeccionTerminos } from '../Components/SeccionTerminos';
+import { SeccionTerminos2 } from '../Components/SeccionTerminos2';
+import { SeccionTerminos3 } from '../Components/SeccionTerminos3';
 import SeccionFiguras from '../Components/SeccionFiguras';
 import ChatBox from '../Components/ChatBox';
 import ConversationHistory from '../Components/ConversationHistory';
@@ -84,7 +86,7 @@ export const PDFAnalysis = () => {
           )}
 
           {currentSection === "terminos" && (
-              <SeccionTerminos wordCloudData ={wordCloudData} terms_defs={allData.Definitions}/>
+              <SeccionTerminos3 wordCloudData ={wordCloudData} terms_defs={allData.Definitions}/>
           )}
           {currentSection === "frida" && (
             <div className='flex flex-row'>
