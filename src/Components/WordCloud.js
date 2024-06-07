@@ -17,10 +17,10 @@ const WordCloud = ({ words, width = 700, height = 500, maxWordsToShow = 50, seed
 
       const layout = cloud()
         .size([width, height])
-        .words(filteredWords.map(word => ({ text: word.text, size: (0.9999 - word.value[0]) * 25 })))
+        .words(filteredWords.map((word, index) => ({ text: word.text, size: (0.9999 - word.value[0]) * 35 - index })))
         .padding(3)
         .rotate(() => 0) // or use rng() to add randomness with the seeded generator
-        .fontSize(d => d.size - 6)
+        .fontSize(d => d.size )
         .random(() => rng()) // Use the seeded random number generator
         .spiral('archimedean')
         .on('end', draw);
