@@ -152,8 +152,8 @@ const ConversationHistory = ({ docId, handleCurrentConversationChange }) => {
                         conversation.first_message
                       ) : (
                         <span title={conversation.first_message}>
-                          {conversation.first_message.substring(0, 15)}
-                          {conversation.first_message.length > 10 && "..."}
+                          {conversation && conversation.first_message && conversation.first_message.substring(0, 15)}
+                          {conversation && conversation.first_message && conversation.first_message.length > 10 && "..."}
                         </span>
                       )}
                     </div>
