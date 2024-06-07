@@ -101,7 +101,7 @@ const Modal = ({ isOpen, close }) => {
         setIsLoading(false);
         close();
         navigate(`../main/pdf-analysis/${docId}`);
-      } else if (intervalCountRef.current >= 16) { // 16 * 5 seconds = 80 seconds
+      } else if (intervalCountRef.current >= 18) { // 18 * 5 seconds = 90 seconds
         setIsLoading(false);
         clearInterval(intervalIdRef.current);
         intervalIdRef.current = null;
