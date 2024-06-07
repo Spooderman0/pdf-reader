@@ -11,6 +11,7 @@ const Modal = ({ isOpen, close }) => {
   const [fileText, setFileText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+  // const loadingTime = useRef(0);
   const intervalIdRef = useRef(null);
 
   let msjerror;
@@ -49,12 +50,10 @@ const Modal = ({ isOpen, close }) => {
       // Start the interval to execute a function every 5 seconds
       intervalIdRef.current = setInterval(() => {
         checkFileUploaded(docId);
+        // loadingTime.current += 5;
         // console.log(`intervalId = ${intervalIdRef.current}`);
-        
       }, 5000);
-      // console.log(`id = ${intervalIdRef.current}`);
 
-      // navigate(`../main/pdf-analysis/${uploadData.doc_id}`);
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);
@@ -101,6 +100,15 @@ const Modal = ({ isOpen, close }) => {
         close();
         navigate(`../main/pdf-analysis/${docId}`);
       }
+      // console.log(loadingTime.current);
+      // if(loadingTime.current > 80){
+      //   setIsLoading(false);
+      //   clearInterval(intervalIdRef.current);
+      //   Swal.fire({
+      //     icon: 'error',
+      //     text: 'Error al procesar archivo. Vuelve a interntarlo.',
+      //   });
+      // }
 
     } catch (error) {
       console.error(`Error al obtener los datos de sección:`, error);

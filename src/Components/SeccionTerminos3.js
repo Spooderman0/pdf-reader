@@ -66,32 +66,9 @@ const Card = styled.div`
   `}
 `;
 
-const mindMapData = {
-    "name": "Doc Profe",
-    "children": [
-      {
-        "name": "Prototipo",
-        "link": "Figma link"
-      },
-      {
-        "name": "Roadmap",
-        "link": "Miro link"
-      },
-      {
-        "name": "Necesidad del Negocio"
-      },
-      {
-        "name": "Propósito del Producto"
-      },
-      {
-        "name": "Alcance del Producto"
-      }
-    ]
-}
 
 
-
-export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
+export const SeccionTerminos3 = ({mindMapData, wordCloudData, terms_defs }) => {
   const [expandedCard, setExpandedCard] = useState(null);
   //cambios emi 1
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -102,6 +79,14 @@ export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
     setExpandedCard(expandedCard === card ? null : card);
     //cambios emi 2
     setMindMapDimensions(expandedCard === card ? { width: 800, height: 800 } : { width: 800, height: 800 })
+  };
+
+  const WordCloudComponent = () => {
+    return (
+      <div className="flex justify-center items-center w-full h-full">
+        <WordCloud words={wordCloudData} />
+      </div>
+    );
   };
 
 
@@ -133,7 +118,7 @@ export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
           </div>
         </Card>*/}
         {/* <Card expanded={expandedCard === 'termRelacionados'} className="card" style={{ height: expandedCard === 'termRelacionados' ? '80dvh' : "74dvh" , boxShadow: expandedCard === 'termRelacionados' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)'}}> */}
-        <Card expanded={expandedCard === 'termRelacionados'} className="pb-0 card overflow-hidden" style={{width: "100%", height: expandedCard === 'termRelacionados' ? '80dvh' : "35.5dvh" , boxShadow: expandedCard === 'termRelacionados' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)'}}>
+        <Card expanded={expandedCard === 'termRelacionados'} className="pb-0 card overflow-hidden" style={{width: expandedCard === 'termRelacionados' ? '80dvw' : "auto", height: expandedCard === 'termRelacionados' ? '80dvh' : "35.5dvh" , boxShadow: expandedCard === 'termRelacionados' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)'}}>
           <div className="flex justify-between items-center">
             <h6 className='font-medium'>Términos relacionados</h6>
             <div className="flex items-center">
@@ -163,14 +148,14 @@ export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
               <WordCloud words={wordCloudData} />
             </div>*/}
             {expandedCard === 'nubePalabras' ? (
-              <div className="flex justify-center items-center w-full h-full">
+              <div className="flex justify-center items-center w-full h-full overflow-hidden">
                 <div>
-                  <WordCloud words={wordCloudData} className="w-full h-full"/>
+                  <WordCloud words={wordCloudData} scale={1.5} style={{height: "100%", width: "100%"}}/>
                 </div>
             </div>  
             ) : (
-                <div className='flex p-2 overflow-hidden justify-center' style={{height: "100%", width: "100%"}}>
-                    <WordCloud words={wordCloudData} />
+              <div className='flex p-2 overflow-hidden justify-center' style={{height: "100%", width: "100%"}}>
+                    <WordCloud words={wordCloudData} scale={2} />
                 </div>
             )}
           </Card>

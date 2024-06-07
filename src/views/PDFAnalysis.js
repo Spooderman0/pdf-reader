@@ -20,6 +20,7 @@ export const PDFAnalysis = () => {
   const [hasFigures, setHasFigures] = useState(false);
   const [portada, setPortada] = useState();
   const [figuras, setFiguras] = useState([]);
+  const [mindMapData, setMindMapData] = useState({});
 
 
 
@@ -41,7 +42,7 @@ export const PDFAnalysis = () => {
       });
 
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
       const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
       setWordCloudData(terminos);
       setAllData({ ...data });
@@ -53,6 +54,11 @@ export const PDFAnalysis = () => {
       } else {
         setHasFigures(false);
       }
+      const titles = data.SectionSummaries.map(section => ({"name": section.title}));
+      setMindMapData({
+        "name": data.Topic,
+        "children": titles
+      })
 
     } catch (error) {
       console.error('Failed to get document data:', error);
@@ -88,7 +94,7 @@ export const PDFAnalysis = () => {
             )}
 
             {currentSection === "terminos" && (
-                <SeccionTerminos3 wordCloudData ={wordCloudData} terms_defs={allData.Definitions}/>
+                <SeccionTerminos3 mindMapData={mindMapData} wordCloudData ={wordCloudData} terms_defs={allData.Definitions}/>
             )}
             {currentSection === "frida" && (
               <div className='flex flex-row'>

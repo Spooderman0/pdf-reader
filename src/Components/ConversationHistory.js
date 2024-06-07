@@ -8,6 +8,8 @@ const ConversationHistory = ({ docId, handleCurrentConversationChange }) => {
   const [conversationList, setConversationList] = useState([]);
   const [currentConversation, setCurrentConversation] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +43,6 @@ const ConversationHistory = ({ docId, handleCurrentConversationChange }) => {
       }
 
       const data = await response.json();
-      // console.log(data["conversation_list"]);
       setConversationList(data["conversation_list"]);
       return data["conversation_list"];
     } catch (error) {
@@ -104,20 +105,27 @@ const ConversationHistory = ({ docId, handleCurrentConversationChange }) => {
     }
   };
 
+
+  const handleMouseEnter = (index) => {
+    setHoveredIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+  };
+
   return (
-    <div className="container bg-gray-100 shadow-lg px-8 w-1/4 rounded-[12px] mx-3 basis-1/4" style={{ height: "73dvh" }}>
-      <div className='flex flex-row justify-between items-center'>
+    <div className="container bg-gray-100 shadow-lg rounded-[12px] mx-3 basis-1/4" style={{ height: "73dvh" }}>
+      <div className='flex flex-row justify-between items-center px-3'>
         <p className="text-xl font-bold py-3">Conversaciones</p>
         <button
-          className="text-center py-1 text-white px-5 bg-blue-500 font-bold text-xl hover:bg-blue-600 h-1/2 rounded-full"
+          className="py-1 text-white px-5 ml-2 bg-blue-500 font-bold text-xl hover:bg-blue-600 h-1/2 rounded-full"
           onClick={handleAddConversation}
         >
           <IoIosAddCircle />
         </button>
       </div>
-      <div className="container bg-gray-400 rounded-[12px] border w-full h-full flex flex-col justify-start items-center" style={{ height: "63dvh" }}>
-        <Scrollbars autoHide>
-          <div className='m-3'>
+      <Scrollbars autoHide style={{height: "63dvh"}}>
             {loading ? (
               <div className="flex justify-center items-center h-full">
                   <svg aria-hidden="true" class="h-full w-2/6  inline w-10 h-10  animate-spin text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -126,18 +134,34 @@ const ConversationHistory = ({ docId, handleCurrentConversationChange }) => {
                   </svg>
               </div>
             ) : (
-              conversationList.map((conversation) => (
-                <div key={conversation.id} className="relative inline-flex items-center w-full">
+              conversationList.map((conversation, index) => (
+                <div key={conversation.id} className={`flex items-center justify-between px-2 py-2 text-sm my-2 shadow-lg rounded mx-2 border-b border-gray-300 hover:bg-white ${conversation.id === currentConversation?.id ?  "bg-white": "bg-slate-300" }`}>
                   <button
                     type="button"
-                    className={`w-full px-4 py-2 text-sm font-medium border-b border-gray-300 hover:bg-white ${conversation.id === currentConversation?.id ? "bg-white text-blue-700" : "bg-gray-200"}`}
                     onClick={() => handleConversationClick(conversation)}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    <div className='flex flex-row justify-between items-center w-full'>
-                      {conversation.date}
+                    <div
+                      key={index}
+                      className='flex flex-row items-center w-full font-medium text-left'
+                      style={{ height: "100%", width: "100%" }}
+
+                    >
+                      {hoveredIndex === index ? (
+                        conversation.first_message
+                      ) : (
+                        <span title={conversation.first_message}>
+                          {conversation.first_message.substring(0, 15)}
+                          {conversation.first_message.length > 10 && "..."}
+                        </span>
+                      )}
                     </div>
+                    <p className='text-gray-500 text-left text-xs'>
+                    {conversation.date}
+                    </p>
                   </button>
-                  <div className="absolute right-0 top-0 h-full flex items-center">
+                  <div className="right-0 top-0 h-full flex items-center">
                     <button
                       className="ml-2 py-1 px-5 bg-red-300 font-bold text-xl hover:bg-red-500 transition-colors rounded-full"
                       onClick={(e) => {
@@ -150,10 +174,8 @@ const ConversationHistory = ({ docId, handleCurrentConversationChange }) => {
                   </div>
                 </div>
               ))
-            )}
-          </div>
-        </Scrollbars>
-      </div>
+              )}
+            </Scrollbars>
     </div>
   );
 };
