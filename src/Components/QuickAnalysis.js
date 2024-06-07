@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import 'tailwindcss/tailwind.css';
 import { SeccionAnalisis } from '../Components/SeccionAnalisis';
 import { FaClipboard } from "react-icons/fa";
 import { BACKEND_LINK } from '../utils/constants';
 import Swal from 'sweetalert2';
+import { generateUUID } from '../utils/generateUUID';
+
 
 const QuickAnalysis = () => {
   const location = useLocation();
@@ -12,6 +14,7 @@ const QuickAnalysis = () => {
   const [analysisData, setAnalysisData] = useState(location.state?.analysisData || {});
   const [selectedFile, setSelectedFile] = useState(location.state?.file || null);
   const [isLoading, setIsLoading] = useState(false);
+  const intervalIdRef = useRef(null);
   let authors = [];
   let authorsList;
   let referencia;
@@ -53,7 +56,7 @@ const QuickAnalysis = () => {
     });
   };
 
-  const handleFullAnalysis = async () => {
+  /*const handleFullAnalysis = async () => {
     if (!selectedFile) return;
 
     const formData = new FormData();
@@ -81,7 +84,7 @@ const QuickAnalysis = () => {
 
       if (error.message.includes('Failed to fetch')) {
         //alert('Error de red: No se pudo conectar con el servidor.');
-        msjerror='Error: Sobrecarga de RAM?? (cuando son muy largos me funciona en localhost pero no en heroku)'
+        msjerror='Error: Sobrecarga de RAM'
       } else if (error.message.includes('INTERNAL SERVER ERROR')) {
         //alert('Error del servidor: Hubo un problema en el servidor.');
         msjerror='Error: No hay contenido para analizar'
@@ -99,7 +102,93 @@ const QuickAnalysis = () => {
       setIsLoading(false);
     }
   };
+*/
 
+const handleFullAnalysis = async () => {
+  if (!selectedFile) return;
+  const docId = generateUUID("D");
+
+  const formData = new FormData();
+  formData.append('file', selectedFile);
+
+  try {
+    console.log(`generatedDocId: ${docId}`);
+    setIsLoading(true);
+    const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/upload_file2/${docId}`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      credentials: 'include'
+    });
+
+    if (!uploadResponse.ok) {
+      throw new Error(uploadResponse.statusText || 'Failed to upload file');
+    }
+    const uploadData = await uploadResponse.json();
+    // console.log(docId);
+
+    // Start the interval to execute a function every 5 seconds
+    intervalIdRef.current = setInterval(() => {
+      checkFileUploaded(docId);
+      // console.log(`intervalId = ${intervalIdRef.current}`);
+      
+    }, 5000);
+    // console.log(`id = ${intervalIdRef.current}`);
+
+    // navigate(`../main/pdf-analysis/${uploadData.doc_id}`);
+  } catch (error) {
+    setIsLoading(false);
+    console.error('Error en el proceso de carga y extracción:', error);
+
+    if (error.message.includes('Failed to fetch')) {
+      msjerror = 'Error: Sobrecarga de RAM';
+    } else if (error.message.includes('INTERNAL SERVER ERROR')) {
+      msjerror = 'Error: No hay contenido para analizar';
+    } else {
+      msjerror = 'Error: desconocido';
+    }
+    Swal.fire({
+      icon: 'error',
+      text: msjerror,
+    });
+  } finally {
+    setSelectedFile(null);  // Reiniciar el estado del archivo seleccionado
+  }
+};
+
+const checkFileUploaded = async (docId) => {
+  try {
+    const response = await fetch(`${BACKEND_LINK}/documentUploaded/${docId}`, {
+      method: 'GET',
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error(`La respuesta de la red no fue correcta al obtener los datos de sección:`);
+    }
+
+    const data = await response.json();
+    // console.log(data["documentUploaded"]);
+    const documentUploaded = data["documentUploaded"];
+    if (documentUploaded) {
+      console.log("Doc is ready");
+      // console.log(`clearInterval(${intervalIdRef.current})`);
+      clearInterval(intervalIdRef.current);
+      intervalIdRef.current = null;
+      setIsLoading(false);
+      //close();
+      navigate(`../main/pdf-analysis/${docId}`);
+    }
+
+  } catch (error) {
+    console.error(`Error al obtener los datos de sección:`, error);
+  }
+};
 
   if (analysisData.Authors) {
     let authRef;
