@@ -20,18 +20,18 @@ const WordCloud = ({ words }) => {
         .sort((a, b) => b.value - a.value)
         .slice(0, maxWordsToShow);
 
-      //console.log('las filtered words son', filteredWords)
+      console.log('las filtered words son', filteredWords)
 
       const layout = cloud()
         .size([
           wordCloudRef.current.parentElement.offsetWidth - 8,
           wordCloudRef.current.parentElement.offsetHeight -20
         ])
-        .words(filteredWords.map(word => ({ text: word.text, size: (0.9999 - word.value[0]) * 25 })))
+        .words(filteredWords.map((word, index) => ({ text: word.text, size: (0.9999 - word.value[0]) * 35-index })))
         //.words(filteredWords.map(word => ({ text: word.text, size: (0.9999 - word.value[0]) * 40 })))
         .padding(3)
         .rotate(0)
-        .fontSize(d => (d.size) - 6)
+        .fontSize(d => (d.size) - 2)
         //.fontSize(d => (d.size) * scale)
         .spiral('archimedean')
         .on('end', draw);
