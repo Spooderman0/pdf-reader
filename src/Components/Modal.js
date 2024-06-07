@@ -60,7 +60,7 @@ const Modal = ({ isOpen, close }) => {
       console.error('Error en el proceso de carga y extracción:', error);
 
       if (error.message.includes('Failed to fetch')) {
-        msjerror = 'Error: Sobrecarga de RAM?? (cuando son muy largos me funciona en localhost pero no en heroku)';
+        msjerror = 'Error: Sobrecarga de RAM';
       } else if (error.message.includes('INTERNAL SERVER ERROR')) {
         msjerror = 'Error: No hay contenido para analizar';
       } else {
