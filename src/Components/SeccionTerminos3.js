@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import WordCloud from './WordCloud';
-import { BACKEND_LINK } from '../utils/constants';
 import TrendChart from './TrendChart';
 import { FaExpand, FaCompress, FaSearchPlus, FaSearchMinus  } from 'react-icons/fa';
 import styled from 'styled-components'; // Importa styled-components
 import MindMap from './MindMap'; // Importa el componente MindMap
 import { Scrollbars } from 'react-custom-scrollbars'; // Importa Scrollbars
-import mindMapData from '../data/mindMapData.json'; // Importa el archivo JSON
+// import mindMapData from '../data/mindMapData.json'; // Importa el archivo JSON
 
 
 
@@ -67,27 +66,42 @@ const Card = styled.div`
   `}
 `;
 
+const mindMapData = {
+    "name": "Doc Profe",
+    "children": [
+      {
+        "name": "Prototipo",
+        "link": "Figma link"
+      },
+      {
+        "name": "Roadmap",
+        "link": "Miro link"
+      },
+      {
+        "name": "Necesidad del Negocio"
+      },
+      {
+        "name": "Propósito del Producto"
+      },
+      {
+        "name": "Alcance del Producto"
+      }
+    ]
+}
 
-const WordCloudContainer = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-`;
 
 
 export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
   const [expandedCard, setExpandedCard] = useState(null);
   //cambios emi 1
   const [zoomLevel, setZoomLevel] = useState(1);
-  const [mindMapDimensions, setMindMapDimensions] = useState({ width: 500, height: 500 });
+  const [mindMapDimensions, setMindMapDimensions] = useState({ width: 800, height: 800 });
 
 
   const handleExpandClick = (card) => {
     setExpandedCard(expandedCard === card ? null : card);
     //cambios emi 2
-    setMindMapDimensions(expandedCard === card ? { width: 500, height: 500 } : { width: 800, height: 800 })
+    setMindMapDimensions(expandedCard === card ? { width: 800, height: 800 } : { width: 800, height: 800 })
   };
 
 
@@ -103,7 +117,7 @@ export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
 
   return (
     <div className='flex flex-row'>
-      <div className='flex flex-col justify-between basis-2/5 px-3 mx-3' style={{ height: "73dvh", marginLeft: '10%' }}>
+      <div className='flex flex-col justify-between basis-2/5 mx-2' style={{ height: "73dvh"}}>
         {/* Terminos relacionados antes de emi (por cualquier cosa) */}
         {/*<Card expanded={expandedCard === 'termRelacionados'} className="card" style={{ height: expandedCard === 'termRelacionados' ? '80dvh' : "74dvh", boxShadow: expandedCard === 'termRelacionados' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
           <div className="flex justify-between items-center">
@@ -118,7 +132,8 @@ export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
             <MindMap data={mindMapData} />
           </div>
         </Card>*/}
-        <Card expanded={expandedCard === 'termRelacionados'} className="card" style={{ height: expandedCard === 'termRelacionados' ? '80dvh' : "74dvh" , boxShadow: expandedCard === 'termRelacionados' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)'}}>
+        {/* <Card expanded={expandedCard === 'termRelacionados'} className="card" style={{ height: expandedCard === 'termRelacionados' ? '80dvh' : "74dvh" , boxShadow: expandedCard === 'termRelacionados' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)'}}> */}
+        <Card expanded={expandedCard === 'termRelacionados'} className="pb-0 card overflow-hidden" style={{width: "100%", height: expandedCard === 'termRelacionados' ? '80dvh' : "35.5dvh" , boxShadow: expandedCard === 'termRelacionados' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)'}}>
           <div className="flex justify-between items-center">
             <h6 className='font-medium'>Términos relacionados</h6>
             <div className="flex items-center">
@@ -131,15 +146,11 @@ export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
               )}
             </div>
           </div>
-          <div className="flex mt-1 justify-center" style={{ height: '100%' }}>
+          <div className="flex mt-1 justify-center overflow-hidden" style={{ height: '100%', width: '100%' }}>
             <MindMap data={mindMapData} zoomLevel={zoomLevel} width={mindMapDimensions.width} height={mindMapDimensions.height} />
           </div>
         </Card>
-      </div>
-
-
-      <div className="flex flex-col justify-between basis-2/5 px-3 mx-3" style={{ marginRight: '10%',  height: "74dvh" }}>
-          <Card expanded={expandedCard === 'nubePalabras'} className="card" style={{ height: expandedCard === 'nubePalabras' ? '60dvh' : "20dvh", width: expandedCard === 'nubePalabras' ? '80dvh' : "auto", boxShadow: expandedCard === 'nubePalabras' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)'}}>
+        <Card expanded={expandedCard === 'nubePalabras'} className="card" style={{ height: expandedCard === 'nubePalabras' ? '60dvh' : "35.5dvh", width: expandedCard === 'nubePalabras' ? '80dvh' : "auto", boxShadow: expandedCard === 'nubePalabras' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)'}}>
             <div className="flex justify-between items-center">
               <h6 className='font-medium'>Nube de palabras</h6>
               {expandedCard === 'nubePalabras' ? (
@@ -152,18 +163,23 @@ export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
               <WordCloud words={wordCloudData} />
             </div>*/}
             {expandedCard === 'nubePalabras' ? (
-              <div className="flex justify-center items-center w-full h-full" style={{marginTop: '20%', marginLeft:'5%', marginRight:'5%'}}>
-              <WordCloud words={wordCloudData} className="w-full h-full"/>
+              <div className="flex justify-center items-center w-full h-full">
+                <div>
+                  <WordCloud words={wordCloudData} className="w-full h-full"/>
+                </div>
             </div>  
             ) : (
-                <div style={{marginLeft:'5%', marginRight:'5%'}}>
+                <div className='flex p-2 overflow-hidden justify-center' style={{height: "100%", width: "100%"}}>
                     <WordCloud words={wordCloudData} />
                 </div>
             )}
           </Card>
+      </div>
 
 
-          <Card expanded={expandedCard === 'hechosDefiniciones'} className="card" style={{ height: expandedCard === 'hechosDefiniciones' ? '80dvh' : "15dvh", overflow: 'hidden', width: expandedCard === 'hechosDefiniciones' ? '120dvh' : "auto", boxShadow: expandedCard === 'hechosDefiniciones' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)'}}>
+      <div className="flex flex-col justify-between basis-3/5 mx-2" style={{ height: "73dvh" }}>
+
+          <Card expanded={expandedCard === 'hechosDefiniciones'} className="card" style={{ height: expandedCard === 'hechosDefiniciones' ? '80dvh' : "35.5dvh", overflow: 'hidden', width: expandedCard === 'hechosDefiniciones' ? '120dvh' : "auto", boxShadow: expandedCard === 'hechosDefiniciones' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)'}}>
             <div className="flex justify-between items-center">
               <h6 className='font-medium'>Hechos y definiciones</h6>
               {expandedCard === 'hechosDefiniciones' ? (
@@ -185,7 +201,7 @@ export const SeccionTerminos3 = ({ wordCloudData, terms_defs }) => {
           </Card>
 
 
-          <Card expanded={expandedCard === 'frecuenciaTerminos'} className="card" style={{ height: expandedCard === 'frecuenciaTerminos' ? '60dvh' : "33dvh", width: expandedCard === 'frecuenciaTerminos' ? '90dvh' : "auto", boxShadow: expandedCard === 'frecuenciaTerminos' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
+          <Card expanded={expandedCard === 'frecuenciaTerminos'} className="card" style={{ height: expandedCard === 'frecuenciaTerminos' ? '60dvh' : "35.5dvh", width: expandedCard === 'frecuenciaTerminos' ? '90dvh' : "auto", boxShadow: expandedCard === 'frecuenciaTerminos' ? '0px 0px 15px 4px rgba(0,0,0,0.59)': '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
             <div className="flex justify-between items-center">
               <h6 className='font-medium'>Frecuencia de términos</h6>
               {expandedCard === 'frecuenciaTerminos' ? (

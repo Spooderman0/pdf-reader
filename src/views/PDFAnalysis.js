@@ -41,7 +41,7 @@ export const PDFAnalysis = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
       setWordCloudData(terminos);
       setAllData({ ...data });
@@ -67,41 +67,45 @@ export const PDFAnalysis = () => {
 
 
   return (
-    <div className="bg-white w-full flex flex-col" style={{ height: '90vh' }}>
-      <div className='flex flex-row'>
-        <div className='basis-2/5 items-center flex px-3' style={{ height: '15dvh', marginLeft: '10%' }}>
-          <h4 className="mb-4 text-4xl font-bold">{title}</h4>
+    <div className="flex justify-center">
+
+      <div className="bg-white w-full flex flex-col" style={{ height: '90vh', width: "80dvw" }}>
+        <div className='flex flex-row'>
+          <div className='basis-2/5 items-center flex px-3' style={{ height: '15dvh' }}>
+            <h4 className="mb-4 text-4xl font-bold">{title}</h4>
+          </div>
+          <div className='basis-3/5 flex px-3' style={{ height: '15dvh' }}>
+            <AnalysisButtons 
+              setCurrentSection={setCurrentSection}
+              currentSection={currentSection}
+              hasFigures={hasFigures} // Pass the hasFigures flag to AnalysisButtons
+            />
+          </div>
         </div>
-        <div className='basis-3/5 flex px-3' style={{ height: '15dvh' }}>
-          <AnalysisButtons 
-            setCurrentSection={setCurrentSection}
-            currentSection={currentSection}
-            hasFigures={hasFigures} // Pass the hasFigures flag to AnalysisButtons
-          />
-        </div>
+          <div>
+            {currentSection === "indice" && (
+                <SeccionAnalisis docId={docId} docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionSummariesDB={allData.SectionSummaries} portada={portada} title={allData.Title} author={allData.Authors} creationDate={allData.CreationDate}/>
+            )}
+
+            {currentSection === "terminos" && (
+                <SeccionTerminos3 wordCloudData ={wordCloudData} terms_defs={allData.Definitions}/>
+            )}
+            {currentSection === "frida" && (
+              <div className='flex flex-row'>
+                <ConversationHistory docId={docId} handleCurrentConversationChange={handleCurrentConversationChange} />
+                <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} currentConversation={currentConversation} /> 
+              </div>
+            )}
+            {currentSection === "figuras" && (
+              <div className='flex flex-row'>
+                <SeccionFiguras figuras={figuras}/> 
+              </div>
+            )}
+          </div>
+
       </div>
-        <div >
-          {currentSection === "indice" && (
-              <SeccionAnalisis docId={docId} docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionSummariesDB={allData.SectionSummaries} portada={portada} title={allData.Title} author={allData.Authors} creationDate={allData.CreationDate}/>
-          )}
-
-          {currentSection === "terminos" && (
-              <SeccionTerminos3 wordCloudData ={wordCloudData} terms_defs={allData.Definitions}/>
-          )}
-          {currentSection === "frida" && (
-            <div className='flex flex-row'>
-              <ConversationHistory docId={docId} handleCurrentConversationChange={handleCurrentConversationChange} />
-              <ChatBox onMessageSent={(message) => console.log(message)} docId={docId} currentConversation={currentConversation} /> 
-            </div>
-          )}
-          {currentSection === "figuras" && (
-            <div className='flex flex-row'>
-              <SeccionFiguras figuras={figuras}/> 
-            </div>
-          )}
-        </div>
-
     </div>
+
   );
 }
 

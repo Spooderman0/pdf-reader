@@ -9,6 +9,7 @@ const MindMap = ({ data, zoomLevel, width, height }) => {
     svg.selectAll('*').remove(); // Clear previous rendering
 
     const root = d3.hierarchy(data);
+    // const treeLayout = d3.tree().size([height, width]);
     const treeLayout = d3.tree().size([height, width]);
 
     treeLayout(root);
@@ -48,7 +49,10 @@ const MindMap = ({ data, zoomLevel, width, height }) => {
       .attr('y', d => d.x + 5)
       .text(d => d.data.name)
       .attr('font-size', '12px')
-      .attr('fill', '#333');
+      .attr('fill', '#333')
+      .attr('stroke', '#fff')        // Add white stroke for the halo effect
+      .attr('stroke-width', 3)       // Set the width of the stroke (halo)
+      .attr('paint-order', 'stroke') // Ensure the stroke is painted first to appear behind the text;
 
     // Apply zoom behavior to the SVG element
     const zoom = d3.zoom().on('zoom', (event) => {
@@ -58,7 +62,7 @@ const MindMap = ({ data, zoomLevel, width, height }) => {
     svg.call(zoom).transition().duration(300).call(zoom.scaleTo, zoomLevel);
   }, [data, zoomLevel, width, height]);
 
-  return <svg ref={ref} width={width} height={height}></svg>;
+  return <svg ref={ref}></svg>;
 };
 
 export default MindMap;

@@ -105,7 +105,7 @@ const ConversationHistory = ({ docId, handleCurrentConversationChange }) => {
   };
 
   return (
-    <div className="container bg-gray-100 shadow-lg px-8 w-1/4 rounded-[12px] mx-3" style={{ height: "73dvh", marginLeft: '10%' }}>
+    <div className="container bg-gray-100 shadow-lg px-8 w-1/4 rounded-[12px] mx-3 basis-1/4" style={{ height: "73dvh" }}>
       <div className='flex flex-row justify-between items-center'>
         <p className="text-xl font-bold py-3">Conversaciones</p>
         <button

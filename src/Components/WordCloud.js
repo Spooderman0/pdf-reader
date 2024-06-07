@@ -62,7 +62,7 @@ const WordCloud = ({ words }) => {
   }, [words]);
 
   return (
-    <svg ref={wordCloudRef} style={{ width: '100%', height: '100%', maxHeight:'280dvh', maxWidth:'570' }} />
+    <svg ref={wordCloudRef} style={{ width: '100%', height: '100%' }} />
   );
 };
 

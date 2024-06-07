@@ -19,7 +19,7 @@ const SeccionFiguras = ({ figuras }) => {
   };
 
   return (
-    <div className='w-4/5 mx-auto h-[500px] py-8 relative group'>
+    <div className='w-4/5 mx-auto py-8 relative group' style={{height: "60dvh"}}>
       <div
         style={{ backgroundImage: `url(${figuras[currentIndex]})` }}
         className='w-full h-full rounded-2xl bg-center bg-contain bg-no-repeat duration-500'

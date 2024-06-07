@@ -129,7 +129,7 @@ export const Chatbox = ({ docId, currentConversation }) => {
   };
 
   return (
-    <div className="container bg-gray-100 rounded-[12px] shadow-lg flex flex-col w-3/4 p-2" style={{marginRight: "10%"}}>
+    <div className="container bg-gray-100 rounded-[12px] shadow-lg flex flex-col w-3/4 p-2 basis-3/4">
       { currentConversation ? (
         <>
           <div className="text-black font-bold text-xl mb-2">Asistente con IA</div>
