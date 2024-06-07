@@ -11,7 +11,7 @@ const Modal = ({ isOpen, close }) => {
   const [fileText, setFileText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
-  // const loadingTime = useRef(0);
+  const intervalCountRef = useRef(0); // Add a ref for interval count
   const intervalIdRef = useRef(null);
 
   let msjerror;
@@ -32,6 +32,7 @@ const Modal = ({ isOpen, close }) => {
     try {
       console.log(`generatedDocId: ${docId}`);
       setIsLoading(true);
+      intervalCountRef.current = 0; // Reset the interval count when starting a new upload
       const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/upload_file2/${docId}`, {
         method: 'POST',
         body: formData,
@@ -49,6 +50,7 @@ const Modal = ({ isOpen, close }) => {
 
       // Start the interval to execute a function every 5 seconds
       intervalIdRef.current = setInterval(() => {
+        intervalCountRef.current += 1; // Increment the interval count
         checkFileUploaded(docId);
         // loadingTime.current += 5;
         // console.log(`intervalId = ${intervalIdRef.current}`);
@@ -89,7 +91,7 @@ const Modal = ({ isOpen, close }) => {
       }
 
       const data = await response.json();
-      // console.log(data["documentUploaded"]);
+      // console.log(intervalCountRef);
       const documentUploaded = data["documentUploaded"];
       if (documentUploaded) {
         console.log("Doc is ready");
@@ -99,16 +101,15 @@ const Modal = ({ isOpen, close }) => {
         setIsLoading(false);
         close();
         navigate(`../main/pdf-analysis/${docId}`);
+      } else if (intervalCountRef.current >= 16) { // 16 * 5 seconds = 80 seconds
+        setIsLoading(false);
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+        Swal.fire({
+          icon: 'error',
+          text: 'Error al procesar archivo. Vuelve a intentarlo.',
+        });
       }
-      // console.log(loadingTime.current);
-      // if(loadingTime.current > 80){
-      //   setIsLoading(false);
-      //   clearInterval(intervalIdRef.current);
-      //   Swal.fire({
-      //     icon: 'error',
-      //     text: 'Error al procesar archivo. Vuelve a interntarlo.',
-      //   });
-      // }
 
     } catch (error) {
       console.error(`Error al obtener los datos de sección:`, error);
