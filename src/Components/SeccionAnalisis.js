@@ -145,7 +145,7 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
       <Card className="card p-3 bg-gray-100 border-0 shadow-md basis-2/5 mx-3" style={{ height: "73dvh", overflowY: 'auto' }}>
         <div className='flex flex-row justify-between items-center'>
           <h5 className="mb-4 text-2xl font-bold">Vista preliminar</h5>
-          <div className="relative flex bg-gray-600 rounded-full p-0.5">
+          {/*<div className="relative flex bg-gray-600 rounded-full p-0.5">
             <div
               className={`absolute top-0 left-0 w-1/2 h-full bg-white rounded-full transform transition-transform duration-300 ${vistaPreTab === 'text' ? 'translate-x-full' : ''}`}
             />
@@ -161,7 +161,7 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
             >
               Texto
             </button>
-          </div>
+          </div>*/}
         </div>
         <div className="flex justify-center">
           {vistaPreTab === 'text' ? (
@@ -171,6 +171,7 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
               </div>
             </Scrollbars>
           ) : (
+          
             <img
               onClick={handleOpenPopup}
               className="cursor-pointer"
