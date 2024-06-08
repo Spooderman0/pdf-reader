@@ -98,8 +98,27 @@ const Modal = ({ isOpen, close }) => {
         // console.log(`clearInterval(${intervalIdRef.current})`);
         clearInterval(intervalIdRef.current);
         intervalIdRef.current = null;
+
+        const response = await fetch(`${BACKEND_LINK}/process/user_id/${docId}`, {
+          method: 'POST',
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          },
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+          throw new Error(`La respuesta de la red no fue correcta al obtener los datos de sección:`);
+        }
+        
+
+        
         setIsLoading(false);
         close();
+
+
+
+
         navigate(`../main/pdf-analysis/${docId}`);
       } else if (intervalCountRef.current >= 18) { // 18 * 5 seconds = 90 seconds
         setIsLoading(false);
