@@ -6,6 +6,7 @@ import { FaClipboard } from "react-icons/fa";
 import { BACKEND_LINK } from '../utils/constants';
 import Swal from 'sweetalert2';
 import { generateUUID } from '../utils/generateUUID';
+import WordCloud from './WordCloud';
 
 
 const QuickAnalysis = () => {
@@ -13,11 +14,10 @@ const QuickAnalysis = () => {
   const navigate = useNavigate();
   const [analysisData, setAnalysisData] = useState(location.state?.analysisData || {});
   const [selectedFile, setSelectedFile] = useState(location.state?.file || null);
+  const [words, setWords] = useState(location.state?.words || []);
   const [isLoading, setIsLoading] = useState(false);
   const intervalIdRef = useRef(null);
-  let authors = [];
-  let authorsList;
-  let referencia;
+  const intervalCountRef = useRef(0); // Add a ref for interval count
   let msjerror;
 
   useEffect(() => {
@@ -114,6 +114,7 @@ const handleFullAnalysis = async () => {
   try {
     console.log(`generatedDocId: ${docId}`);
     setIsLoading(true);
+    intervalCountRef.current = 0; // Reset the interval count when starting a new upload
     const uploadResponse = await fetch(`${BACKEND_LINK}/user_id/upload_file2/${docId}`, {
       method: 'POST',
       body: formData,
@@ -131,13 +132,12 @@ const handleFullAnalysis = async () => {
 
     // Start the interval to execute a function every 5 seconds
     intervalIdRef.current = setInterval(() => {
+      intervalCountRef.current += 1; // Increment the interval count
       checkFileUploaded(docId);
+      // loadingTime.current += 5;
       // console.log(`intervalId = ${intervalIdRef.current}`);
-      
     }, 5000);
-    // console.log(`id = ${intervalIdRef.current}`);
 
-    // navigate(`../main/pdf-analysis/${uploadData.doc_id}`);
   } catch (error) {
     setIsLoading(false);
     console.error('Error en el proceso de carga y extracción:', error);
@@ -173,16 +173,42 @@ const checkFileUploaded = async (docId) => {
     }
 
     const data = await response.json();
-    // console.log(data["documentUploaded"]);
+    // console.log(intervalCountRef);
     const documentUploaded = data["documentUploaded"];
     if (documentUploaded) {
       console.log("Doc is ready");
       // console.log(`clearInterval(${intervalIdRef.current})`);
       clearInterval(intervalIdRef.current);
       intervalIdRef.current = null;
+
+      const response = await fetch(`${BACKEND_LINK}/process/user_id/${docId}`, {
+        method: 'POST',
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error(`La respuesta de la red no fue correcta al obtener los datos de sección:`);
+      }
+      
+
+      
       setIsLoading(false);
-      //close();
+
+
+
+
       navigate(`../main/pdf-analysis/${docId}`);
+    } else if (intervalCountRef.current >= 18) { // 18 * 5 seconds = 90 seconds
+      setIsLoading(false);
+      clearInterval(intervalIdRef.current);
+      intervalIdRef.current = null;
+      Swal.fire({
+        icon: 'error',
+        text: 'Error al procesar archivo. Vuelve a intentarlo.',
+      });
     }
 
   } catch (error) {
@@ -190,38 +216,8 @@ const checkFileUploaded = async (docId) => {
   }
 };
 
-  if (analysisData.Authors) {
-    let authRef;
-    for (const auth of analysisData.Authors) {
-      authRef = auth.split(' ');
-      const lastname = authRef[1];
-      const initial = authRef[0].charAt(0);
-      authors.push(lastname + ', ' + initial + '.');
-    }
-    authorsList = authors.length > 1 ? authors.join(', ') : authors[0];
-  }
 
-  if (!analysisData.CreationDate) {
-    referencia = authorsList ? (
-      <>
-        {authorsList}. <i>{analysisData.Title}</i>.
-      </>
-    ) : (
-      <>
-        <i>{analysisData.Title}</i>.
-      </>
-    );
-  } else {
-    referencia = authorsList ? (
-      <>
-        {authorsList}. ({analysisData.CreationDate}). <i>{analysisData.Title}</i>.
-      </>
-    ) : (
-      <>
-        <i>{analysisData.Title}</i>. ({analysisData.CreationDate})
-      </>
-    );
-  }
+  
   return (
     <div className="bg-white w-full flex flex-col" style={{ height: '90vh' }}>
       <div className='flex flex-row justify-between px-3' style={{ height: '15dvh', marginLeft: '10%', marginRight: '10%' }}>
@@ -273,18 +269,13 @@ const checkFileUploaded = async (docId) => {
             <p> {analysisData.Summary} </p>
           </div>
           <div className="card bg-gray-100 p-3 border-0 shadow-md" style={{ height: "30dvh" }}>
-            <h5 className="mb-4 text-2xl font-bold">Referencia</h5>
-            <div className="flex justify-between items-center">
-              <div>
-                <p>{referencia}</p>
-              </div>
-              <button
-                onClick={handleCopyReference}
-                className="text-gray-700 hover:text-black"
-              >
-                <FaClipboard className="text-2xl" />
-              </button>
-            </div>
+          <div className="flex justify-between items-center">
+            <h5 className="mb-4 text-2xl font-bold">Palabras clave</h5>
+          </div>
+            
+          <div className='flex p-2 overflow-hidden justify-center' style={{height: "80%", width: "100%"}}>
+              <WordCloud words={words} scale={1} width={800}height={200}/>
+          </div>
           </div>
         </div>
       </div>

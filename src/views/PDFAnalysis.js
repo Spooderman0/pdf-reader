@@ -44,13 +44,14 @@ export const PDFAnalysis = () => {
       const data = await response.json();
       console.log(data);
       const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
+      //console.log('terminos', terminos)
       setWordCloudData(terminos);
       setAllData({ ...data });
-      setPortada(data.Figuras[0]);
+      //setPortada(data.PortadaURL);
       // Check if there are figures
       if (data.Figuras && data.Figuras.length > 1) {
         setHasFigures(true);
-        setFiguras(data.Figuras.slice(1));
+        setFiguras(data.Figuras);
       } else {
         setHasFigures(false);
       }
@@ -90,7 +91,7 @@ export const PDFAnalysis = () => {
         </div>
           <div>
             {currentSection === "indice" && (
-                <SeccionAnalisis docId={docId} docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionSummariesDB={allData.SectionSummaries} portada={portada} title={allData.Title} author={allData.Authors} creationDate={allData.CreationDate}/>
+                <SeccionAnalisis docId={docId} docURL = {allData.Storage_URL} summary={allData.Abstract} raw_text={allData.Text} sectionSummariesDB={allData.SectionSummaries} portada={allData.PortadaURL} title={allData.Title} author={allData.Authors} creationDate={allData.CreationDate}/>
             )}
 
             {currentSection === "terminos" && (

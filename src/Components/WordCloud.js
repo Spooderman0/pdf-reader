@@ -17,7 +17,7 @@ const WordCloud = ({ words, width = 700, height = 500, maxWordsToShow = 50, seed
 
       const layout = cloud()
         .size([width, height])
-        .words(filteredWords.map((word, index) => ({ text: word.text, size: (0.9999 - word.value[0]) * 35 - index })))
+        .words(filteredWords.map((word, index) => ({ text: word.text, size: (0.9999 - word.value[0]) * 35 - index + 5})))
         .padding(3)
         .rotate(() => 0) // or use rng() to add randomness with the seeded generator
         .fontSize(d => d.size )

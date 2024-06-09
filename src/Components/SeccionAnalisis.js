@@ -110,10 +110,10 @@ export const SeccionAnalisis = ({ docId, docURL, summary, raw_text, sectionSumma
   if (author) {
     let authRef;
     for (const auth of author) {
-      authRef = auth.split(' ');
-      const lastname = authRef[1];
-      const initial = authRef[0].charAt(0);
-      authors.push(lastname + ', ' + initial + '.');
+      //authRef = auth.split(' ');
+      //const lastname = authRef[1];
+      //const initial = authRef[0].charAt(0);
+      authors.push(auth);
     }
     authorsList = authors.length > 1 ? authors.join(', ') : authors[0];
   }
