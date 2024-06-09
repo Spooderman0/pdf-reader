@@ -36,8 +36,14 @@ const QuickUploadModal = ({ isOpen, close }) => {
       }
       const uploadData = await uploadResponse.json();
       console.log(uploadData);
-
-      navigate('/quick-analysis', { state: { analysisData: uploadData, file: selectedFile } });
+      
+        const transformedArray = uploadData.Keywords.map(subArray => ({
+          text: subArray[0],
+          value: [subArray[1], subArray[2]]
+        }));
+        //console.log('transformed terms', transformedArray);
+      
+      navigate('/quick-analysis', { state: { analysisData: uploadData, file: selectedFile, words: transformedArray } });
     } catch (error) {
       setIsLoading(false);
       console.error('Error en el proceso de carga y extracción:', error);

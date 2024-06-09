@@ -44,14 +44,14 @@ export const PDFAnalysis = () => {
       const data = await response.json();
       console.log(data);
       const terminos = Object.entries(data.Terms).map(([text, value]) => ({ text, value }));
-      console.log('terminos', terminos)
+      //console.log('terminos', terminos)
       setWordCloudData(terminos);
       setAllData({ ...data });
       //setPortada(data.PortadaURL);
       // Check if there are figures
       if (data.Figuras && data.Figuras.length > 1) {
         setHasFigures(true);
-        setFiguras(data.Figuras.slice(1));
+        setFiguras(data.Figuras);
       } else {
         setHasFigures(false);
       }
