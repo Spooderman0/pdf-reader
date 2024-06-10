@@ -60,7 +60,14 @@ const DocSummaryPage = () => {
 
       if (response.status === 200) {
         alert('Documento borrado con éxito');
-        setDocs(docs.filter(doc => doc.id !== doc_id));
+        setDocs(prevDocs => {
+          const updatedDocs = prevDocs.filter(doc => doc.id !== doc_id);
+          // Si el documento eliminado es el mismo que el seleccionado, limpiamos la vista previa
+          if (selectedDocData && selectedDocData.id === doc_id) {
+            setSelectedDocData(null);
+          }
+          return updatedDocs;
+        });
       } else {
         alert('Error al borrar el documento');
       }
@@ -91,7 +98,7 @@ const DocSummaryPage = () => {
                     <span className="text-gray-500 text-xs mt-1">{new Date(doc.UploadedDate).toLocaleDateString()}</span>
                   </div>
                   <button 
-                    onClick={() => handleDeleteDoc(doc.id)} 
+                    onClick={(e) => {e.stopPropagation(); handleDeleteDoc(doc.id)}} 
                     className="text-gray-600 hover:text-gray-800 hidden group-hover:block"
                   >
                     <FaTrash />
